@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+<meta charset="UTF-8">
+<title>Fizika Testi</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 30px; }
+  h1 { margin-bottom: 10px; }
+  .question { margin-bottom: 20px; }
+  button { padding: 10px 20px; margin-top: 20px; }
+  select { padding: 5px; margin-bottom: 20px; }
+  #result { margin-top: 20px; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<h1>Fizika Testi</h1>
+
+<label for="classSelect">Sinifi seçin:</label>
+<select id="classSelect">
+  <option value="sinif7_fizika.json">7-ci sinif</option>
+  <option value="sinif8_fizika.json">8-ci sinif</option>
+  <option value="sinif9_fizika.json">9-cu sinif</option>
+  <option value="sinif10_fizika.json">10-cu sinif</option>
+  <option value="sinif11_fizika.json">11-ci sinif</option>
+</select>
+
+<div id="quiz"></div>
+<button id="submitBtn">Bitir</button>
+<div id="result"></div>
+
+<script>
+let currentData = [];
+
+function loadQuiz(filename) {
+  fetch(filename)
+    .then(response => response.json())
+    .then(data => {
+      currentData = data;
+      const quizDiv = document.getElementById('quiz');
+      quizDiv.innerHTML = ''; // əvvəlki sualları sil
+      data.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.classList.add('question');
+        div.innerHTML = `<p>${index + 1}. ${q.question}</p>` +
+          q.options.map(opt =>
+            `<label><input type="radio" name="q${index}" value="${opt}"> ${opt}</label><br>`
+          ).join('');
+        quizDiv.appendChild(div);
+      });
+      document.getElementById('result').innerHTML = '';
+    })
+    .catch(err => {
+      console.error("Sual faylı yüklənmədi:", err);
+    });
+}
+
+// Başlanğıcda 7-ci sinif testi yüklə
+loadQuiz(document.getElementById('classSelect').value);
+
+// Sinif seçimi dəyişəndə yeni sualları yüklə
+document.getElementById('classSelect').addEventListener('change', (e) => {
+  loadQuiz(e.target.value);
+});
+
+// Testi bitir düyməsi
+document.getElementById('submitBtn').addEventListener('click', () => {
+  let correct = 0;
+  let wrong = 0;
+  currentData.forEach((q, index) => {
+    const answer = document.querySelector(`input[name="q${index}"]:checked`);
+    if(answer && answer.value === q.correctAnswer) correct++;
+    else wrong++;
+  });
+  document.getElementById('result').innerHTML = `
+    <h2>Nəticə</h2>
+    <p>Düz: ${correct}</p>
+    <p>Səhv: ${wrong}</p>
+  `;
+});
+</script>
+
+</body>
+</html>
