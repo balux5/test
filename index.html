@@ -49,14 +49,14 @@
 /* ===== LOGIN SISTEMI ===== */
 
 // Demo istifadəçi
- USER = {
+const USER = {
   username: "Şagird",
   password: "balux"
 };
 
 function login() {
-   u = document.getElementById("username").value;
-   p = document.getElementById("password").value;
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
 
   if (u === USER.username && p === USER.password) {
     localStorage.setItem("loggedIn", "true");
@@ -130,6 +130,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
 </body>
 </html>
+
 
 
 
