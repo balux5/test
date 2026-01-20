@@ -55,8 +55,8 @@
 };
 
 function login() {
-  const u = document.getElementById("username").value;
-  const p = document.getElementById("password").value;
+   u = document.getElementById("username").value;
+   p = document.getElementById("password").value;
 
   if (u === USER.username && p === USER.password) {
     localStorage.setItem("loggedIn", "true");
@@ -130,6 +130,7 @@ document.getElementById('submitBtn').addEventListener('click', () => {
 
 </body>
 </html>
+
 
 
 
