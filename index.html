@@ -2,34 +2,87 @@
 <html lang="az">
 <head>
 <meta charset="UTF-8">
-<title>Fizika Testi</title>
+<title>Fizika Testi - Login</title>
 <style>
   body { font-family: Arial, sans-serif; margin: 30px; }
   h1 { margin-bottom: 10px; }
   .question { margin-bottom: 20px; }
   button { padding: 10px 20px; margin-top: 20px; }
-  select { padding: 5px; margin-bottom: 20px; }
+  select, input { padding: 5px; margin-bottom: 10px; }
   #result { margin-top: 20px; font-weight: bold; }
+  #quizContainer { display: none; }
+  #loginBox { max-width: 300px; }
 </style>
 </head>
 <body>
 
-<h1>Fizika Testi</h1>
+<!-- LOGIN -->
+<div id="loginBox">
+  <h2>Giriş</h2>
+  <input type="text" id="username" placeholder="İstifadəçi adı"><br>
+  <input type="password" id="password" placeholder="Şifrə"><br>
+  <button onclick="login()">Daxil ol</button>
+  <p id="loginError" style="color:red;"></p>
+</div>
 
-<label for="classSelect">Sinifi seçin:</label>
-<select id="classSelect">
-  <option value="sinif7_fizika.json">7-ci sinif</option>
-  <option value="sinif8_fizika.json">8-ci sinif</option>
-  <option value="sinif9_fizika.json">9-cu sinif</option>
-  <option value="sinif10_fizika.json">10-cu sinif</option>
-  <option value="sinif11_fizika.json">11-ci sinif</option>
-</select>
+<!-- QUIZ -->
+<div id="quizContainer">
+  <button onclick="logout()">Çıxış</button>
 
-<div id="quiz"></div>
-<button id="submitBtn">Bitir</button>
-<div id="result"></div>
+  <h1>Fizika Testi</h1>
+
+  <label for="classSelect">Sinifi seçin:</label>
+  <select id="classSelect">
+    <option value="sinif7_fizika.json">7-ci sinif</option>
+    <option value="sinif8_fizika.json">8-ci sinif</option>
+    <option value="sinif9_fizika.json">9-cu sinif</option>
+    <option value="sinif10_fizika.json">10-cu sinif</option>
+    <option value="sinif11_fizika.json">11-ci sinif</option>
+  </select>
+
+  <div id="quiz"></div>
+  <button id="submitBtn">Bitir</button>
+  <div id="result"></div>
+</div>
 
 <script>
+/* ===== LOGIN SISTEMI ===== */
+
+// Demo istifadəçi
+const USER = {
+  username: "admin",
+  password: "1234"
+};
+
+function login() {
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
+
+  if (u === USER.username && p === USER.password) {
+    localStorage.setItem("loggedIn", "true");
+    showQuiz();
+  } else {
+    document.getElementById("loginError").innerText = "İstifadəçi adı və ya şifrə səhvdir!";
+  }
+}
+
+function logout() {
+  localStorage.removeItem("loggedIn");
+  location.reload();
+}
+
+function showQuiz() {
+  document.getElementById("loginBox").style.display = "none";
+  document.getElementById("quizContainer").style.display = "block";
+}
+
+/* Səhifə açılarkən yoxla */
+if (localStorage.getItem("loggedIn") === "true") {
+  showQuiz();
+}
+
+/* ===== QUIZ SISTEMI ===== */
+
 let currentData = [];
 
 function loadQuiz(filename) {
@@ -38,7 +91,7 @@ function loadQuiz(filename) {
     .then(data => {
       currentData = data;
       const quizDiv = document.getElementById('quiz');
-      quizDiv.innerHTML = ''; // əvvəlki sualları sil
+      quizDiv.innerHTML = '';
       data.forEach((q, index) => {
         const div = document.createElement('div');
         div.classList.add('question');
@@ -49,27 +102,22 @@ function loadQuiz(filename) {
         quizDiv.appendChild(div);
       });
       document.getElementById('result').innerHTML = '';
-    })
-    .catch(err => {
-      console.error("Sual faylı yüklənmədi:", err);
     });
 }
 
-// Başlanğıcda 7-ci sinif testi yüklə
+// Başlanğıc test
 loadQuiz(document.getElementById('classSelect').value);
 
-// Sinif seçimi dəyişəndə yeni sualları yüklə
 document.getElementById('classSelect').addEventListener('change', (e) => {
   loadQuiz(e.target.value);
 });
 
-// Testi bitir düyməsi
 document.getElementById('submitBtn').addEventListener('click', () => {
   let correct = 0;
   let wrong = 0;
   currentData.forEach((q, index) => {
     const answer = document.querySelector(`input[name="q${index}"]:checked`);
-    if(answer && answer.value === q.correctAnswer) correct++;
+    if (answer && answer.value === q.correctAnswer) correct++;
     else wrong++;
   });
   document.getElementById('result').innerHTML = `
