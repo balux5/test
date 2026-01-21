@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>Fizika Testi - Login</title>
 
 <style>
@@ -65,28 +65,6 @@ button {
   padding: 15px;
   border-radius: 12px;
   margin-bottom: 15px;
-
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.question p {
-  flex: 0 0 250px;
-  margin: 0;
-  font-weight: bold;
-}
-
-.question label {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  white-space: nowrap;
-  cursor: pointer;
-}
-
-.question input[type="radio"] {
-  margin-right: 6px;
 }
 
 #result {
@@ -109,8 +87,8 @@ button {
 <!-- LOGIN -->
 <div id="loginBox">
   <h2>Giriş</h2>
-  <input type="text" id="username" placeholder="İstifadəçi adı" />
-  <input type="password" id="password" placeholder="Şifrə" />
+  <input type="text" id="username" placeholder="İstifadəçi adı">
+  <input type="password" id="password" placeholder="Şifrə">
   <button onclick="login()">Daxil ol</button>
   <p id="loginError" style="color:red; text-align:center;"></p>
 </div>
@@ -182,37 +160,26 @@ function loadQuiz(filename) {
       currentData = data;
       const quizDiv = document.getElementById("quiz");
       quizDiv.innerHTML = "";
-
       data.forEach((q, i) => {
-        const questionDiv = document.createElement("div");
-        questionDiv.className = "question";
-
-        const questionText = document.createElement("p");
-        questionText.innerHTML = `${i + 1}. ${q.question}`;
-
-        const optionsDiv = document.createElement("div");
-        optionsDiv.style.display = "flex";
-        optionsDiv.style.flexWrap = "wrap";
-
-        q.options.forEach(opt => {
-          const label = document.createElement("label");
-          const input = document.createElement("input");
-          input.type = "radio";
-          input.name = `q${i}`;
-          input.value = opt;
-
-          label.appendChild(input);
-          label.appendChild(document.createTextNode(opt));
-
-          optionsDiv.appendChild(label);
-        });
-
-        questionDiv.appendChild(questionText);
-        questionDiv.appendChild(optionsDiv);
-        quizDiv.appendChild(questionDiv);
+        quizDiv.innerHTML += `
+          <div class="question">
+            <p><b>${i + 1}.</b> ${q.question}</p>
+            ${q.options.map(opt =>
+              `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>`
+            ).join("")}
+          </div>
+        `;
       });
-
       document.getElementById("result").innerHTML = "";
+
+      // "Bitir" düyməsini aktiv et (sinif seçəndə də aktiv olsun)
+      document.getElementById("submitBtn").disabled = false;
+
+      // Variantları aktiv et
+      const allRadios = document.querySelectorAll("#quiz input[type='radio']");
+      allRadios.forEach(radio => {
+        radio.disabled = false;
+      });
     });
 }
 
@@ -233,6 +200,15 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     <p>Düz: ${correct}</p>
     <p>Səhv: ${currentData.length - correct}</p>
   `;
+
+  // Variantları deaktiv et
+  const allRadios = document.querySelectorAll("#quiz input[type='radio']");
+  allRadios.forEach(radio => {
+    radio.disabled = true;
+  });
+
+  // Bitir düyməsini deaktiv et
+  document.getElementById("submitBtn").disabled = true;
 });
 </script>
 
