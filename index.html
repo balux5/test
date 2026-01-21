@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <title>Fizika Testi - Login</title>
 
 <style>
@@ -30,28 +30,23 @@ body {
   animation: fadeIn 0.6s ease;
 }
 
-/* Quiz böyükdür */
 #quizContainer {
   max-width: 800px;
 }
 
-/* Başlıqlar */
 h1, h2 {
   text-align: center;
   color: #333;
 }
 
-/* Inputlar */
 input, select {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
   border-radius: 10px;
   border: 1px solid #ddd;
-  font-size: 14px;
 }
 
-/* Buttonlar */
 button {
   width: 100%;
   padding: 12px;
@@ -63,42 +58,48 @@ button {
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
-}
-
-/* Suallar */
 .question {
   background: #f7f8fc;
   padding: 15px;
   border-radius: 12px;
   margin-bottom: 15px;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
 }
 
-/* Nəticə */
+.question p {
+  flex: 0 0 250px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.question label {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.question input[type="radio"] {
+  margin-right: 6px;
+}
+
 #result {
   background: #f0f3ff;
   border-radius: 12px;
   padding: 15px;
   margin-top: 20px;
   text-align: center;
-  font-size: 16px;
 }
 
-/* Animasiya */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 </style>
 </head>
@@ -108,8 +109,8 @@ button:hover {
 <!-- LOGIN -->
 <div id="loginBox">
   <h2>Giriş</h2>
-  <input type="text" id="username" placeholder="İstifadəçi adı">
-  <input type="password" id="password" placeholder="Şifrə">
+  <input type="text" id="username" placeholder="İstifadəçi adı" />
+  <input type="password" id="password" placeholder="Şifrə" />
   <button onclick="login()">Daxil ol</button>
   <p id="loginError" style="color:red; text-align:center;"></p>
 </div>
@@ -119,9 +120,11 @@ button:hover {
   <button onclick="logout()">Çıxış</button>
 
   <h1>Fizika Testi</h1>
-  <h2> Uğurlar</h2>
+  <p style="text-align:center;">
+    Xoş gəldin, <b><span id="userName"></span></b>
+  </p>
 
-  <label for="classSelect">Sinifi seçin:</label>
+  <label>Sinifi seçin:</label>
   <select id="classSelect">
     <option value="sinif7_fizika.json">7-ci sinif</option>
     <option value="sinif8_fizika.json">8-ci sinif</option>
@@ -136,40 +139,40 @@ button:hover {
 </div>
 
 <script>
-/* LOGIN */
-const USER = {
-  username: "Şagird",
-  password: "balux"
-};
+/* ===== LOGIN SISTEMI (HAMI ÜÇÜN AÇIQ) ===== */
 
 function login() {
-  const u = document.getElementById("username").value;
-  const p = document.getElementById("password").value;
+  const u = document.getElementById("username").value.trim();
+  const p = document.getElementById("password").value.trim();
 
-  if (u === USER.username && p === USER.password) {
+  if (u !== "" && p !== "") {
     localStorage.setItem("loggedIn", "true");
+    localStorage.setItem("currentUser", u);
     showQuiz();
   } else {
     document.getElementById("loginError").innerText =
-      "İstifadəçi adı və ya şifrə səhvdir!";
+      "İstifadəçi adı və şifrə boş ola bilməz!";
   }
 }
 
 function logout() {
-  localStorage.removeItem("loggedIn");
+  localStorage.clear();
   location.reload();
 }
 
 function showQuiz() {
   document.getElementById("loginBox").style.display = "none";
   document.getElementById("quizContainer").style.display = "block";
+  document.getElementById("userName").innerText =
+    localStorage.getItem("currentUser");
 }
 
 if (localStorage.getItem("loggedIn") === "true") {
   showQuiz();
 }
 
-/* QUIZ */
+/* ===== QUIZ SISTEMI ===== */
+
 let currentData = [];
 
 function loadQuiz(filename) {
@@ -179,16 +182,36 @@ function loadQuiz(filename) {
       currentData = data;
       const quizDiv = document.getElementById("quiz");
       quizDiv.innerHTML = "";
+
       data.forEach((q, i) => {
-        quizDiv.innerHTML += `
-          <div class="question">
-            <p><b>${i+1}.</b> ${q.question}</p>
-            ${q.options.map(opt =>
-              `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>`
-            ).join("")}
-          </div>
-        `;
+        const questionDiv = document.createElement("div");
+        questionDiv.className = "question";
+
+        const questionText = document.createElement("p");
+        questionText.innerHTML = `${i + 1}. ${q.question}`;
+
+        const optionsDiv = document.createElement("div");
+        optionsDiv.style.display = "flex";
+        optionsDiv.style.flexWrap = "wrap";
+
+        q.options.forEach(opt => {
+          const label = document.createElement("label");
+          const input = document.createElement("input");
+          input.type = "radio";
+          input.name = `q${i}`;
+          input.value = opt;
+
+          label.appendChild(input);
+          label.appendChild(document.createTextNode(opt));
+
+          optionsDiv.appendChild(label);
+        });
+
+        questionDiv.appendChild(questionText);
+        questionDiv.appendChild(optionsDiv);
+        quizDiv.appendChild(questionDiv);
       });
+
       document.getElementById("result").innerHTML = "";
     });
 }
@@ -215,4 +238,3 @@ document.getElementById("submitBtn").addEventListener("click", () => {
 
 </body>
 </html>
-
