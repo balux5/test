@@ -30,7 +30,7 @@ body {
   animation: fadeIn 0.6s ease;
 }
 
-/* Quiz boyukdur */
+/* Quiz  */
 #quizContainer {
   max-width: 800px;
 }
@@ -79,7 +79,7 @@ button:hover {
   margin-bottom: 15px;
 }
 
-/* N?tic? */
+/* Nəticə */
 #result {
   background: #f0f3ff;
   border-radius: 12px;
@@ -108,20 +108,20 @@ button:hover {
 <!-- LOGIN -->
 <div id="loginBox">
   <h2>Giris</h2>
-  <input type="text" id="username" placeholder="Istifad?ci ad?">
-  <input type="password" id="password" placeholder="Sifr?">
+  <input type="text" id="username" placeholder="Istifadəci adı">
+  <input type="password" id="password" placeholder="Sifrə">
   <button onclick="login()">Daxil ol</button>
   <p id="loginError" style="color:red; text-align:center;"></p>
 </div>
 
 <!-- QUIZ -->
 <div id="quizContainer" style="display:none;">
-  <button onclick="logout()">C?x?s</button>
+  <button onclick="logout()">Çxış</button>
 
   <h1>Fizika Testi</h1>
-  <h2> Ugurlar</h2>
+  <h2> Uğurlar</h2>
 
-  <label for="classSelect">Sinifi secin:</label>
+  <label for="classSelect">Sinifi seçin:</label>
   <select id="classSelect">
     <option value="sinif7_fizika.json">7-ci sinif</option>
     <option value="sinif8_fizika.json">8-ci sinif</option>
@@ -137,7 +137,7 @@ button:hover {
 
 <script>
 /* LOGIN */
-const USER = {
+USER = {
   username: "Sagird",
   password: "balux"
 };
@@ -151,7 +151,7 @@ function login() {
     showQuiz();
   } else {
     document.getElementById("loginError").innerText =
-      "Istifad?ci ad? v? ya sifr? s?hvdir!";
+      "Istifadəci adı və ya sifrə səhvdir!";
   }
 }
 
@@ -215,5 +215,6 @@ document.getElementById("submitBtn").addEventListener("click", () => {
 
 </body>
 </html>
+
 
 
