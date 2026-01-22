@@ -19,7 +19,7 @@ body {
   justify-content: center;
 }
 
-/* LOGIN və QUIZ qutusu */
+/* LOGIN v? QUIZ qutusu */
 #loginBox, #quizContainer {
   background: #ffffff;
   width: 100%;
@@ -27,26 +27,31 @@ body {
   padding: 30px;
   border-radius: 16px;
   box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-  animation: fadeIn 1s ease;
+  animation: fadeIn 0.6s ease;
 }
 
+/* Quiz boyukdur */
 #quizContainer {
   max-width: 800px;
 }
 
+/* Basl?qlar */
 h1, h2 {
   text-align: center;
   color: #333;
 }
 
+/* Inputlar */
 input, select {
   width: 100%;
   padding: 12px;
   margin-top: 10px;
   border-radius: 10px;
   border: 1px solid #ddd;
+  font-size: 14px;
 }
 
+/* Buttonlar */
 button {
   width: 100%;
   padding: 12px;
@@ -58,8 +63,15 @@ button {
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
+  transition: 0.3s;
 }
 
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.25);
+}
+
+/* Suallar */
 .question {
   background: #f7f8fc;
   padding: 15px;
@@ -67,17 +79,26 @@ button {
   margin-bottom: 15px;
 }
 
+/* N?tic? */
 #result {
   background: #f0f3ff;
   border-radius: 12px;
   padding: 15px;
   margin-top: 20px;
   text-align: center;
+  font-size: 16px;
 }
 
+/* Animasiya */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 </style>
 </head>
@@ -86,23 +107,21 @@ button {
 
 <!-- LOGIN -->
 <div id="loginBox">
-  <h2>Giriş</h2>
-  <input type="text" id="username" placeholder="İstifadəçi adı">
-  <input type="password" id="password" placeholder="Şifrə">
+  <h2>Giris</h2>
+  <input type="text" id="username" placeholder="Istifad?ci ad?">
+  <input type="password" id="password" placeholder="Sifr?">
   <button onclick="login()">Daxil ol</button>
   <p id="loginError" style="color:red; text-align:center;"></p>
 </div>
 
 <!-- QUIZ -->
 <div id="quizContainer" style="display:none;">
-  <button onclick="logout()">Çıxış</button>
+  <button onclick="logout()">C?x?s</button>
 
   <h1>Fizika Testi</h1>
-  <p style="text-align:center;">
-    Xoş gəldin, <b><span id="userName"></span></b>
-  </p>
+  <h2> Ugurlar</h2>
 
-  <label>Sinifi seçin:</label>
+  <label for="classSelect">Sinifi secin:</label>
   <select id="classSelect">
     <option value="sinif7_fizika.json">7-ci sinif</option>
     <option value="sinif8_fizika.json">8-ci sinif</option>
@@ -117,40 +136,40 @@ button {
 </div>
 
 <script>
-/* ===== LOGIN SISTEMI (HAMI ÜÇÜN AÇIQ) ===== */
+/* LOGIN */
+const USER = {
+  username: "Sagird",
+  password: "balux"
+};
 
 function login() {
-  const u = document.getElementById("username").value.trim();
-  const p = document.getElementById("password").value.trim();
+  const u = document.getElementById("username").value;
+  const p = document.getElementById("password").value;
 
-  if (u !== "" && p !== "") {
+  if (u === USER.username && p === USER.password) {
     localStorage.setItem("loggedIn", "true");
-    localStorage.setItem("currentUser", u);
     showQuiz();
   } else {
     document.getElementById("loginError").innerText =
-      "İstifadəçi adı və şifrə boş ola bilməz!";
+      "Istifad?ci ad? v? ya sifr? s?hvdir!";
   }
 }
 
 function logout() {
-  localStorage.clear();
+  localStorage.removeItem("loggedIn");
   location.reload();
 }
 
 function showQuiz() {
   document.getElementById("loginBox").style.display = "none";
   document.getElementById("quizContainer").style.display = "block";
-  document.getElementById("userName").innerText =
-    localStorage.getItem("currentUser");
 }
 
 if (localStorage.getItem("loggedIn") === "true") {
   showQuiz();
 }
 
-/* ===== QUIZ SISTEMI ===== */
-
+/* QUIZ */
 let currentData = [];
 
 function loadQuiz(filename) {
@@ -163,7 +182,7 @@ function loadQuiz(filename) {
       data.forEach((q, i) => {
         quizDiv.innerHTML += `
           <div class="question">
-            <p><b>${i + 1}.</b> ${q.question}</p>
+            <p><b>${i+1}.</b> ${q.question}</p>
             ${q.options.map(opt =>
               `<label><input type="radio" name="q${i}" value="${opt}"> ${opt}</label><br>`
             ).join("")}
@@ -171,15 +190,6 @@ function loadQuiz(filename) {
         `;
       });
       document.getElementById("result").innerHTML = "";
-
-      // "Bitir" düyməsini aktiv et (sinif seçəndə də aktiv olsun)
-      document.getElementById("submitBtn").disabled = false;
-
-      // Variantları aktiv et
-      const allRadios = document.querySelectorAll("#quiz input[type='radio']");
-      allRadios.forEach(radio => {
-        radio.disabled = false;
-      });
     });
 }
 
@@ -196,19 +206,10 @@ document.getElementById("submitBtn").addEventListener("click", () => {
     if (a && a.value === q.correctAnswer) correct++;
   });
   document.getElementById("result").innerHTML = `
-    <h2>Nəticə</h2>
-    <p>Düz: ${correct}</p>
-    <p>Səhv: ${currentData.length - correct}</p>
+    <h2>N?tic?</h2>
+    <p>Duz: ${correct}</p>
+    <p>S?hv: ${currentData.length - correct}</p>
   `;
-
-  // Variantları deaktiv et
-  const allRadios = document.querySelectorAll("#quiz input[type='radio']");
-  allRadios.forEach(radio => {
-    radio.disabled = true;
-  });
-
-  // Bitir düyməsini deaktiv et
-  document.getElementById("submitBtn").disabled = true;
 });
 </script>
 
