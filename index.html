@@ -5,9 +5,7 @@
 <title>Fizika Testi - Login</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -20,7 +18,7 @@ body {
 }
 
 #loginBox, #quizContainer {
-  background: #ffffff;
+  background: #fff;
   width: 100%;
   max-width: 420px;
   padding: 30px;
@@ -28,14 +26,9 @@ body {
   box-shadow: 0 15px 40px rgba(0,0,0,0.2);
 }
 
-#quizContainer {
-  max-width: 800px;
-}
+#quizContainer { max-width: 800px; }
 
-h1, h2 {
-  text-align: center;
-  color: #333;
-}
+h1, h2 { text-align: center; }
 
 input, select {
   width: 100%;
@@ -78,8 +71,8 @@ button {
 
 <!-- LOGIN -->
 <div id="loginBox">
-  <h2>Giris</h2>
-  <input type="text" id="username" placeholder="Istifadəçi adı">
+  <h2>Giriş</h2>
+  <input type="text" id="username" placeholder="İstifadəçi adı">
   <input type="password" id="password" placeholder="Şifrə">
   <button onclick="login()">Daxil ol</button>
   <p id="loginError" style="color:red; text-align:center;"></p>
@@ -92,7 +85,6 @@ button {
   <h1>Fizika Testi</h1>
   <h2>Uğurlar</h2>
 
-  <label>Sinifi seçin:</label>
   <select id="classSelect">
     <option value="sinif7_fizika.json">7-ci sinif</option>
     <option value="sinif8_fizika.json">8-ci sinif</option>
@@ -108,99 +100,97 @@ button {
 
 <script>
 /* LOGIN */
-const USER = {
-  username: "Şagird",
-  password: "balux"
-};
+const USER = { username: "Sagird", password: "balux" };
 
 function login() {
-  const u = document.getElementById("username").value;
-  const p = document.getElementById("password").value;
+  const u = username.value;
+  const p = password.value;
 
   if (u === USER.username && p === USER.password) {
     localStorage.setItem("loggedIn", "true");
     showQuiz();
   } else {
-    document.getElementById("loginError").innerText =
-      "İstifadəçi adı və ya şifrə səhvdir!";
+    loginError.innerText = "İstifadəçi adı və ya şifrə səhvdir!";
   }
 }
 
 function logout() {
-  localStorage.removeItem("loggedIn");
+  localStorage.clear();
   location.reload();
 }
 
 function showQuiz() {
-  document.getElementById("loginBox").style.display = "none";
-  document.getElementById("quizContainer").style.display = "block";
+  loginBox.style.display = "none";
+  quizContainer.style.display = "block";
 }
 
-if (localStorage.getItem("loggedIn") === "true") {
-  showQuiz();
-}
+if (localStorage.getItem("loggedIn")) showQuiz();
 
 /* QUIZ */
 let currentData = [];
 
-function loadQuiz(filename) {
-  fetch(filename)
-    .then(res => res.json())
-    .then(data => {
-      currentData = data;
-      const quizDiv = document.getElementById("quiz");
-      quizDiv.innerHTML = "";
+function loadQuiz(file) {
+  fetch(file).then(r => r.json()).then(data => {
+    currentData = data;
+    quiz.innerHTML = "";
 
-      data.forEach((q, i) => {
-        quizDiv.innerHTML += `
-          <div class="question">
-            <p><b>${i + 1}.</b> ${q.question}</p>
-            ${q.options.map(opt =>
-              `<label>
-                <input type="radio" name="q${i}" value="${opt}">
-                ${opt}
-              </label><br>`
-            ).join("")}
-          </div>
-        `;
-      });
-
-      document.getElementById("result").innerHTML = "";
-      document.getElementById("submitBtn").disabled = false;
-
-      document
-        .querySelectorAll("#quiz input[type='radio']")
-        .forEach(r => r.disabled = false);
+    data.forEach((q, i) => {
+      quiz.innerHTML += `
+        <div class="question">
+          <p><b>${i+1}.</b> ${q.question}</p>
+          ${q.options.map(opt => `
+            <label>
+              <input type="radio" name="q${i}" value="${opt}">
+              ${opt}
+            </label><br>
+          `).join("")}
+        </div>
+      `;
     });
+
+    submitBtn.disabled = false;
+    document.querySelectorAll("input[type=radio]").forEach(r => r.disabled = false);
+    result.innerHTML = "";
+  });
 }
 
-loadQuiz(document.getElementById("classSelect").value);
+loadQuiz(classSelect.value);
+classSelect.onchange = e => loadQuiz(e.target.value);
 
-document.getElementById("classSelect").addEventListener("change", e => {
-  loadQuiz(e.target.value);
-});
-
-document.getElementById("submitBtn").addEventListener("click", () => {
+/* BITIR + RƏNGLƏNDİRMƏ */
+submitBtn.addEventListener("click", () => {
   let correct = 0;
 
   currentData.forEach((q, i) => {
-    const a = document.querySelector(`input[name="q${i}"]:checked`);
-    if (a && a.value === q.correctAnswer) correct++;
+    const selected = document.querySelector(`input[name=q${i}]:checked`);
+    const options = document.querySelectorAll(`input[name=q${i}]`);
+
+    options.forEach(opt => {
+      const label = opt.parentElement;
+
+      if (opt.value === q.correctAnswer) {
+        label.style.color = "green";
+        label.style.fontWeight = "bold";
+      }
+
+      if (selected && opt === selected && opt.value !== q.correctAnswer) {
+        label.style.color = "red";
+        label.style.fontWeight = "bold";
+      }
+
+      opt.disabled = true;
+    });
+
+    if (selected && selected.value === q.correctAnswer) correct++;
   });
 
-  document.getElementById("result").innerHTML = `
+  result.innerHTML = `
     <h2>Nəticə</h2>
     <p>Düz: ${correct}</p>
     <p>Səhv: ${currentData.length - correct}</p>
   `;
 
-  // 🔒 VARIANTLARI BAĞLA
-  document
-    .querySelectorAll("#quiz input[type='radio']")
-    .forEach(r => r.disabled = true);
-
-  // 🔒 BITIR DÜYMƏSİNİ BAĞLA
-  document.getElementById("submitBtn").disabled = true;
+  submitBtn.disabled = true;
 });
 </script>
 
