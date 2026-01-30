@@ -15,7 +15,6 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
 }
 
 #loginBox, #quizContainer {
@@ -32,7 +31,7 @@ body {
 h1, h2 { text-align: center; }
 
 input, select {
-  width: 100%;
+  width: 25%;
   padding: 12px;
   margin-top: 10px;
   border-radius: 10px;
@@ -52,11 +51,10 @@ button {
 }
 
 .question {
-  background: #4a7c91;
+  background: #4a7c91
   padding: 15px;
   border-radius: 12px;
   margin-bottom: 15px;
-  color:white;
 }
 
 #result {
@@ -83,6 +81,7 @@ button {
   <button onclick="logout()">Çıxış</button>
 
   <h1>Fizika Testi</h1>
+  <h2>Uğurlar</h2>
 
   <select id="classSelect">
     <option value="sinif7_fizika.json">7-ci sinif</option>
@@ -101,11 +100,14 @@ button {
 const USER = { username: "Şagird", password: "balux" };
 
 function login() {
-  if (username.value === USER.username && password.value === USER.password) {
+  const u = username.value;
+  const p = password.value;
+
+  if (u === USER.username && p === USER.password) {
     localStorage.setItem("loggedIn", "true");
     showQuiz();
   } else {
-    loginError.innerText = "Yanlış giriş!";
+    loginError.innerText = "İstifadəçi adı və ya şifrə səhvdir!";
   }
 }
 
@@ -142,19 +144,38 @@ function loadQuiz(file) {
       `;
     });
 
-    result.innerHTML = "";
     submitBtn.disabled = false;
+    document.querySelectorAll("input[type=radio]").forEach(r => r.disabled = false);
+    result.innerHTML = "";
   });
 }
 
 loadQuiz(classSelect.value);
 classSelect.onchange = e => loadQuiz(e.target.value);
 
-submitBtn.onclick = () => {
+submitBtn.addEventListener("click", () => {
   let correct = 0;
 
   currentData.forEach((q, i) => {
     const selected = document.querySelector(`input[name=q${i}]:checked`);
+    const options = document.querySelectorAll(`input[name=q${i}]`);
+
+    options.forEach(opt => {
+      const label = opt.parentElement;
+
+      if (opt.value === q.correctAnswer) {
+        label.style.color = "green";
+        label.style.fontWeight = "bold";
+      }
+
+      if (selected && opt === selected && opt.value !== q.correctAnswer) {
+        label.style.color = "red";
+        label.style.fontWeight = "bold";
+      }
+
+      opt.disabled = true;
+    });
+
     if (selected && selected.value === q.correctAnswer) correct++;
   });
 
@@ -163,15 +184,15 @@ submitBtn.onclick = () => {
     <p>Düz: ${correct}</p>
     <p>Səhv: ${currentData.length - correct}</p>
   `;
-};
+
+  submitBtn.disabled = true;
+});
 </script>
 
-<!-- 🔢 ZİYARƏTÇİ SAYĞACI -->
-<div style="margin-top:30px; text-align:center;">
-  <a href='https://free-hit-counters.net/'>Free-Hit-Counters.net</a>
-  <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=f52c920dc8704f8c9c83b6780ab6ed1ff4eb1191'></script>
-  <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1493646/t/2"></script>
-</div>
+<!-- 🔢 Ziyarətçi sayğacı — yalnız əlavə olunan hissə -->
+<a href='https://free-hit-counters.net/'>Free-Hit-Counters.net</a>
+<script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=f52c920dc8704f8c9c83b6780ab6ed1ff4eb1191'></script>
+<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1493646/t/2"></script>
 
 </body>
 </html>
