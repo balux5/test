@@ -1,49 +1,53 @@
-KSQ və BSQ Qiymət Hesablama Saytı.
+⚡ Fizika Test Saytı – İnteraktiv Bilik Yoxlama Platforması.
 
-Bu layihə Azərbaycan məktəbliləri üçün hazırlanmış sadə və funksional veb tətbiqdir. Saytın əsas məqsədi şagirdlərin KSQ (Kiçik Summativ Qiymətləndirmə) və BSQ (Böyük Summativ Qiymətləndirmə) nəticələrini asan şəkildə daxil edərək yarımillik qiyməti avtomatik hesablamasına kömək etməkdir. Əl ilə hesablama ehtiyacını aradan qaldıraraq vaxta qənaət edir və səhvlərin qarşısını alır.
+Bu layihə fizika fənni üzrə bilikləri yoxlamaq üçün hazırlanmış interaktiv veb test sistemidir. İstifadəçilər suallara cavab verdikdən sonra sistem avtomatik olaraq neçə sualın düzgün, neçə sualın isə səhv cavablandırıldığını göstərir. Bu da şagirdlərin öz səviyyəsini dərhal görməsinə imkan yaradır.
 
-Layihə həm kompüter, həm də mobil cihazlarda rahat istifadə olunacaq şəkildə dizayn edilmişdir.
+Sayt həm öyrədici, həm də motivasiyaedici formada dizayn edilmişdir.
 
-Layihənin imkanları:
+🎯 Layihənin məqsədi:
 
-İstifadəçi bir neçə KSQ balını daxil edə bilir.
-BSQ balı əlavə olunur.
-Sistem bütün nəticələri avtomatik hesablayaraq yekun qiyməti göstərir.
-Sadə, sürətli və istifadəsi rahat interfeys təqdim edir.
+Fizikanı daha asan, maraqlı və praktik şəkildə öyrətmək.
+Şagirdlər təkcə oxumaqla yox, test etməklə biliklərini möhkəmləndirirlər.
 
-Layihənin məqsədi:
+🚀 Əsas imkanlar:
 
-Bu sayt şagirdlərin və müəllimlərin qiymət hesablama prosesini daha rahat və sürətli etməsi üçün yaradılıb. Xüsusilə summativ dövrlərdə vaxt itkisini azaltmaq və nəticələri dəqiq göstərmək üçün nəzərdə tutulub.
+✔ Fizika mövzularına uyğun test sualları
+✔ Avtomatik nəticə sistemi
+✔ Düzgün və səhv cavab sayının göstərilməsi
+✔ Sürətli və sadə istifadə
+✔ Mobil və kompüter üçün uyğun dizayn
 
-İstifadə olunan texnologiyalar:
+📊 Nəticə sistemi necə işləyir?
 
-Layihə aşağıdakı texnologiyalar vasitəsilə hazırlanmışdır:
+Test bitdikdən sonra sistem:
+
+• neçə düzgün cavab olduğunu göstərir
+• neçə səhv cavab olduğunu göstərir
+• ümumi nəticəni dərhal ekrana çıxarır
+
+İstifadəçi səhvlərini görərək özünü inkişaf etdirə bilir.
+
+🛠 Texnologiyalar:
 
 HTML – səhifə quruluşu
-CSS – dizayn və görünüş
-JavaScript – hesablamaların aparılması
+CSS – dizayn
+JavaScript – test yoxlama və nəticə hesablaması
 
-Necə istifadə etməli:
+🌱 Gələcək inkişaf planları:
 
-Saytı açın.
-KSQ ballarını müvafiq sahələrə daxil edin.
-BSQ balını yazın.
-Nəticə avtomatik olaraq ekranda göstəriləcək.
+🔹 Mövzu üzrə test bölmələri
+🔹 Vaxt limiti olan testlər
+🔹 Faizlə nəticə göstərilməsi
+🔹 Çətinlik səviyyələri
+🔹 Sualların avtomatik dəyişməsi
 
-Gələcək planlar
+👨‍💻 Müəllif:
 
-Fənlər üzrə ayrıca hesablama sistemi əlavə etmək
-Nəticələri yadda saxlamaq
-PDF və ya şəkil olaraq yükləmə imkanı
-Dizaynın daha da təkmilləşdirilməsi
+Hazırlayan: Balux
 
-Müəllif:
+⭐ Layihəyə dəstək
 
-Bu layihə Balux tərəfindən hazırlanmışdır.
-
-Dəstək:
-
-Layihəni bəyəndinizsə GitHub üzərindən ⭐ star verməklə dəstək ola bilərsiniz.
+Layihəni bəyəndinsə GitHub-da ⭐ star verməklə dəstək ola bilərsən!
 
 Link:
-https://balux5.github.io/illikbal/
+https://balux5.github.io/test/
