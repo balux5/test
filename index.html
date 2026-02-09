@@ -1,70 +1,9 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-<meta charset="UTF-8">
-<title>Fizika Testi - Login</title>
-
-<style>
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: linear-gradient(120deg, #667eea, #764ba2);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#loginBox, #quizContainer {
-  background: #fff;
-  width: 100%;
-  max-width: 420px;
-  padding: 30px;
-  border-radius: 16px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
-}
-
-#quizContainer { max-width: 800px; }
-
-h1, h2 { text-align: center; }
-
-input, select {
-  width: 25%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
-
-button {
-  width: 100%;
-  padding: 12px;
-  margin-top: 20px;
-  border: none;
-  border-radius: 12px;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.question {
-  background: #4a7c91
-  padding: 15px;
-  border-radius: 12px;
-  margin-bottom: 15px;
-}
-
-#result {
-  background: #f0f3ff;
-  border-radius: 12px;
-  padding: 15px;
-  margin-top: 20px;
-  text-align: center;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Fizika Testi - Login</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -74,7 +13,7 @@ button {
   <input type="text" id="username" placeholder="İstifadəçi">
   <input type="password" id="password" placeholder="Şifrə">
   <button onclick="login()">Daxil ol</button>
-  <p id="loginError" style="color:red; text-align:center;"></p>
+  <p id="loginError"></p>
 </div>
 
 <div id="quizContainer" style="display:none;">
@@ -96,103 +35,12 @@ button {
   <div id="result"></div>
 </div>
 
-<script>
-const USER = { username: "Şagird", password: "balux" };
+<script src="script.js"></script>
 
-function login() {
-  const u = username.value;
-  const p = password.value;
-
-  if (u === USER.username && p === USER.password) {
-    localStorage.setItem("loggedIn", "true");
-    showQuiz();
-  } else {
-    loginError.innerText = "İstifadəçi adı və ya şifrə səhvdir!";
-  }
-}
-
-function logout() {
-  localStorage.clear();
-  location.reload();
-}
-
-function showQuiz() {
-  loginBox.style.display = "none";
-  quizContainer.style.display = "block";
-}
-
-if (localStorage.getItem("loggedIn")) showQuiz();
-
-let currentData = [];
-
-function loadQuiz(file) {
-  fetch(file).then(r => r.json()).then(data => {
-    currentData = data;
-    quiz.innerHTML = "";
-
-    data.forEach((q, i) => {
-      quiz.innerHTML += `
-        <div class="question">
-          <p><b>${i+1}.</b> ${q.question}</p>
-          ${q.options.map(opt => `
-            <label>
-              <input type="radio" name="q${i}" value="${opt}">
-              ${opt}
-            </label><br>
-          `).join("")}
-        </div>
-      `;
-    });
-
-    submitBtn.disabled = false;
-    document.querySelectorAll("input[type=radio]").forEach(r => r.disabled = false);
-    result.innerHTML = "";
-  });
-}
-
-loadQuiz(classSelect.value);
-classSelect.onchange = e => loadQuiz(e.target.value);
-
-submitBtn.addEventListener("click", () => {
-  let correct = 0;
-
-  currentData.forEach((q, i) => {
-    const selected = document.querySelector(`input[name=q${i}]:checked`);
-    const options = document.querySelectorAll(`input[name=q${i}]`);
-
-    options.forEach(opt => {
-      const label = opt.parentElement;
-
-      if (opt.value === q.correctAnswer) {
-        label.style.color = "green";
-        label.style.fontWeight = "bold";
-      }
-
-      if (selected && opt === selected && opt.value !== q.correctAnswer) {
-        label.style.color = "red";
-        label.style.fontWeight = "bold";
-      }
-
-      opt.disabled = true;
-    });
-
-    if (selected && selected.value === q.correctAnswer) correct++;
-  });
-
-  result.innerHTML = `
-    <h2>Nəticə</h2>
-    <p>Düz: ${correct}</p>
-    <p>Səhv: ${currentData.length - correct}</p>
-  `;
-
-  submitBtn.disabled = true;
-});
-</script>
-
-<!-- 🔢 Ziyarətçi sayğacı — yalnız əlavə olunan hissə -->
-<a href='https://free-hit-counters.net/'>Free-Hit-Counters.net</a>
-<script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=f52c920dc8704f8c9c83b6780ab6ed1ff4eb1191'></script>
-<script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1493646/t/2"></script>
+<!-- Ziyarətçi sayğacı -->
+<a href="https://free-hit-counters.net/">Free-Hit-Counters.net</a>
+<script src="https://www.freevisitorcounters.com/auth.php?id=f52c920dc8704f8c9c83b6780ab6ed1ff4eb1191"></script>
+<script src="https://www.freevisitorcounters.com/en/home/counter/1493646/t/2"></script>
 
 </body>
 </html>
