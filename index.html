@@ -6,7 +6,7 @@
     <title>Fizika Test Portalı</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f0f2f5; display: flex; justify-content: center; padding: 20px; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f0f2f5; display: flex; flex-direction: column; align-items: center; padding: 20px; }
         .container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); width: 100%; max-width: 700px; }
         h1, h2 { text-align: center; color: #1a73e8; }
         input[type="text"], input[type="password"], select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
@@ -38,6 +38,19 @@
 
         .correct { background-color: #d4edda !important; color: #155724; border: 1px solid #c3e6cb; }
         .wrong { background-color: #f8d7da !important; color: #721c24; border: 1px solid #f5c6cb; }
+
+        /* Yeni Footer Stili */
+        footer { 
+            margin-top: 40px; 
+            padding: 20px; 
+            text-align: center; 
+            border-top: 1px solid #ddd; 
+            font-size: 13px; 
+            color: #666; 
+            width: 100%; 
+            max-width: 700px; 
+        }
+        .privacy-box { font-style: italic; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -77,6 +90,13 @@
     </div>
 </div>
 
+<footer>
+    <div class="privacy-box">
+        <strong>Məxfilik Siyasəti:</strong> Bu portal təhsil məqsədilə yaradılmışdır. İstifadəçi adları və test nəticələri yalnız statistik təhlil üçün Firebase bazasında qorunur və üçüncü tərəflərlə paylaşılmır. Məzmunun davamlılığı üçün saytda Google AdSense reklamlarından istifadə oluna bilər.
+    </div>
+    <p>© 2026 Fizika Test Portalı | <strong>Balux</strong> tərəfindən Şəkidə hazırlanıb.</p>
+</footer>
+
 <script>
     const dbURL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/.json";
 
@@ -98,7 +118,6 @@
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
         updateAdminUI();
-        // Hər 5 saniyədən bir avtomatik yenilənmə
         setInterval(updateAdminUI, 5000);
     }
 
@@ -110,7 +129,6 @@
             body.innerHTML = "";
             
             if (data) {
-                // Firebase obyekt qaytarır, onu siyahıya çeviririk
                 const resultsArray = Object.keys(data).map(key => data[key]);
                 resultsArray.reverse().forEach(res => {
                     body.innerHTML += `<tr><td>${res.name}</td><td>${res.score}</td><td>${res.date}</td></tr>`;
@@ -170,7 +188,6 @@
             date: new Date().toLocaleString('az-AZ')
         };
 
-        // Firebase-ə məlumatı göndər
         await fetch(dbURL, {
             method: 'POST',
             body: JSON.stringify(quizResult)
