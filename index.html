@@ -2,12 +2,27 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=0.1"> 
     <title>Fizika Test Portalı</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: #f0f2f5; display: flex; flex-direction: column; align-items: center; padding: 20px; }
-        .container { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); width: 100%; max-width: 700px; }
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
+            background-color: #f0f2f5; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px;
+            min-width: 1000px; /* Saytın həmişə ən az 1000px genişlikdə qalmasını təmin edirik */
+        }
+        .container { 
+            background: white; 
+            padding: 25px; 
+            border-radius: 12px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+            width: 1000px; /* Sabit genişlik verdik ki, telefonda da eyni qalsın */
+        }
         h1, h2 { text-align: center; color: #1a73e8; }
         input[type="text"], input[type="password"], select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
         
@@ -16,19 +31,9 @@
         .btn-danger { background-color: #d93025; color: white; }
         .btn-success { background-color: #1e8e3e; color: white; }
         .btn-secondary { background-color: #5f6368; color: white; }
-        .btn-guest { background-color: #34a853; color: white; } 
+        .btn-guest { background-color: #34a853; color: white; }
 
-        /* Telefonlar üçün Xüsusi Nizamlamalar (Responsive) */
-        @media (max-width: 600px) {
-            body { padding: 10px; }
-            .container { padding: 15px; width: 95%; box-shadow: none; }
-            h1 { font-size: 22px; }
-            h2 { font-size: 18px; }
-            .btn-style { padding: 10px; font-size: 14px; }
-            .question-header { font-size: 1em; }
-            .option-label { padding: 6px; font-size: 14px; }
-            footer { font-size: 11px; padding: 10px; }
-        }
+        /* Telefon üçün olan bütün Responsive (@media) kodlarını sildik */
 
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         table, th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
@@ -59,8 +64,7 @@
             border-top: 1px solid #ddd; 
             font-size: 13px; 
             color: #666; 
-            width: 100%; 
-            max-width: 700px; 
+            width: 1000px; 
         }
         .privacy-box { font-style: italic; margin-bottom: 10px; }
     </style>
@@ -71,19 +75,13 @@
     <div id="loginSection" style="display: block;">
         <h1>Sistemə Giriş</h1>
         <input type="text" id="username" placeholder="Adınız">
-        <input type="password" id="password" placeholder="Şifrə (Yalnız Admin üçün)">
+        <input type="password" id="password" placeholder="Şifrə (Admin üçün)">
         <button onclick="handleLogin()" class="btn-style btn-primary">Daxil ol</button>
-        
         <button onclick="guestLogin()" class="btn-style btn-guest">Qonaq kimi davam et</button>
-        
-        <p style="font-size: 12px; color: #777; text-align: center; margin-top: 15px;">
-            * Testlərə baxmaq üçün ad yazmaq məcburi deyil.
-        </p>
     </div>
 
     <div id="adminPanel">
         <h2>Admin Paneli</h2>
-        <h3>Şagird Nəticələri (Canlı)</h3>
         <table id="resultsTable">
             <thead><tr><th>Şagird</th><th>Nəticə</th><th>Tarix</th></tr></thead>
             <tbody id="resultsBody"></tbody>
@@ -110,33 +108,25 @@
 
 <footer>
     <div class="privacy-box">
-        <strong>Məxfilik Siyasəti:</strong> Bu portal təhsil məqsədilə yaradılmışdır. İstifadəçi adları və test nəticələri yalnız statistik təhlil üçün Firebase bazasında qorunur. Məzmunun davamlılığı üçün saytda Google AdSense reklamlarından istifadə oluna bilər.
+        <strong>Məxfilik Siyasəti:</strong> Bu portal təhsil məqsədilə yaradılmışdır. İstifadəçi adları və test nəticələri Firebase bazasında qorunur. Məzmunun davamlılığı üçün Google AdSense reklamlarından istifadə oluna bilər.
     </div>
     <p>© 2026 Fizika Test Portalı | <strong>Balux</strong> tərəfindən Şəkidə hazırlanıb.</p>
 </footer>
 
 <script>
     const dbURL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/.json";
-
     let currentQuizData = [];
     let currentUser = "";
 
     function handleLogin() {
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
-        if (u === "ebalux" && p === "12345") {
-            showAdmin();
-        } else if (u !== "") {
-            currentUser = u; 
-            showUser();
-        } else {
-            alert("Lütfən adınızı daxil edin və ya Qonaq kimi davam edin.");
-        }
+        if (u === "ebalux" && p === "12345") { showAdmin(); } 
+        else if (u !== "") { currentUser = u; showUser(); }
     }
 
     function guestLogin() {
-        const randomID = Math.floor(Math.random() * 999);
-        currentUser = "Qonaq_" + randomID;
+        currentUser = "Qonaq_" + Math.floor(Math.random() * 999);
         showUser();
     }
 
@@ -153,14 +143,13 @@
             const data = await response.json();
             const body = document.getElementById('resultsBody');
             body.innerHTML = "";
-            
             if (data) {
-                const resultsArray = Object.keys(data).map(key => data[key]);
-                resultsArray.reverse().forEach(res => {
+                Object.keys(data).reverse().forEach(key => {
+                    const res = data[key];
                     body.innerHTML += `<tr><td>${res.name}</td><td>${res.score}</td><td>${res.date}</td></tr>`;
                 });
             }
-        } catch (e) { console.error("Baza xətası:", e); }
+        } catch (e) {}
     }
 
     function showUser() {
@@ -188,18 +177,13 @@
                     </div>`;
             });
             document.getElementById('finishBtn').style.display = "block";
-            document.getElementById('userResult').innerHTML = "";
-        }).catch(err => {
-            document.getElementById('quizArea').innerHTML = "<p style='color:red;'>Xəta: Fayl tapılmadı.</p>";
         });
     }
 
     async function finishQuiz() {
         let correct = 0;
-        let answeredCount = 0;
         currentQuizData.forEach((q, i) => {
             const selected = document.querySelector(`input[name="q${i}"]:checked`);
-            if (selected) answeredCount++;
             const radios = document.getElementsByName(`q${i}`);
             radios.forEach((r, optIdx) => {
                 const label = document.getElementById(`label-q${i}-opt${optIdx}`);
@@ -209,14 +193,8 @@
             });
             if (selected && selected.value === q.correctAnswer) correct++;
         });
-
-        if (answeredCount === 0) { alert("Heç bir sualı cavablandırmamısınız!"); return; }
-
         const resultText = `${correct} / ${currentQuizData.length}`;
-        const quizResult = { name: currentUser, score: resultText, date: new Date().toLocaleString('az-AZ') };
-
-        try { await fetch(dbURL, { method: 'POST', body: JSON.stringify(quizResult) }); } catch(e) {}
-
+        await fetch(dbURL, { method: 'POST', body: JSON.stringify({ name: currentUser, score: resultText, date: new Date().toLocaleString('az-AZ') }) });
         document.getElementById('userResult').innerHTML = `<h3>Nəticəniz: ${resultText}</h3>`;
         document.getElementById('finishBtn').style.display = "none";
     }
