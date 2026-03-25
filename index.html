@@ -16,6 +16,7 @@
         .btn-danger { background-color: #d93025; color: white; }
         .btn-success { background-color: #1e8e3e; color: white; }
         .btn-secondary { background-color: #5f6368; color: white; }
+        .btn-guest { background-color: #34a853; color: white; } /* Qonaq düyməsi rəngi */
 
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         table, th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
@@ -39,7 +40,6 @@
         .correct { background-color: #d4edda !important; color: #155724; border: 1px solid #c3e6cb; }
         .wrong { background-color: #f8d7da !important; color: #721c24; border: 1px solid #f5c6cb; }
 
-        /* Yeni Footer Stili */
         footer { 
             margin-top: 40px; 
             padding: 20px; 
@@ -59,8 +59,14 @@
     <div id="loginSection" style="display: block;">
         <h1>Sistemə Giriş</h1>
         <input type="text" id="username" placeholder="Adınız">
-        <input type="password" id="password" placeholder="Şifrə">
+        <input type="password" id="password" placeholder="Şifrə (Yalnız Admin üçün)">
         <button onclick="handleLogin()" class="btn-style btn-primary">Daxil ol</button>
+        
+        <button onclick="guestLogin()" class="btn-style btn-guest">Qonaq kimi davam et</button>
+        
+        <p style="font-size: 12px; color: #777; text-align: center; margin-top: 15px;">
+            * Testlərə baxmaq üçün ad yazmaq məcburi deyil.
+        </p>
     </div>
 
     <div id="adminPanel">
@@ -79,12 +85,12 @@
         <select id="classSelect" onchange="loadQuiz(this.value)">
             <option value="sinif7_fizika.json">7-ci sinif</option>
             <option value="sinif8_fizika.json">8-ci sinif</option>
-            <option value="sinif9_fizika.json">9-ci sinif</option>
-            <option value="sinif10_fizika.json">10-ci sinif</option>
+            <option value="sinif9_fizika.json">9-cu sinif</option>
+            <option value="sinif10_fizika.json">10-cu sinif</option>
             <option value="sinif11_fizika.json">11-ci sinif</option>
         </select>
         <div id="quizArea"></div>
-        <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-success">Testi Bitir</button>
+        <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-success" style="display:none;">Testi Bitir</button>
         <div id="userResult"></div>
         <button onclick="location.reload()" class="btn-style btn-secondary">Çıxış</button>
     </div>
@@ -92,7 +98,7 @@
 
 <footer>
     <div class="privacy-box">
-        <strong>Məxfilik Siyasəti:</strong> Bu portal təhsil məqsədilə yaradılmışdır. İstifadəçi adları və test nəticələri yalnız statistik təhlil üçün Firebase bazasında qorunur və üçüncü tərəflərlə paylaşılmır. Məzmunun davamlılığı üçün saytda Google AdSense reklamlarından istifadə oluna bilər.
+        <strong>Məxfilik Siyasəti:</strong> Bu portal təhsil məqsədilə yaradılmışdır. İstifadəçi adları və test nəticələri yalnız statistik təhlil üçün Firebase bazasında qorunur. Məzmunun davamlılığı üçün saytda Google AdSense reklamlarından istifadə oluna bilər.
     </div>
     <p>© 2026 Fizika Test Portalı | <strong>Balux</strong> tərəfindən Şəkidə hazırlanıb.</p>
 </footer>
@@ -111,7 +117,16 @@
         } else if (u !== "") {
             currentUser = u; 
             showUser();
+        } else {
+            alert("Lütfən adınızı daxil edin və ya Qonaq kimi davam edin.");
         }
+    }
+
+    // Yeni Qonaq Girişi Funksiyası
+    function guestLogin() {
+        const randomID = Math.floor(Math.random() * 999);
+        currentUser = "Qonaq_" + randomID;
+        showUser();
     }
 
     function showAdmin() {
@@ -163,13 +178,19 @@
             });
             document.getElementById('finishBtn').style.display = "block";
             document.getElementById('userResult').innerHTML = "";
+        }).catch(err => {
+            document.getElementById('quizArea').innerHTML = "<p style='color:red;'>Xəta: Fayl tapılmadı və ya format səhvdir.</p>";
         });
     }
 
     async function finishQuiz() {
         let correct = 0;
+        let answeredCount = 0;
+
         currentQuizData.forEach((q, i) => {
             const selected = document.querySelector(`input[name="q${i}"]:checked`);
+            if (selected) answeredCount++;
+
             const radios = document.getElementsByName(`q${i}`);
             
             radios.forEach((r, optIdx) => {
@@ -181,6 +202,11 @@
             if (selected && selected.value === q.correctAnswer) correct++;
         });
 
+        if (answeredCount === 0) {
+            alert("Heç bir sualı cavablandırmamısınız!");
+            return;
+        }
+
         const resultText = `${correct} / ${currentQuizData.length}`;
         const quizResult = {
             name: currentUser,
@@ -188,10 +214,12 @@
             date: new Date().toLocaleString('az-AZ')
         };
 
-        await fetch(dbURL, {
-            method: 'POST',
-            body: JSON.stringify(quizResult)
-        });
+        try {
+            await fetch(dbURL, {
+                method: 'POST',
+                body: JSON.stringify(quizResult)
+            });
+        } catch(e) { console.log("Nəticə yazıla bilmədi."); }
 
         document.getElementById('userResult').innerHTML = `<h3>Nəticəniz: ${resultText}</h3>`;
         document.getElementById('finishBtn').style.display = "none";
