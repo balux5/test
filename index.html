@@ -2,7 +2,7 @@
 <html lang="az">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.1"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fizika Test Portalı</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
     <style>
@@ -13,27 +13,34 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            padding: 20px;
-            min-width: 1000px; /* Saytın həmişə ən az 1000px genişlikdə qalmasını təmin edirik */
+            padding: 15px; 
         }
         .container { 
             background: white; 
-            padding: 25px; 
+            padding: 20px; 
             border-radius: 12px; 
             box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
-            width: 1000px; /* Sabit genişlik verdik ki, telefonda da eyni qalsın */
+            width: 100%; 
+            max-width: 600px; /* Kompüterdə çox böyük olmasın, telefonda tam otursun */
+            box-sizing: border-box;
         }
-        h1, h2 { text-align: center; color: #1a73e8; }
-        input[type="text"], input[type="password"], select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        h1, h2 { text-align: center; color: #1a73e8; margin-bottom: 20px; }
         
-        .btn-style { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 10px; }
+        input[type="text"], input[type="password"], select { 
+            width: 100%; padding: 12px; margin: 10px 0; 
+            border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; 
+        }
+        
+        .btn-style { 
+            width: 100%; padding: 14px; border: none; border-radius: 8px; 
+            cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 10px; 
+            font-size: 16px;
+        }
         .btn-primary { background-color: #1a73e8; color: white; }
         .btn-danger { background-color: #d93025; color: white; }
         .btn-success { background-color: #1e8e3e; color: white; }
         .btn-secondary { background-color: #5f6368; color: white; }
         .btn-guest { background-color: #34a853; color: white; }
-
-        /* Telefon üçün olan bütün Responsive (@media) kodlarını sildik */
 
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         table, th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
@@ -42,51 +49,46 @@
         #adminPanel, #userPanel, #loginSection { display: none; }
         
         .question { 
-            background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid #1a73e8; 
+            background: #f8f9fa; padding: 15px; border-radius: 8px; 
+            margin-bottom: 15px; border-left: 4px solid #1a73e8; 
             display: flex; flex-direction: column; gap: 10px; 
         }
-        .question-header { font-weight: bold; font-size: 1.1em; margin: 0; display: flex; align-items: flex-start; gap: 8px; }
-        .options-container { display: flex; flex-direction: column; gap: 5px; padding-left: 28px; }
-        .option-label { display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 6px; transition: 0.2s; }
+        .question-header { font-weight: bold; font-size: 1.1em; margin: 0; }
+        .options-container { display: flex; flex-direction: column; gap: 8px; padding-left: 10px; }
+        .option-label { 
+            display: flex; align-items: center; gap: 10px; cursor: pointer; 
+            padding: 10px; border-radius: 6px; transition: 0.2s; border: 1px solid transparent;
+        }
         .option-label:hover { background-color: #e9ecef; }
-        input[type="radio"] { width: 18px; height: 18px; cursor: pointer; }
+        input[type="radio"] { width: 20px; height: 20px; cursor: pointer; }
         
-        input[disabled] { cursor: not-allowed; opacity: 0.6; }
-        .disabled-label { pointer-events: none; }
-
         .correct { background-color: #d4edda !important; color: #155724; border: 1px solid #c3e6cb; }
         .wrong { background-color: #f8d7da !important; color: #721c24; border: 1px solid #f5c6cb; }
 
         footer { 
-            margin-top: 40px; 
-            padding: 20px; 
-            text-align: center; 
-            border-top: 1px solid #ddd; 
-            font-size: 13px; 
-            color: #666; 
-            width: 1000px; 
+            margin-top: 30px; padding: 20px; text-align: center; 
+            font-size: 12px; color: #666; width: 100%; max-width: 600px; 
         }
-        .privacy-box { font-style: italic; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div id="loginSection" style="display: block;">
-        <h1>Sistemə Giriş</h1>
-        <input type="text" id="username" placeholder="Adınız">
-        <input type="password" id="password" placeholder="Şifrə (Admin üçün)">
+        <h1>Fizika Portalı</h1>
+        <input type="text" id="username" placeholder="Adınızı yazın">
+        <input type="password" id="password" placeholder="Admin şifrəsi (isteğe bağlı)">
         <button onclick="handleLogin()" class="btn-style btn-primary">Daxil ol</button>
         <button onclick="guestLogin()" class="btn-style btn-guest">Qonaq kimi davam et</button>
     </div>
 
     <div id="adminPanel">
-        <h2>Admin Paneli</h2>
+        <h2>Nəticələr</h2>
         <table id="resultsTable">
             <thead><tr><th>Şagird</th><th>Nəticə</th><th>Tarix</th></tr></thead>
             <tbody id="resultsBody"></tbody>
         </table>
-        <button onclick="clearResults()" class="btn-style btn-secondary">Bazanı Təmizlə</button>
+        <button onclick="clearResults()" class="btn-style btn-secondary">Təmizlə</button>
         <button onclick="location.reload()" class="btn-style btn-danger">Çıxış</button>
     </div>
 
@@ -102,15 +104,12 @@
         <div id="quizArea"></div>
         <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-success" style="display:none;">Testi Bitir</button>
         <div id="userResult"></div>
-        <button onclick="location.reload()" class="btn-style btn-secondary">Çıxış</button>
+        <button onclick="location.reload()" class="btn-style btn-secondary">Geri Qayıt</button>
     </div>
 </div>
 
 <footer>
-    <div class="privacy-box">
-        <strong>Məxfilik Siyasəti:</strong> Bu portal təhsil məqsədilə yaradılmışdır. İstifadəçi adları və test nəticələri Firebase bazasında qorunur. Məzmunun davamlılığı üçün Google AdSense reklamlarından istifadə oluna bilər.
-    </div>
-    <p>© 2026 Fizika Test Portalı | <strong>Balux</strong> tərəfindən Şəkidə hazırlanıb.</p>
+    <p>© 2026 Fizika Test Portalı | <strong>Balux</strong> - Şəki</p>
 </footer>
 
 <script>
@@ -123,6 +122,7 @@
         const p = document.getElementById('password').value;
         if (u === "ebalux" && p === "12345") { showAdmin(); } 
         else if (u !== "") { currentUser = u; showUser(); }
+        else { alert("Adınızı daxil edin!"); }
     }
 
     function guestLogin() {
@@ -134,7 +134,6 @@
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
         updateAdminUI();
-        setInterval(updateAdminUI, 5000);
     }
 
     async function updateAdminUI() {
@@ -149,13 +148,13 @@
                     body.innerHTML += `<tr><td>${res.name}</td><td>${res.score}</td><td>${res.date}</td></tr>`;
                 });
             }
-        } catch (e) {}
+        } catch (e) { console.log("Baza xətası"); }
     }
 
     function showUser() {
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('userPanel').style.display = 'block';
-        document.getElementById('welcomeUser').innerText = "Salam, " + currentUser;
+        document.getElementById('welcomeUser').innerText = "Xoş gəldin, " + currentUser;
         loadQuiz(document.getElementById('classSelect').value);
     }
 
@@ -177,11 +176,15 @@
                     </div>`;
             });
             document.getElementById('finishBtn').style.display = "block";
+            document.getElementById('userResult').innerHTML = "";
+        }).catch(() => {
+            document.getElementById('quizArea').innerHTML = "<p>Bu sinif üçün hələ test yüklənməyib.</p>";
         });
     }
 
     async function finishQuiz() {
         let correct = 0;
+        let total = currentQuizData.length;
         currentQuizData.forEach((q, i) => {
             const selected = document.querySelector(`input[name="q${i}"]:checked`);
             const radios = document.getElementsByName(`q${i}`);
@@ -193,14 +196,19 @@
             });
             if (selected && selected.value === q.correctAnswer) correct++;
         });
-        const resultText = `${correct} / ${currentQuizData.length}`;
-        await fetch(dbURL, { method: 'POST', body: JSON.stringify({ name: currentUser, score: resultText, date: new Date().toLocaleString('az-AZ') }) });
-        document.getElementById('userResult').innerHTML = `<h3>Nəticəniz: ${resultText}</h3>`;
+
+        const score = `${correct} / ${total}`;
+        document.getElementById('userResult').innerHTML = `<h3>Nəticə: ${score}</h3>`;
         document.getElementById('finishBtn').style.display = "none";
+
+        await fetch(dbURL, { 
+            method: 'POST', 
+            body: JSON.stringify({ name: currentUser, score: score, date: new Date().toLocaleString('az-AZ') }) 
+        });
     }
 
     async function clearResults() {
-        if(confirm("Bütün onlayn nəticələr silinsin?")) {
+        if(confirm("Bütün nəticələr silinsin?")) {
             await fetch(dbURL, { method: 'DELETE' });
             updateAdminUI();
         }
