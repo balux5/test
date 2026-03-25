@@ -16,7 +16,19 @@
         .btn-danger { background-color: #d93025; color: white; }
         .btn-success { background-color: #1e8e3e; color: white; }
         .btn-secondary { background-color: #5f6368; color: white; }
-        .btn-guest { background-color: #34a853; color: white; } /* Qonaq düyməsi rəngi */
+        .btn-guest { background-color: #34a853; color: white; } 
+
+        /* Telefonlar üçün Xüsusi Nizamlamalar (Responsive) */
+        @media (max-width: 600px) {
+            body { padding: 10px; }
+            .container { padding: 15px; width: 95%; box-shadow: none; }
+            h1 { font-size: 22px; }
+            h2 { font-size: 18px; }
+            .btn-style { padding: 10px; font-size: 14px; }
+            .question-header { font-size: 1em; }
+            .option-label { padding: 6px; font-size: 14px; }
+            footer { font-size: 11px; padding: 10px; }
+        }
 
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
         table, th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
@@ -122,7 +134,6 @@
         }
     }
 
-    // Yeni Qonaq Girişi Funksiyası
     function guestLogin() {
         const randomID = Math.floor(Math.random() * 999);
         currentUser = "Qonaq_" + randomID;
@@ -179,20 +190,17 @@
             document.getElementById('finishBtn').style.display = "block";
             document.getElementById('userResult').innerHTML = "";
         }).catch(err => {
-            document.getElementById('quizArea').innerHTML = "<p style='color:red;'>Xəta: Fayl tapılmadı və ya format səhvdir.</p>";
+            document.getElementById('quizArea').innerHTML = "<p style='color:red;'>Xəta: Fayl tapılmadı.</p>";
         });
     }
 
     async function finishQuiz() {
         let correct = 0;
         let answeredCount = 0;
-
         currentQuizData.forEach((q, i) => {
             const selected = document.querySelector(`input[name="q${i}"]:checked`);
             if (selected) answeredCount++;
-
             const radios = document.getElementsByName(`q${i}`);
-            
             radios.forEach((r, optIdx) => {
                 const label = document.getElementById(`label-q${i}-opt${optIdx}`);
                 r.disabled = true;
@@ -202,28 +210,15 @@
             if (selected && selected.value === q.correctAnswer) correct++;
         });
 
-        if (answeredCount === 0) {
-            alert("Heç bir sualı cavablandırmamısınız!");
-            return;
-        }
+        if (answeredCount === 0) { alert("Heç bir sualı cavablandırmamısınız!"); return; }
 
         const resultText = `${correct} / ${currentQuizData.length}`;
-        const quizResult = {
-            name: currentUser,
-            score: resultText,
-            date: new Date().toLocaleString('az-AZ')
-        };
+        const quizResult = { name: currentUser, score: resultText, date: new Date().toLocaleString('az-AZ') };
 
-        try {
-            await fetch(dbURL, {
-                method: 'POST',
-                body: JSON.stringify(quizResult)
-            });
-        } catch(e) { console.log("Nəticə yazıla bilmədi."); }
+        try { await fetch(dbURL, { method: 'POST', body: JSON.stringify(quizResult) }); } catch(e) {}
 
         document.getElementById('userResult').innerHTML = `<h3>Nəticəniz: ${resultText}</h3>`;
         document.getElementById('finishBtn').style.display = "none";
-        alert("Test bitdi! Nəticə bazaya yazıldı.");
     }
 
     async function clearResults() {
