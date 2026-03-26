@@ -3,19 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fizika Test Portalı | Balux</title>
-    <link rel="icon" type="image/png" href="favicon.png">
+    <title>Fizika Portalı | Balux</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
     <style>
         :root { --bg: #f0f2f5; --container-bg: #ffffff; --text: #333; --primary: #1a73e8; --card: #f8f9fa; --border: #ddd; }
         .dark-mode { --bg: #121212; --container-bg: #1e1e1e; --text: #e0e0e0; --primary: #8ab4f8; --card: #2d2d2d; --border: #444; }
 
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; transition: 0.3s; }
-        .container { background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); width: 100%; max-width: 700px; text-align: center; }
         
+        /* Layout sistemi */
+        .main-wrapper { display: flex; flex-direction: row; gap: 25px; max-width: 1100px; width: 100%; align-items: flex-start; }
+        
+        /* Esse Sütunu (Sol tərəf) */
+        .essay-sidebar { flex: 1; background: var(--container-bg); padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); font-size: 14px; line-height: 1.6; text-align: justify; }
+        .essay-sidebar h2 { color: var(--primary); font-size: 18px; text-align: center; }
+
+        /* Əsas Konteynerr (Sağ tərəf) */
+        .container { flex: 2; background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; }
+
+        /* Mobil telefonlar üçün nizamlamalar */
+        @media (max-width: 900px) {
+            .main-wrapper { flex-direction: column; align-items: center; }
+            .essay-sidebar { order: 2; width: 100%; box-sizing: border-box; }
+            .container { order: 1; width: 100%; box-sizing: border-box; }
+        }
+
         input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; background: var(--container-bg); color: var(--text); }
         .btn-style { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; }
         .btn-primary { background-color: var(--primary); color: white; }
+        .btn-danger { background-color: #d93025; color: white; }
+        .btn-success { background-color: #2e7d32; color: white; }
         .btn-dark { position: fixed; top: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer; background: var(--primary); color: white; font-size: 20px; z-index: 1001; }
 
         .question { background: var(--card); padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--primary); text-align: left; }
@@ -26,89 +43,121 @@
         .correct { background-color: #2e7d32 !important; color: white; }
         .wrong { background-color: #c62828 !important; color: white; }
 
-        #dailyFact { background: var(--card); padding: 20px; border-radius: 12px; margin: 20px 0; color: var(--primary); font-weight: bold; border: 2px solid var(--primary); }
+        #dailyFact { background: var(--card); padding: 15px; border-radius: 12px; margin-bottom: 20px; color: var(--primary); font-weight: bold; border: 1px solid var(--primary); }
         
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
         th, td { border: 1px solid var(--border); padding: 10px; text-align: left; }
         th { background: var(--primary); color: white; }
 
-        /* Məxfilik Siyasəti Bölməsi (AdSense üçün vacib) */
-        .policy-section { text-align: left; font-size: 13px; margin-top: 40px; padding: 20px; background: var(--card); border-top: 3px solid var(--primary); border-radius: 8px; line-height: 1.6; }
-        .policy-section h3 { text-align: center; margin-top: 0; }
-        
-        footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; }
+        .policy-section { text-align: left; font-size: 12px; margin-top: 40px; padding: 15px; background: var(--card); border-radius: 8px; opacity: 0.8; }
+        footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; width: 100%; }
+        #maintenanceMode { display: none; padding: 50px; text-align: center; width: 100%; }
     </style>
 </head>
 <body>
 
 <button class="btn-dark" onclick="toggleDarkMode()">🌓</button>
 
-<div class="container">
-    <div id="loginSection">
-        <h1>Fizika Test Portalı</h1>
-        <p>Biliklərinizi <strong>Balux</strong> ilə onlayn yoxlayın</p>
-        <input type="text" id="username" placeholder="Adınız">
-        <input type="password" id="password" placeholder="Şifrə">
-        <button onclick="handleLogin()" class="btn-style btn-primary">Daxil ol</button>
-    </div>
-
-    <div id="adminPanel" style="display:none;">
-        <h2>Admin Paneli (Nəticələr)</h2>
-        <table>
-            <thead><tr><th>Şagird</th><th>Nəticə</th><th>Tarix</th></tr></thead>
-            <tbody id="resultsBody"></tbody>
-        </table>
-        <button onclick="location.reload()" class="btn-style">Çıxış</button>
-    </div>
-
-    <div id="userPanel" style="display:none;">
-        <h2 id="welcomeUser"></h2>
-        <select id="classSelect" onchange="loadQuiz(this.value)">
-            <option value="sinif7_fizika.json">7-ci sinif</option>
-            <option value="sinif8_fizika.json">8-ci sinif</option>
-            <option value="sinif9_fizika.json">9-ci sinif</option>
-            <option value="sinif10_fizika.json">10-ci sinif</option>
-            <option value="sinif11_fizika.json">11-ci sinif</option>
-        </select>
-        <div id="quizArea"></div>
-        <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-primary" style="display:none;">Testi Bitir</button>
-        <div id="userResult"></div>
-        <button onclick="location.reload()" class="btn-style">Çıxış</button>
-    </div>
-
-    <div id="seoText">
-        <div id="dailyFact">💡 Yüklənir...</div>
-
-        <div class="policy-section">
-            <h3>Məxfilik Siyasəti və Kukilər</h3>
-            <p><strong>Balux Fizika Portalı</strong> olaraq istifadəçilərimizin təhlükəsizliyi önəmlidir. Bu sayt Google AdSense reklamlarını göstərmək üçün <strong>kukilərdən (cookies)</strong> istifadə edir.</p>
-            <p><strong>Kukilər nədir?</strong> Kukilər brauzeriniz tərəfindən saxlanılan kiçik fayllardır. Google, üçüncü tərəf tərəfdaşımız kimi, saytımıza daxil olan istifadəçilərə onların maraqlarına uyğun reklamlar təqdim etmək üçün bu fayllardan istifadə edir.</p>
-            <p><strong>Məlumatların Qorunması:</strong> Test zamanı daxil etdiyiniz ad və topladığınız xallar Firebase bazasında saxlanılır və heç vaxt kənar şəxslərlə paylaşılmır.</p>
-            <p>Əlaqə üçün: <strong>balux677@gmail.com</strong></p>
-        </div>
+<div id="maintenanceMode">
+    <div class="container" style="margin: auto;">
+        <h1 style="color: #d93025;">Səhifə Müvəqqəti Bağlıdır</h1>
+        <p>Admin tərəfindən texniki işlər aparılır.</p>
     </div>
 </div>
 
+<div class="main-wrapper" id="mainWrapper">
+    <aside class="essay-sidebar" id="essayAside">
+        <h2>Fizika: Kainatın Dili</h2>
+        <p><strong>Fizika</strong> - təbiətin ən fundamental qanunlarını öyrənən elmdir. O, kainatın necə işlədiyini, ən kiçik atomaltı hissəciklərdən tutmuş ən böyük qalaktikalara qədər hər şeyin hərəkətini izah edir. Bizim gündəlik həyatımızda istifadə etdiyimiz texnologiyalar - smartfonlar, internet, elektrik enerjisi və hətta tibbi cihazlar birbaşa fizika qanunlarının tətbiqi nəticəsində yaranmışdır.</p>
+        
+        <p>Fizika dünyanı anlamaq üçün bizə məntiqi çərçivə təqdim edir. Nyutonun hərəkət qanunları bizə yerin cazibə qüvvəsini, Eynşteynin nisbilik nəzəriyyəsi isə zaman və məkanın sirli əlaqəsini göstərir. Bu elm sahəsi təkcə düsturlardan ibarət deyil, o həm də insan zəkasının təbiəti kəşf etmək yolunda atdığı ən böyük addımdır.</p>
+
+        <p>Bu portalın məqsədi, şagirdlərin fizika elminə olan marağını artırmaq və onların biliklərini onlayn şəkildə yoxlamasına kömək etməkdir. Unutmayın ki, bu gün öyrəndiyiniz hər bir fizika qanunu sabahın böyük kəşfinin təməli ola bilər.</p>
+        
+        <hr style="border: 0.5px solid var(--border);">
+        <p style="font-size: 12px; color: gray;">Müəllif: Balux (Şəki, Oxud)</p>
+    </aside>
+
+    <main class="container" id="mainApp">
+        <div id="loginSection">
+            <h1>Fizika Test Portalı</h1>
+            <p>Biliklərinizi <strong>Balux</strong> ilə yoxlayın</p>
+            <input type="text" id="username" placeholder="Adınız">
+            <input type="password" id="password" placeholder="Şifrə">
+            <button onclick="handleLogin()" class="btn-style btn-primary">Daxil ol</button>
+        </div>
+
+        <div id="adminPanel" style="display:none;">
+            <h2>Admin Paneli</h2>
+            <div style="margin-bottom: 20px; padding: 10px; border: 1px solid var(--border); border-radius: 8px;">
+                <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style btn-danger">Saytı Bağla</button>
+            </div>
+            <table>
+                <thead><tr><th>Şagird</th><th>Nəticə</th><th>Tarix</th></tr></thead>
+                <tbody id="resultsBody"></tbody>
+            </table>
+            <button onclick="location.reload()" class="btn-style">Çıxış</button>
+        </div>
+
+        <div id="userPanel" style="display:none;">
+            <h2 id="welcomeUser"></h2>
+            <select id="classSelect" onchange="loadQuiz(this.value)">
+                <option value="sinif7_fizika.json">7-ci sinif</option>
+                <option value="sinif8_fizika.json">8-ci sinif</option>
+                <option value="sinif9_fizika.json">9-ci sinif</option>
+                <option value="sinif10_fizika.json">10-ci sinif</option>
+                <option value="sinif11_fizika.json">11-ci sinif</option>
+            </select>
+            <div id="quizArea"></div>
+            <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-primary" style="display:none;">Testi Bitir</button>
+            <div id="userResult"></div>
+            <button onclick="location.reload()" class="btn-style">Çıxış</button>
+        </div>
+
+        <div id="seoText">
+            <div id="dailyFact">💡 Yüklənir...</div>
+            <div class="policy-section">
+                <h3>Məxfilik Siyasəti</h3>
+                <p>Google AdSense kukilərindən istifadə olunur. Əlaqə: balux677@gmail.com</p>
+            </div>
+        </div>
+    </main>
+</div>
+
 <footer>
-    <p>© 2026 Fizika Test Portalı | <strong>Balux</strong> (Şəki, Oxud)</p>
+    <p>© 2026 Fizika Portalı | <strong>Balux</strong> (Şəki, Oxud)</p>
 </footer>
 
 <script>
-    const dbURL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/.json";
-    
-    const facts = [
-        "Səs kosmosda yayılmır, çünki orada səs dalğalarını ötürəcək hava yoxdur.",
-        "İşıq vakuumda saniyədə 300,000 km sürətlə hərəkət edir.",
-        "Günəş sistemində ən isti planet Veneradır (464°C).",
-        "Nyuton cazibə qanununu alma ağacının altında oturarkən kəşf edib.",
-        "Mütləq sıfır temperaturu -273.15 dərəcə Selsidir.",
-        "Kosmosda cazibə qüvvəsi olmadığı üçün ağlayanda göz yaşları axmır."
-    ];
+    const dbURL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/";
+    const facts = ["İldırım 30,000°C ola bilər.", "Venera ən isti planetdir.", "İşıq saniyədə 300 min km yol gedir."];
 
     let currentQuizData = [];
     let currentUser = "";
+    let isSiteClosed = false;
 
-    // Təsadüfi fakt seçimi (Hər yeniləmədə fərqli)
+    async function checkSiteStatus() {
+        const response = await fetch(dbURL + "status.json");
+        isSiteClosed = await response.json();
+        if (isSiteClosed && currentUser !== "admin_active") {
+            document.getElementById('mainWrapper').style.display = 'none';
+            document.getElementById('maintenanceMode').style.display = 'block';
+        }
+    }
+    checkSiteStatus();
+
+    async function toggleSiteStatus() {
+        isSiteClosed = !isSiteClosed;
+        await fetch(dbURL + "status.json", { method: 'PUT', body: JSON.stringify(isSiteClosed) });
+        updateAdminBtn();
+    }
+
+    function updateAdminBtn() {
+        const btn = document.getElementById('siteToggleBtn');
+        btn.innerText = isSiteClosed ? "Saytı Aç" : "Saytı Bağla";
+        btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
+    }
+
     function showRandomFact() {
         const randomIndex = Math.floor(Math.random() * facts.length);
         document.getElementById('dailyFact').innerText = "💡 Bilirdinizmi? " + facts[randomIndex];
@@ -125,11 +174,13 @@
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
         if (u === "ebalux" && p === "12345") {
+            currentUser = "admin_active";
             showAdmin();
         } else if (u !== "") {
             currentUser = u;
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('seoText').style.display = 'none';
+            document.getElementById('essayAside').style.display = 'none';
             document.getElementById('userPanel').style.display = 'block';
             document.getElementById('welcomeUser').innerText = "Salam, " + u;
             loadQuiz("sinif7_fizika.json");
@@ -139,8 +190,10 @@
     async function showAdmin() {
         document.getElementById('loginSection').style.display = 'none';
         document.getElementById('seoText').style.display = 'none';
+        document.getElementById('essayAside').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
-        const response = await fetch(dbURL);
+        updateAdminBtn();
+        const response = await fetch(dbURL + "results.json");
         const data = await response.json();
         const body = document.getElementById('resultsBody');
         body.innerHTML = "";
@@ -185,8 +238,7 @@
         });
 
         const scoreStr = `${correct} / ${currentQuizData.length}`;
-        // Firebase-ə nəticəni göndər
-        await fetch(dbURL, { method: 'POST', body: JSON.stringify({ name: currentUser, score: scoreStr, date: new Date().toLocaleString('az-AZ') }) });
+        await fetch(dbURL + "results.json", { method: 'POST', body: JSON.stringify({ name: currentUser, score: scoreStr, date: new Date().toLocaleString('az-AZ') }) });
         document.getElementById('userResult').innerHTML = `<h3>Nəticə: ${scoreStr}</h3>`;
         document.getElementById('finishBtn').style.display = 'none';
     }
