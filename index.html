@@ -3,215 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fizika Test Portalı</title>
+    <title>Fizika Test Portalı | Balux</title>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
     <style>
-        body { 
-            font-family: 'Segoe UI', sans-serif; 
-            margin: 0; 
-            background-color: #f0f2f5; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 15px; 
-        }
-        .container { 
-            background: white; 
-            padding: 20px; 
-            border-radius: 12px; 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
-            width: 100%; 
-            max-width: 600px; /* Kompüterdə çox böyük olmasın, telefonda tam otursun */
-            box-sizing: border-box;
-        }
-        h1, h2 { text-align: center; color: #1a73e8; margin-bottom: 20px; }
-        
-        input[type="text"], input[type="password"], select { 
-            width: 100%; padding: 12px; margin: 10px 0; 
-            border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; 
-        }
-        
-        .btn-style { 
-            width: 100%; padding: 14px; border: none; border-radius: 8px; 
-            cursor: pointer; font-weight: bold; transition: 0.3s; margin-top: 10px; 
-            font-size: 16px;
-        }
-        .btn-primary { background-color: #1a73e8; color: white; }
-        .btn-danger { background-color: #d93025; color: white; }
-        .btn-success { background-color: #1e8e3e; color: white; }
-        .btn-secondary { background-color: #5f6368; color: white; }
-        .btn-guest { background-color: #34a853; color: white; }
+        :root { --bg: #f0f2f5; --container-bg: #ffffff; --text: #333; --primary: #1a73e8; --card: #f8f9fa; --border: #ddd; }
+        .dark-mode { --bg: #121212; --container-bg: #1e1e1e; --text: #e0e0e0; --primary: #8ab4f8; --card: #2d2d2d; --border: #444; }
 
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 14px; }
-        table, th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
-        th { background-color: #f8f9fa; }
-
-        #adminPanel, #userPanel, #loginSection { display: none; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; transition: 0.3s; }
+        .container { background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); width: 100%; max-width: 700px; text-align: center; }
         
-        .question { 
-            background: #f8f9fa; padding: 15px; border-radius: 8px; 
-            margin-bottom: 15px; border-left: 4px solid #1a73e8; 
-            display: flex; flex-direction: column; gap: 10px; 
-        }
-        .question-header { font-weight: bold; font-size: 1.1em; margin: 0; }
-        .options-container { display: flex; flex-direction: column; gap: 8px; padding-left: 10px; }
-        .option-label { 
-            display: flex; align-items: center; gap: 10px; cursor: pointer; 
-            padding: 10px; border-radius: 6px; transition: 0.2s; border: 1px solid transparent;
-        }
-        .option-label:hover { background-color: #e9ecef; }
-        input[type="radio"] { width: 20px; height: 20px; cursor: pointer; }
-        
-        .correct { background-color: #d4edda !important; color: #155724; border: 1px solid #c3e6cb; }
-        .wrong { background-color: #f8d7da !important; color: #721c24; border: 1px solid #f5c6cb; }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; background: var(--container-bg); color: var(--text); }
+        .btn-style { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; }
+        .btn-primary { background-color: var(--primary); color: white; }
+        .btn-dark { position: fixed; top: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer; background: var(--primary); color: white; font-size: 20px; z-index: 1001; }
 
-        footer { 
-            margin-top: 30px; padding: 20px; text-align: center; 
-            font-size: 12px; color: #666; width: 100%; max-width: 600px; 
-        }
+        .question { background: var(--card); padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--primary); text-align: left; }
+        .options-group { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .option-item { display: flex; align-items: center; cursor: pointer; padding: 8px; border-radius: 6px; }
+        .option-item input { width: auto; margin-right: 10px; }
+
+        .correct { background-color: #2e7d32 !important; color: white; }
+        .wrong { background-color: #c62828 !important; color: white; }
+
+        #dailyFact { background: var(--card); padding: 20px; border-radius: 12px; margin: 20px 0; color: var(--primary); font-weight: bold; border: 2px solid var(--primary); }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { border: 1px solid var(--border); padding: 10px; text-align: left; }
+        th { background: var(--primary); color: white; }
+
+        /* Məxfilik Siyasəti Bölməsi (AdSense üçün vacib) */
+        .policy-section { text-align: left; font-size: 13px; margin-top: 40px; padding: 20px; background: var(--card); border-top: 3px solid var(--primary); border-radius: 8px; line-height: 1.6; }
+        .policy-section h3 { text-align: center; margin-top: 0; }
+        
+        footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; }
     </style>
 </head>
 <body>
 
+<button class="btn-dark" onclick="toggleDarkMode()">🌓</button>
+
 <div class="container">
-    <div id="loginSection" style="display: block;">
-        <h1>Fizika Portalı</h1>
-        <input type="text" id="username" placeholder="Adınızı yazın">
-        <input type="password" id="password" placeholder="Admin şifrəsi (isteğe bağlı)">
+    <div id="loginSection">
+        <h1>Fizika Test Portalı</h1>
+        <p>Biliklərinizi <strong>Balux</strong> ilə onlayn yoxlayın</p>
+        <input type="text" id="username" placeholder="Adınız">
+        <input type="password" id="password" placeholder="Şifrə">
         <button onclick="handleLogin()" class="btn-style btn-primary">Daxil ol</button>
-        <button onclick="guestLogin()" class="btn-style btn-guest">Qonaq kimi davam et</button>
     </div>
 
-    <div id="adminPanel">
-        <h2>Nəticələr</h2>
-        <table id="resultsTable">
+    <div id="adminPanel" style="display:none;">
+        <h2>Admin Paneli (Nəticələr)</h2>
+        <table>
             <thead><tr><th>Şagird</th><th>Nəticə</th><th>Tarix</th></tr></thead>
             <tbody id="resultsBody"></tbody>
         </table>
-        <button onclick="clearResults()" class="btn-style btn-secondary">Təmizlə</button>
-        <button onclick="location.reload()" class="btn-style btn-danger">Çıxış</button>
+        <button onclick="location.reload()" class="btn-style">Çıxış</button>
     </div>
 
-    <div id="userPanel">
+    <div id="userPanel" style="display:none;">
         <h2 id="welcomeUser"></h2>
         <select id="classSelect" onchange="loadQuiz(this.value)">
             <option value="sinif7_fizika.json">7-ci sinif</option>
             <option value="sinif8_fizika.json">8-ci sinif</option>
-            <option value="sinif9_fizika.json">9-cu sinif</option>
-            <option value="sinif10_fizika.json">10-cu sinif</option>
+            <option value="sinif9_fizika.json">9-ci sinif</option>
+            <option value="sinif10_fizika.json">10-ci sinif</option>
             <option value="sinif11_fizika.json">11-ci sinif</option>
         </select>
         <div id="quizArea"></div>
-        <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-success" style="display:none;">Testi Bitir</button>
+        <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-primary" style="display:none;">Testi Bitir</button>
         <div id="userResult"></div>
-        <button onclick="location.reload()" class="btn-style btn-secondary">Geri Qayıt</button>
+        <button onclick="location.reload()" class="btn-style">Çıxış</button>
+    </div>
+
+    <div id="seoText">
+        <div id="dailyFact">💡 Yüklənir...</div>
+
+        <div class="policy-section">
+            <h3>Məxfilik Siyasəti və Kukilər</h3>
+            <p><strong>Balux Fizika Portalı</strong> olaraq istifadəçilərimizin təhlükəsizliyi önəmlidir. Bu sayt Google AdSense reklamlarını göstərmək üçün <strong>kukilərdən (cookies)</strong> istifadə edir.</p>
+            <p><strong>Kukilər nədir?</strong> Kukilər brauzeriniz tərəfindən saxlanılan kiçik fayllardır. Google, üçüncü tərəf tərəfdaşımız kimi, saytımıza daxil olan istifadəçilərə onların maraqlarına uyğun reklamlar təqdim etmək üçün bu fayllardan istifadə edir.</p>
+            <p><strong>Məlumatların Qorunması:</strong> Test zamanı daxil etdiyiniz ad və topladığınız xallar Firebase bazasında saxlanılır və heç vaxt kənar şəxslərlə paylaşılmır.</p>
+            <p>Əlaqə üçün: <strong>balux677@gmail.com</strong></p>
+        </div>
     </div>
 </div>
 
 <footer>
-    <p>© 2026 Fizika Test Portalı | <strong>Balux</strong> - Şəki</p>
+    <p>© 2026 Fizika Test Portalı | <strong>Balux</strong> (Şəki, Oxud)</p>
 </footer>
 
 <script>
     const dbURL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/.json";
+    
+    const facts = [
+        "Səs kosmosda yayılmır, çünki orada səs dalğalarını ötürəcək hava yoxdur.",
+        "İşıq vakuumda saniyədə 300,000 km sürətlə hərəkət edir.",
+        "Günəş sistemində ən isti planet Veneradır (464°C).",
+        "Nyuton cazibə qanununu alma ağacının altında oturarkən kəşf edib.",
+        "Mütləq sıfır temperaturu -273.15 dərəcə Selsidir.",
+        "Kosmosda cazibə qüvvəsi olmadığı üçün ağlayanda göz yaşları axmır."
+    ];
+
     let currentQuizData = [];
     let currentUser = "";
+
+    // Təsadüfi fakt seçimi (Hər yeniləmədə fərqli)
+    function showRandomFact() {
+        const randomIndex = Math.floor(Math.random() * facts.length);
+        document.getElementById('dailyFact').innerText = "💡 Bilirdinizmi? " + facts[randomIndex];
+    }
+    showRandomFact();
+
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+    }
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
 
     function handleLogin() {
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
-        if (u === "ebalux" && p === "12345") { showAdmin(); } 
-        else if (u !== "") { currentUser = u; showUser(); }
-        else { alert("Adınızı daxil edin!"); }
+        if (u === "ebalux" && p === "12345") {
+            showAdmin();
+        } else if (u !== "") {
+            currentUser = u;
+            document.getElementById('loginSection').style.display = 'none';
+            document.getElementById('seoText').style.display = 'none';
+            document.getElementById('userPanel').style.display = 'block';
+            document.getElementById('welcomeUser').innerText = "Salam, " + u;
+            loadQuiz("sinif7_fizika.json");
+        }
     }
 
-    function guestLogin() {
-        currentUser = "Qonaq_" + Math.floor(Math.random() * 999);
-        showUser();
-    }
-
-    function showAdmin() {
+    async function showAdmin() {
         document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('seoText').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
-        updateAdminUI();
-    }
-
-    async function updateAdminUI() {
-        try {
-            const response = await fetch(dbURL);
-            const data = await response.json();
-            const body = document.getElementById('resultsBody');
-            body.innerHTML = "";
-            if (data) {
-                Object.keys(data).reverse().forEach(key => {
-                    const res = data[key];
-                    body.innerHTML += `<tr><td>${res.name}</td><td>${res.score}</td><td>${res.date}</td></tr>`;
-                });
-            }
-        } catch (e) { console.log("Baza xətası"); }
-    }
-
-    function showUser() {
-        document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('userPanel').style.display = 'block';
-        document.getElementById('welcomeUser').innerText = "Xoş gəldin, " + currentUser;
-        loadQuiz(document.getElementById('classSelect').value);
+        const response = await fetch(dbURL);
+        const data = await response.json();
+        const body = document.getElementById('resultsBody');
+        body.innerHTML = "";
+        if (data) {
+            Object.keys(data).reverse().forEach(key => {
+                const res = data[key];
+                body.innerHTML += `<tr><td>${res.name}</td><td>${res.score}</td><td>${res.date}</td></tr>`;
+            });
+        }
     }
 
     function loadQuiz(file) {
         fetch(file).then(r => r.json()).then(data => {
             currentQuizData = data;
             const area = document.getElementById('quizArea');
-            area.innerHTML = "";
-            data.forEach((q, i) => {
-                area.innerHTML += `
-                    <div class="question">
-                        <p class="question-header"><strong>${i+1}.</strong> ${q.question}</p>
-                        <div class="options-container">
-                            ${q.options.map((opt, optIdx) => `
-                                <label class="option-label" id="label-q${i}-opt${optIdx}">
-                                    <input type="radio" name="q${i}" value="${opt}"> <span>${opt}</span>
-                                </label>`).join('')}
-                        </div>
-                    </div>`;
-            });
-            document.getElementById('finishBtn').style.display = "block";
-            document.getElementById('userResult').innerHTML = "";
-        }).catch(() => {
-            document.getElementById('quizArea').innerHTML = "<p>Bu sinif üçün hələ test yüklənməyib.</p>";
+            area.innerHTML = data.map((q, i) => `
+                <div class="question">
+                    <p><strong>${i+1}.</strong> ${q.question}</p>
+                    <div class="options-group">
+                        ${q.options.map((opt, oi) => `
+                            <label class="option-item" id="l-q${i}-o${oi}">
+                                <input type="radio" name="q${i}" value="${opt}"> <span>${opt}</span>
+                            </label>`).join('')}
+                    </div>
+                </div>`).join('');
+            document.getElementById('finishBtn').style.display = 'block';
         });
     }
 
     async function finishQuiz() {
         let correct = 0;
-        let total = currentQuizData.length;
         currentQuizData.forEach((q, i) => {
-            const selected = document.querySelector(`input[name="q${i}"]:checked`);
-            const radios = document.getElementsByName(`q${i}`);
-            radios.forEach((r, optIdx) => {
-                const label = document.getElementById(`label-q${i}-opt${optIdx}`);
-                r.disabled = true;
-                if (r.value === q.correctAnswer) label.classList.add('correct');
-                if (selected && selected.value !== q.correctAnswer && r.checked) label.classList.add('wrong');
+            const sel = document.querySelector(`input[name="q${i}"]:checked`);
+            const opts = document.getElementsByName(`q${i}`);
+            opts.forEach((opt, oi) => {
+                const label = document.getElementById(`l-q${i}-o${oi}`);
+                if (opt.value === q.correctAnswer) label.classList.add('correct');
+                if (sel && sel.value === opt.value && sel.value !== q.correctAnswer) label.classList.add('wrong');
+                opt.disabled = true;
             });
-            if (selected && selected.value === q.correctAnswer) correct++;
+            if (sel && sel.value === q.correctAnswer) correct++;
         });
 
-        const score = `${correct} / ${total}`;
-        document.getElementById('userResult').innerHTML = `<h3>Nəticə: ${score}</h3>`;
-        document.getElementById('finishBtn').style.display = "none";
-
-        await fetch(dbURL, { 
-            method: 'POST', 
-            body: JSON.stringify({ name: currentUser, score: score, date: new Date().toLocaleString('az-AZ') }) 
-        });
-    }
-
-    async function clearResults() {
-        if(confirm("Bütün nəticələr silinsin?")) {
-            await fetch(dbURL, { method: 'DELETE' });
-            updateAdminUI();
-        }
+        const scoreStr = `${correct} / ${currentQuizData.length}`;
+        // Firebase-ə nəticəni göndər
+        await fetch(dbURL, { method: 'POST', body: JSON.stringify({ name: currentUser, score: scoreStr, date: new Date().toLocaleString('az-AZ') }) });
+        document.getElementById('userResult').innerHTML = `<h3>Nəticə: ${scoreStr}</h3>`;
+        document.getElementById('finishBtn').style.display = 'none';
     }
 </script>
 </body>
