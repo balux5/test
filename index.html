@@ -10,18 +10,11 @@
         .dark-mode { --bg: #121212; --container-bg: #1e1e1e; --text: #e0e0e0; --primary: #8ab4f8; --card: #2d2d2d; --border: #444; }
 
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; transition: 0.3s; }
-        
-        /* Layout sistemi */
         .main-wrapper { display: flex; flex-direction: row; gap: 25px; max-width: 1100px; width: 100%; align-items: flex-start; }
-        
-        /* Esse Sütunu (Sol tərəf) */
         .essay-sidebar { flex: 1; background: var(--container-bg); padding: 20px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); font-size: 14px; line-height: 1.6; text-align: justify; }
         .essay-sidebar h2 { color: var(--primary); font-size: 18px; text-align: center; }
-
-        /* Əsas Konteynerr (Sağ tərəf) */
         .container { flex: 2; background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; }
 
-        /* Mobil telefonlar üçün nizamlamalar */
         @media (max-width: 900px) {
             .main-wrapper { flex-direction: column; align-items: center; }
             .essay-sidebar { order: 2; width: 100%; box-sizing: border-box; }
@@ -44,41 +37,32 @@
         .wrong { background-color: #c62828 !important; color: white; }
 
         #dailyFact { background: var(--card); padding: 15px; border-radius: 12px; margin-bottom: 20px; color: var(--primary); font-weight: bold; border: 1px solid var(--primary); }
-        
         table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
         th, td { border: 1px solid var(--border); padding: 10px; text-align: left; }
         th { background: var(--primary); color: white; }
-
         .policy-section { text-align: left; font-size: 12px; margin-top: 40px; padding: 15px; background: var(--card); border-radius: 8px; opacity: 0.8; }
         footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; width: 100%; }
-        #maintenanceMode { display: none; padding: 50px; text-align: center; width: 100%; }
+        #maintenanceMode { display: none; padding: 50px; text-align: center; }
     </style>
 </head>
 <body>
 
 <button class="btn-dark" onclick="toggleDarkMode()">🌓</button>
 
-<div id="maintenanceMode">
-    <div class="container" style="margin: auto;">
-        <h1 style="color: #d93025;">Səhifə Müvəqqəti Bağlıdır</h1>
-        <p>Admin tərəfindən texniki işlər aparılır.</p>
-    </div>
-</div>
-
-<div class="main-wrapper" id="mainWrapper">
+<div class="main-wrapper">
     <aside class="essay-sidebar" id="essayAside">
         <h2>Fizika: Kainatın Dili</h2>
-        <p><strong>Fizika</strong> - təbiətin ən fundamental qanunlarını öyrənən elmdir. O, kainatın necə işlədiyini, ən kiçik atomaltı hissəciklərdən tutmuş ən böyük qalaktikalara qədər hər şeyin hərəkətini izah edir. Bizim gündəlik həyatımızda istifadə etdiyimiz texnologiyalar - smartfonlar, internet, elektrik enerjisi və hətta tibbi cihazlar birbaşa fizika qanunlarının tətbiqi nəticəsində yaranmışdır.</p>
-        
-        <p>Fizika dünyanı anlamaq üçün bizə məntiqi çərçivə təqdim edir. Nyutonun hərəkət qanunları bizə yerin cazibə qüvvəsini, Eynşteynin nisbilik nəzəriyyəsi isə zaman və məkanın sirli əlaqəsini göstərir. Bu elm sahəsi təkcə düsturlardan ibarət deyil, o həm də insan zəkasının təbiəti kəşf etmək yolunda atdığı ən böyük addımdır.</p>
-
-        <p>Bu portalın məqsədi, şagirdlərin fizika elminə olan marağını artırmaq və onların biliklərini onlayn şəkildə yoxlamasına kömək etməkdir. Unutmayın ki, bu gün öyrəndiyiniz hər bir fizika qanunu sabahın böyük kəşfinin təməli ola bilər.</p>
-        
+        <p><strong>Fizika</strong> - təbiətin ən fundamental qanunlarını öyrənən elmdir. Bu portal şagirdlərin onlayn bilik yoxlaması üçün nəzərdə tutulub.</p>
         <hr style="border: 0.5px solid var(--border);">
         <p style="font-size: 12px; color: gray;">Müəllif: Balux (Şəki, Oxud)</p>
     </aside>
 
-    <main class="container" id="mainApp">
+    <main class="container">
+        <div id="maintenanceMode">
+            <h1 style="color: #d93025;">Səhifə Müvəqqəti Bağlıdır</h1>
+            <p>Admin tərəfindən texniki işlər aparılır. Şagirdlər üçün giriş dayandırılıb.</p>
+        </div>
+
         <div id="loginSection">
             <h1>Fizika Test Portalı</h1>
             <p>Biliklərinizi <strong>Balux</strong> ilə yoxlayın</p>
@@ -136,12 +120,13 @@
     let currentUser = "";
     let isSiteClosed = false;
 
+    // Saytın statusunu yoxlayır amma Login pəncərəsini bağlamır
     async function checkSiteStatus() {
         const response = await fetch(dbURL + "status.json");
         isSiteClosed = await response.json();
-        if (isSiteClosed && currentUser !== "admin_active") {
-            document.getElementById('mainWrapper').style.display = 'none';
-            document.getElementById('maintenanceMode').style.display = 'block';
+        // Əgər sayt bağlıdırsa və admin deyilsə, login-dən sonrakı hissələri gizləyirik
+        if (isSiteClosed) {
+            console.log("Sayt admin tərəfindən bağlanıb.");
         }
     }
     checkSiteStatus();
@@ -154,8 +139,10 @@
 
     function updateAdminBtn() {
         const btn = document.getElementById('siteToggleBtn');
-        btn.innerText = isSiteClosed ? "Saytı Aç" : "Saytı Bağla";
-        btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
+        if(btn) {
+            btn.innerText = isSiteClosed ? "Saytı Aç" : "Saytı Bağla";
+            btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
+        }
     }
 
     function showRandomFact() {
@@ -173,10 +160,17 @@
     function handleLogin() {
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
+
         if (u === "ebalux" && p === "12345") {
             currentUser = "admin_active";
             showAdmin();
         } else if (u !== "") {
+            // Əgər sayt bağlıdırsa, şagird girə bilməz
+            if (isSiteClosed) {
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('maintenanceMode').style.display = 'block';
+                return;
+            }
             currentUser = u;
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('seoText').style.display = 'none';
@@ -189,10 +183,12 @@
 
     async function showAdmin() {
         document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('maintenanceMode').style.display = 'none'; // Admin üçün bağlı rejim mesajını gizlə
         document.getElementById('seoText').style.display = 'none';
         document.getElementById('essayAside').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
         updateAdminBtn();
+        
         const response = await fetch(dbURL + "results.json");
         const data = await response.json();
         const body = document.getElementById('resultsBody');
