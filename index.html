@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="az">
+<html lang="en">
 <head>
-    <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Physics Test With Balux",
-  "url": "https://fizikatesti.vercel.app/"
-}
-</script>
-    <meta property="og:site_name" content="Physics Test With Balux">
-<meta name="apple-mobile-web-app-title" content="Physics Test With Balux">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fizika Portalı | Balux</title>
+    <title>Physics Education Portal | Interactive Learning by Balux</title>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Physics Portal",
+      "url": "https://fizikatesti.vercel.app/",
+      "description": "Educational physics portal providing interactive tests and fundamental science laws for students."
+    }
+    </script>
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
+
     <style>
         :root { --bg: #f0f2f5; --container-bg: #ffffff; --text: #333; --primary: #1a73e8; --card: #f8f9fa; --border: #ddd; }
         .dark-mode { --bg: #121212; --container-bg: #1e1e1e; --text: #e0e0e0; --primary: #8ab4f8; --card: #2d2d2d; --border: #444; }
 
-        body { font-family: 'Segoe UI', sans-serif; margin: 0; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; transition: 0.3s; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; transition: 0.3s; }
         
         .main-wrapper { display: flex; flex-direction: row; gap: 25px; max-width: 1200px; width: 100%; align-items: flex-start; }
         
-        .essay-sidebar { flex: 1; background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); font-size: 14px; line-height: 1.7; text-align: justify; }
-        .essay-sidebar h2 { color: var(--primary); font-size: 20px; text-align: center; margin-bottom: 15px; }
-        .essay-sidebar p { margin-bottom: 15px; }
+        .essay-sidebar { flex: 1; background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); font-size: 15px; line-height: 1.8; text-align: justify; }
+        .essay-sidebar h2 { color: var(--primary); font-size: 22px; text-align: center; margin-bottom: 15px; }
 
         .container { flex: 1.8; background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; }
 
         @media (max-width: 900px) {
             .main-wrapper { flex-direction: column; align-items: center; }
-            .essay-sidebar { order: 2; width: 100%; box-sizing: border-box; }
-            .container { order: 1; width: 100%; box-sizing: border-box; }
+            .essay-sidebar, .container { width: 100%; box-sizing: border-box; }
         }
 
         input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; background: var(--container-bg); color: var(--text); }
@@ -40,25 +40,15 @@
         .btn-primary { background-color: var(--primary); color: white; }
         .btn-danger { background-color: #d93025; color: white; }
         .btn-success { background-color: #2e7d32; color: white; }
+        
         .btn-dark { position: fixed; top: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer; background: var(--primary); color: white; font-size: 20px; z-index: 1001; }
 
         .question { background: var(--card); padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--primary); text-align: left; }
-        .options-group { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-        .option-item { display: flex; align-items: center; cursor: pointer; padding: 8px; border-radius: 6px; }
-        .option-item input { width: auto; margin-right: 10px; }
-
         .correct { background-color: #2e7d32 !important; color: white; }
         .wrong { background-color: #c62828 !important; color: white; }
 
-        #dailyFact { background: var(--card); padding: 15px; border-radius: 12px; margin-bottom: 20px; color: var(--primary); font-weight: bold; border: 1px solid var(--primary); }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-        th, td { border: 1px solid var(--border); padding: 10px; text-align: left; }
-        th { background: var(--primary); color: white; }
-
-        .policy-section { text-align: left; font-size: 12px; margin-top: 40px; padding: 15px; background: var(--card); border-radius: 8px; opacity: 0.8; }
-        footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; width: 100%; }
-        #maintenanceMode { display: none; padding: 20px; text-align: center; margin-bottom: 15px; border: 2px solid #d93025; border-radius: 8px; background: #fff5f5; }
+        .policy-section { text-align: left; font-size: 13px; margin-top: 40px; padding: 15px; background: var(--card); border-radius: 8px; border: 1px solid var(--border); }
+        footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; padding-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -67,77 +57,81 @@
 
 <div class="main-wrapper">
     <aside class="essay-sidebar" id="essayAside">
-        <h2>Fizika: Kainatın Dili</h2>
-        <p><strong>Fizika</strong> - təbiətin ən fundamental qanunlarını öyrənən elmdir. O, kainatın necə işlədiyini, ən kiçik atomaltı hissəciklərdən tutmuş ən böyük qalaktikalara qədər hər şeyin hərəkətini və qarşılıqlı təsirini izah edir. Bizim gündəlik həyatımızda istifadə etdiyimiz texnologiyalar - smartfonlar, internet, süni peyklər və tibbi diaqnostika cihazları birbaşa fizika qanunlarının tətbiqi nəticəsində yaranmışdır.</p>
+        <h2>Physics: The Language of the Universe</h2>
+        <p><strong>Physics</strong> is the most fundamental natural science, exploring the laws that govern the universe. From the smallest subatomic particles to the vastest galaxies, physics explains how everything moves and interacts.</p>
         
-        <p>Fizika dünyanı anlamaq üçün bizə məntiqi və riyazi çərçivə təqdim edir. İsaak Nyutonun hərəkət qanunları bizə yerin cazibə qüvvəsini və mexanikanın əsaslarını, Albert Eynşteynin nisbilik nəzəriyyəsi isə zaman, məkan və enerjinin bir-biri ilə necə sıx bağlı olduğunu göstərir. Kvant fizikası isə bizə atom səviyyəsində maddənin sirli davranışlarını izah edərək müasir elektronikanın təməlini qoymuşdur.</p>
+        <p>In our daily lives, we rely on technologies like smartphones, high-speed internet, and medical diagnostics—all of which are direct applications of physical principles. By studying physics, we gain a logical and mathematical framework to understand the world around us.</p>
 
-        <p>Termodinamikadan optikaya, nüvə fizikasından astrofizikaya qədər hər bir bölmə kainatın gizli kodlarını açır. Məsələn, termodinamika qanunları sayəsində biz istilik maşınlarını və mühərrikləri yaradırıq, optika sayəsində isə uzaq ulduzları müşahidə edə biləcək teleskoplar hazırlayırıq. Elektromaqnetizm isə bu gün yaşadığımız rəqəmsal dövrün, yəni elektrik enerjisinin və simsiz rabitənin ürəyidir.</p>
+        <p>From Newton's laws of motion to Einstein's theory of relativity, physics provides the foundation for modern engineering. Quantum physics has revolutionized electronics, while thermodynamics allows us to harness energy for sustainable futures.</p>
 
-        <p>Bu portalın məqsədi şagirdlərin fizika elminə olan marağını artırmaq, onları sadə düsturlardan daha çox, bu elmin fəlsəfəsi ilə tanış etməkdir. Unutmayın ki, bu gün öyrəndiyiniz hər bir qanun sabahın böyük kəşfinin, bəlkə də yeni bir enerji mənbəyinin və ya kosmik səyahət texnologiyasının təməli ola bilər. Fizika sadəcə bir fənn deyil, o, bəşəriyyətin gələcəyini quran bir alətdir.</p>
+        <p>This portal is designed to inspire students to look beyond simple formulas and appreciate the philosophy of science. Every law you learn today is a stepping stone toward tomorrow's grand discovery.</p>
         
         <hr style="border: 0.5px solid var(--border);">
-        <p style="font-size: 12px; color: gray;">Müəllif: <strong>Balux</strong> (Şəki, Oxud)</p>
+        <p style="font-size: 12px; color: gray;">Curated by: <strong>Balux</strong> (Sheki, Oxud)</p>
     </aside>
 
     <main class="container">
-        <div id="maintenanceMode">
-            <h1 style="color: #d93025;">Səhifə Müvəqqəti Bağlıdır</h1>
-            <p>Admin tərəfindən texniki işlər aparılır. Şagirdlərin girişi müvəqqəti məhdudlaşdırılıb.</p>
+        <div id="maintenanceMode" style="display:none; padding: 20px; border: 2px solid #d93025; border-radius: 8px; background: #fff5f5;">
+            <h1 style="color: #d93025;">System Maintenance</h1>
+            <p>Access is temporarily restricted for technical updates. Please check back later.</p>
         </div>
 
         <div id="loginSection">
-            <h1>Fizika Test Portalı</h1>
-            <p>Biliklərinizi <strong>Balux</strong> ilə onlayn yoxlayın</p>
-            <input type="text" id="username" placeholder="Adınız">
-            <input type="password" id="password" placeholder="Şifrə">
-            <button onclick="handleLogin()" class="btn-style btn-primary">Daxil ol</button>
+            <h1>Physics Quiz Portal</h1>
+            <p>Test your scientific knowledge with <strong>Balux</strong></p>
+            <input type="text" id="username" placeholder="Enter Name">
+            <input type="password" id="password" placeholder="Enter Password">
+            <button onclick="handleLogin()" class="btn-style btn-primary">Sign In to Start</button>
         </div>
 
         <div id="adminPanel" style="display:none;">
-            <h2>Admin Paneli</h2>
-            <div style="margin-bottom: 20px; padding: 10px; border: 1px solid var(--border); border-radius: 8px;">
-                <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style btn-danger">Saytı Bağla</button>
-            </div>
+            <h2>Administrator Dashboard</h2>
+            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style btn-danger">Disable User Access</button>
             <table>
-                <thead><tr><th>Şagird</th><th>Nəticə</th><th>Tarix</th></tr></thead>
+                <thead><tr><th>Student</th><th>Result</th><th>Date</th></tr></thead>
                 <tbody id="resultsBody"></tbody>
             </table>
-            <button onclick="location.reload()" class="btn-style">Çıxış</button>
+            <button onclick="location.reload()" class="btn-style">Log Out</button>
         </div>
 
         <div id="userPanel" style="display:none;">
             <h2 id="welcomeUser"></h2>
+            <p>Select your grade level to begin the examination:</p>
             <select id="classSelect" onchange="loadQuiz(this.value)">
-                <option value="sinif7_fizika.json">7-ci sinif</option>
-                <option value="sinif8_fizika.json">8-ci sinif</option>
-                <option value="sinif9_fizika.json">9-ci sinif</option>
-                <option value="sinif10_fizika.json">10-ci sinif</option>
-                <option value="sinif11_fizika.json">11-ci sinif</option>
+                <option value="sinif7_fizika.json">7th Grade Physics</option>
+                <option value="sinif8_fizika.json">8th Grade Physics</option>
+                <option value="sinif9_fizika.json">9th Grade Physics</option>
+                <option value="sinif10_fizika.json">10th Grade Physics</option>
+                <option value="sinif11_fizika.json">11th Grade Physics</option>
             </select>
             <div id="quizArea"></div>
-            <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-primary" style="display:none;">Testi Bitir</button>
+            <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-primary" style="display:none;">Submit Answers</button>
             <div id="userResult"></div>
-            <button onclick="location.reload()" class="btn-style">Çıxış</button>
+            <button onclick="location.reload()" class="btn-style">Return to Menu</button>
         </div>
 
         <div id="seoText">
-            <div id="dailyFact">💡 Yüklənir...</div>
+            <div id="dailyFact" style="margin-top:20px; font-weight:bold; color:var(--primary);">💡 Loading facts...</div>
             <div class="policy-section">
-                <h3>Məxfilik Siyasəti</h3>
-                <p>Google AdSense kukilərindən istifadə olunur. Məlumatlar şagirdin inkişafını izləmək üçün qorunur. Əlaqə: balux677@gmail.com</p>
+                <h3>Privacy Policy & Terms</h3>
+                <p>This website uses Google AdSense cookies to serve personalized advertisements. User data is strictly protected and used only for academic progress tracking. For inquiries, contact: balux677@gmail.com</p>
             </div>
         </div>
     </main>
 </div>
 
 <footer>
-    <p>© 2026 Fizika Portalı | <strong>Balux</strong> (Şəki, Oxud)</p>
+    <p>© 2026 Physics Education Portal | Developed by <strong>Balux</strong></p>
 </footer>
 
 <script>
     const dbURL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/";
-    const facts = ["İldırım 30,000°C ola bilər.", "Venera ən isti planetdir.", "İşıq saniyədə 300 min km yol gedir.", "Səs dalğaları kosmosda yayıla bilmir."];
+    const facts = [
+        "Lightning can reach temperatures of 30,000°C.",
+        "Venus is the hottest planet in our solar system.",
+        "Light travels at approximately 300,000 km per second.",
+        "Sound waves cannot travel through the vacuum of space."
+    ];
 
     let currentQuizData = [];
     let currentUser = "";
@@ -145,44 +139,27 @@
 
     async function checkSiteStatus() {
         try {
-            const response = await fetch(dbURL + "status.json");
-            isSiteClosed = await response.json();
-        } catch (e) { console.log("Status yoxlanarkən xəta yarandı."); }
+            const r = await fetch(dbURL + "status.json");
+            isSiteClosed = await r.json();
+        } catch (e) {}
     }
     checkSiteStatus();
 
-    async function toggleSiteStatus() {
-        isSiteClosed = !isSiteClosed;
-        await fetch(dbURL + "status.json", { method: 'PUT', body: JSON.stringify(isSiteClosed) });
-        updateAdminBtn();
-    }
-
-    function updateAdminBtn() {
-        const btn = document.getElementById('siteToggleBtn');
-        if(btn) {
-            btn.innerText = isSiteClosed ? "Saytı Aç" : "Saytı Bağla";
-            btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
-        }
-    }
-
     function showRandomFact() {
-        const randomIndex = Math.floor(Math.random() * facts.length);
-        document.getElementById('dailyFact').innerText = "💡 Bilirdinizmi? " + facts[randomIndex];
+        document.getElementById('dailyFact').innerText = "💡 Science Fact: " + facts[Math.floor(Math.random() * facts.length)];
     }
     showRandomFact();
 
     function toggleDarkMode() {
         document.body.classList.toggle('dark-mode');
-        localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
     }
-    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark-mode');
 
     function handleLogin() {
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
 
         if (u === "ebalux" && p === "12345") {
-            currentUser = "admin_active";
+            currentUser = "admin";
             showAdmin();
         } else if (u !== "") {
             if (isSiteClosed) {
@@ -192,30 +169,22 @@
             }
             currentUser = u;
             document.getElementById('loginSection').style.display = 'none';
-            document.getElementById('seoText').style.display = 'none';
-            document.getElementById('essayAside').style.display = 'none';
             document.getElementById('userPanel').style.display = 'block';
-            document.getElementById('welcomeUser').innerText = "Salam, " + u;
+            document.getElementById('welcomeUser').innerText = "Welcome, " + u;
             loadQuiz("sinif7_fizika.json");
         }
     }
 
     async function showAdmin() {
         document.getElementById('loginSection').style.display = 'none';
-        document.getElementById('maintenanceMode').style.display = 'none';
-        document.getElementById('seoText').style.display = 'none';
-        document.getElementById('essayAside').style.display = 'none';
         document.getElementById('adminPanel').style.display = 'block';
-        updateAdminBtn();
-        
-        const response = await fetch(dbURL + "results.json");
-        const data = await response.json();
+        const r = await fetch(dbURL + "results.json");
+        const data = await r.json();
         const body = document.getElementById('resultsBody');
         body.innerHTML = "";
-        if (data) {
-            Object.keys(data).reverse().forEach(key => {
-                const res = data[key];
-                body.innerHTML += `<tr><td>${res.name}</td><td>${res.score}</td><td>${res.date}</td></tr>`;
+        if(data) {
+            Object.keys(data).reverse().forEach(k => {
+                body.innerHTML += `<tr><td>${data[k].name}</td><td>${data[k].score}</td><td>${data[k].date}</td></tr>`;
             });
         }
     }
@@ -226,11 +195,11 @@
             const area = document.getElementById('quizArea');
             area.innerHTML = data.map((q, i) => `
                 <div class="question">
-                    <p><strong>${i+1}.</strong> ${q.question}</p>
-                    <div class="options-group">
+                    <p><strong>Q${i+1}:</strong> ${q.question}</p>
+                    <div style="display:flex; flex-direction:column; gap:8px;">
                         ${q.options.map((opt, oi) => `
-                            <label class="option-item" id="l-q${i}-o${oi}">
-                                <input type="radio" name="q${i}" value="${opt}"> <span>${opt}</span>
+                            <label id="l-q${i}-o${oi}" style="padding:5px; border-radius:5px; cursor:pointer;">
+                                <input type="radio" name="q${i}" value="${opt}"> ${opt}
                             </label>`).join('')}
                     </div>
                 </div>`).join('');
@@ -253,8 +222,8 @@
         });
 
         const scoreStr = `${correct} / ${currentQuizData.length}`;
-        await fetch(dbURL + "results.json", { method: 'POST', body: JSON.stringify({ name: currentUser, score: scoreStr, date: new Date().toLocaleString('az-AZ') }) });
-        document.getElementById('userResult').innerHTML = `<h3>Nəticə: ${scoreStr}</h3>`;
+        await fetch(dbURL + "results.json", { method: 'POST', body: JSON.stringify({ name: currentUser, score: scoreStr, date: new Date().toLocaleString() }) });
+        document.getElementById('userResult').innerHTML = `<h3>Final Result: ${scoreStr}</h3>`;
         document.getElementById('finishBtn').style.display = 'none';
     }
 </script>
