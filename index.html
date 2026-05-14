@@ -54,6 +54,9 @@
 
         .policy-section { text-align: left; font-size: 13px; margin-top: 40px; padding: 15px; background: var(--card); border-radius: 8px; border: 1px solid var(--border); }
         footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; padding-bottom: 20px; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; }
     </style>
 </head>
 <body>
@@ -63,24 +66,20 @@
 <div class="main-wrapper">
     <aside class="essay-sidebar" id="essayAside">
         <h2>Physics: The Language of the Universe</h2>
-        <p><strong>Physics</strong> is the most fundamental natural science, exploring the immutable laws that govern our physical reality. From the microscopic interactions of subatomic particles like quarks and leptons to the majestic rotation of supermassive galaxies, physics provides the rigorous mathematical framework for understanding existence itself. It is often called the <em>"Language of the Universe"</em> because its principles remain invariant across both time and space.</p>
-        
-        <p>In our modern era, the applications of physics are found in every facet of human life. Every piece of technology—from the smartphones in our pockets to global satellite networks—relies on deep physical insights. <strong>Quantum Mechanics</strong> has revolutionized the way we process information, leading to the development of high-performance semiconductors and the emergence of quantum computing. Meanwhile, the study of <strong>Electromagnetism</strong> powers our cities and connects the global community through high-speed wireless telecommunication.</p>
-        
-        <p>Theoretical physics, led by pioneers like <strong>Albert Einstein</strong> and <strong>Isaac Newton</strong>, has fundamentally shifted our perception of reality. Newton's laws of motion provide the engineering foundation for everything that moves on Earth, while Einstein's <strong>Theory of Relativity</strong> explains the complex curvature of spacetime and the behavior of gravity on a cosmological scale. Understanding these concepts is not just an academic exercise; it is the essential key to humanity's future in space exploration and the mastery of renewable energy sources.</p>
-
-        <p>Furthermore, <strong>Thermodynamics</strong> allows us to harness energy efficiently, pushing the boundaries of mechanical engineering and environmental science. By studying the movement of atoms and the entropy of closed systems, we learn how to build a more sustainable, carbon-neutral world. This portal aims to bridge the gap between complex theoretical physics and interactive learning, making the grand "Universal Language" accessible and engaging for every student.</p>
-        
-        <p>As we delve deeper into <strong>Particle Physics</strong> and the search for a "Unified Field Theory," we realize that the universe is a finely-tuned, mathematical system. Mathematics serves as the syntax, while physical forces act as the logic behind this grand cosmic program. Whether you are calculating the force of a falling object or the spectral redshift of a distant star, you are participating in the oldest human endeavor: decoding the secrets of nature through empirical observation and mathematical rigor.</p>
-        
+        <p><strong>Physics</strong> is the most fundamental natural science...</p>
+        <p>In our modern era, the applications of physics are found in every facet of human life...</p>
+        <p>Theoretical physics, led by pioneers like <strong>Albert Einstein</strong> and <strong>Isaac Newton</strong>...</p>
+        <p>Furthermore, <strong>Thermodynamics</strong> allows us to harness energy efficiently...</p>
+        <p>As we delve deeper into <strong>Particle Physics</strong>...</p>
         <hr style="border: 0.5px solid var(--border);">
-        <p style="font-size: 12px; color: gray;">Scientific Content Curated by: <strong>Balux</strong> (Sheki, Azerbaijan)</p>
+        <p style="font-size: 12px; color: gray;">Scientific Content Curated by: <strong>Balux 2.0</strong> (Sheki, Azerbaijan)</p>
     </aside>
 
     <main class="container">
         <div id="maintenanceMode" style="display:none; padding: 20px; border: 2px solid #d93025; border-radius: 8px; background: #fff5f5; margin-bottom: 15px;">
             <h1 style="color: #d93025;">System Maintenance</h1>
             <p>Access is temporarily restricted for technical updates. Please check back later.</p>
+            <button onclick="location.reload()" class="btn-style btn-primary">Try Again</button>
         </div>
 
         <div id="loginSection">
@@ -102,10 +101,12 @@
 
         <div id="adminPanel" style="display:none;">
             <h2>Administrator Dashboard</h2>
-            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style btn-danger">Loading status...</button>
-            <div id="resultsTable" style="margin-top: 20px;">
-                <table style="width:100%; border-collapse: collapse;">
-                    <thead><tr style="border-bottom: 2px solid var(--border);"><th>Student</th><th>Score</th><th>Date</th></tr></thead>
+            <p>Control site visibility and monitor results.</p>
+            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style">Loading status...</button>
+            
+            <div id="resultsTable">
+                <table>
+                    <thead><tr><th>Student</th><th>Score</th><th>Date</th></tr></thead>
                     <tbody id="resultsBody"></tbody>
                 </table>
             </div>
@@ -148,32 +149,46 @@
     let isSiteClosed = false;
     let currentUser = "";
 
+    // Sitenin statusunu yoxlayır və düyməni/interfeysi yeniləyir
     async function checkSiteStatus() {
         try {
             const r = await fetch(dbURL + "status.json");
-            isSiteClosed = await r.json();
+            const data = await r.json();
+            if (data !== null) isSiteClosed = data;
+
             const btn = document.getElementById('siteToggleBtn');
-            if(btn) {
+            if (btn) {
                 btn.innerText = isSiteClosed ? "Open Site" : "Close Site (Maintenance)";
                 btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
             }
-        } catch (e) {}
+        } catch (e) { console.error("Status error:", e); }
     }
-    checkSiteStatus();
 
+    // Siteni açıb-bağlamaq funksiyası
     async function toggleSiteStatus() {
-        isSiteClosed = !isSiteClosed;
-        await fetch(dbURL + "status.json", { method: 'PUT', body: JSON.stringify(isSiteClosed) });
-        checkSiteStatus();
+        const nextStatus = !isSiteClosed;
+        try {
+            const res = await fetch(dbURL + "status.json", { 
+                method: 'PUT', 
+                body: JSON.stringify(nextStatus) 
+            });
+            if(res.ok) {
+                isSiteClosed = nextStatus;
+                checkSiteStatus();
+            }
+        } catch (e) { alert("Xəta: Status dəyişdirilə bilmədi."); }
     }
 
     function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
     
     document.getElementById('dailyFact').innerText = "💡 Fact: " + facts[Math.floor(Math.random() * facts.length)];
 
-    function handleLogin() {
+    async function handleLogin() {
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
+
+        // Saytın statusunu son dəfə yoxla
+        await checkSiteStatus();
 
         if (u === "ebalux" && p === "12345") {
             document.getElementById('loginSection').style.display = 'none';
@@ -194,15 +209,17 @@
     }
 
     async function showAdmin() {
-        const r = await fetch(dbURL + "results.json");
-        const d = await r.json();
-        const b = document.getElementById('resultsBody');
-        b.innerHTML = "";
-        if(d) {
-            Object.keys(d).reverse().forEach(k => {
-                b.innerHTML += `<tr><td>${d[k].name}</td><td>${d[k].score}</td><td>${d[k].date}</td></tr>`;
-            });
-        }
+        try {
+            const r = await fetch(dbURL + "results.json");
+            const d = await r.json();
+            const b = document.getElementById('resultsBody');
+            b.innerHTML = "";
+            if(d) {
+                Object.keys(d).reverse().forEach(k => {
+                    b.innerHTML += `<tr><td>${d[k].name}</td><td>${d[k].score}</td><td>${d[k].date}</td></tr>`;
+                });
+            }
+        } catch(e) {}
     }
 
     function loadQuiz(file) {
@@ -220,6 +237,9 @@
                     </div>
                 </div>`).join('');
             document.getElementById('finishBtn').style.display = 'block';
+            document.getElementById('userResult').innerHTML = "";
+        }).catch(err => {
+            document.getElementById('quizArea').innerHTML = "<p style='color:red;'>Quiz file not found or error loading.</p>";
         });
     }
 
@@ -239,6 +259,9 @@
         await fetch(dbURL + "results.json", { method: 'POST', body: JSON.stringify({ name: currentUser, score: res, date: new Date().toLocaleString() }) });
         document.getElementById('finishBtn').style.display = 'none';
     }
+
+    // Başlanğıcda statusu yoxla
+    checkSiteStatus();
 </script>
 </body>
 </html>
