@@ -1,487 +1,259 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Physics Education Portal | Interactive Learning by Balux</title>
-
     
-
     <script type="application/ld+json">
-
     {
-
       "@context": "https://schema.org",
-
       "@type": "WebSite",
-
       "name": "Physics Portal",
-
       "url": "https://fizikatesti.vercel.app/",
-
       "description": "Educational physics portal providing interactive tests and fundamental science laws for students."
-
     }
-
     </script>
-
-
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
 
-
-
     <style>
-
         :root { --bg: #f0f2f5; --container-bg: #ffffff; --text: #333; --primary: #1a73e8; --card: #f8f9fa; --border: #ddd; }
-
         .dark-mode { --bg: #121212; --container-bg: #1e1e1e; --text: #e0e0e0; --primary: #8ab4f8; --card: #2d2d2d; --border: #444; }
 
-
-
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: var(--bg); color: var(--text); display: flex; flex-direction: column; align-items: center; padding: 20px; transition: 0.3s; }
-
         
-
         .main-wrapper { display: flex; flex-direction: row; gap: 25px; max-width: 1200px; width: 100%; align-items: flex-start; }
-
         
-
         .essay-sidebar { flex: 1; background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-top: 5px solid var(--primary); font-size: 15px; line-height: 1.8; text-align: justify; }
-
         .essay-sidebar h2 { color: var(--primary); font-size: 22px; text-align: center; margin-bottom: 15px; }
-
-
 
         .container { flex: 1.8; background: var(--container-bg); padding: 25px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); text-align: center; }
 
-
-
         @media (max-width: 900px) {
-
             .main-wrapper { flex-direction: column; align-items: center; }
-
             .essay-sidebar, .container { width: 100%; box-sizing: border-box; }
-
         }
 
-
-
         input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; background: var(--container-bg); color: var(--text); }
-
         .btn-style { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; }
-
         .btn-primary { background-color: var(--primary); color: white; }
-
         .btn-danger { background-color: #d93025; color: white; }
-
         .btn-success { background-color: #2e7d32; color: white; }
-
         
-
         .btn-dark { position: fixed; top: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer; background: var(--primary); color: white; font-size: 20px; z-index: 1001; }
 
-
-
         .question { background: var(--card); padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--primary); text-align: left; }
-
         
-
         .option-row { display: flex; align-items: center; gap: 10px; padding: 8px; margin: 4px 0; cursor: pointer; border-radius: 4px; transition: 0.2s; }
-
         .option-row:hover { background: rgba(26, 115, 232, 0.1); }
-
         .option-row input { width: 18px !important; height: 18px !important; margin: 0 !important; cursor: pointer; }
 
-
-
         .correct { background-color: #2e7d32 !important; color: white; }
-
         .wrong { background-color: #c62828 !important; color: white; }
 
-
-
         .policy-section { text-align: left; font-size: 13px; margin-top: 40px; padding: 15px; background: var(--card); border-radius: 8px; border: 1px solid var(--border); }
-
         footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; padding-bottom: 20px; }
-
     </style>
-
 </head>
-
 <body>
-
-
 
 <button class="btn-dark" onclick="toggleDarkMode()">🌓</button>
 
-
-
 <div class="main-wrapper">
-
     <aside class="essay-sidebar" id="essayAside">
-
         <h2>Physics: The Language of the Universe</h2>
-
         <p><strong>Physics</strong> is the most fundamental natural science, exploring the immutable laws that govern our physical reality. From the microscopic interactions of subatomic particles like quarks and leptons to the majestic rotation of supermassive galaxies, physics provides the rigorous mathematical framework for understanding existence itself. It is often called the <em>"Language of the Universe"</em> because its principles remain invariant across both time and space.</p>
-
         
-
         <p>In our modern era, the applications of physics are found in every facet of human life. Every piece of technology—from the smartphones in our pockets to global satellite networks—relies on deep physical insights. <strong>Quantum Mechanics</strong> has revolutionized the way we process information, leading to the development of high-performance semiconductors and the emergence of quantum computing. Meanwhile, the study of <strong>Electromagnetism</strong> powers our cities and connects the global community through high-speed wireless telecommunication.</p>
-
         
-
         <p>Theoretical physics, led by pioneers like <strong>Albert Einstein</strong> and <strong>Isaac Newton</strong>, has fundamentally shifted our perception of reality. Newton's laws of motion provide the engineering foundation for everything that moves on Earth, while Einstein's <strong>Theory of Relativity</strong> explains the complex curvature of spacetime and the behavior of gravity on a cosmological scale. Understanding these concepts is not just an academic exercise; it is the essential key to humanity's future in space exploration and the mastery of renewable energy sources.</p>
 
-
-
         <p>Furthermore, <strong>Thermodynamics</strong> allows us to harness energy efficiently, pushing the boundaries of mechanical engineering and environmental science. By studying the movement of atoms and the entropy of closed systems, we learn how to build a more sustainable, carbon-neutral world. This portal aims to bridge the gap between complex theoretical physics and interactive learning, making the grand "Universal Language" accessible and engaging for every student.</p>
-
         
-
         <p>As we delve deeper into <strong>Particle Physics</strong> and the search for a "Unified Field Theory," we realize that the universe is a finely-tuned, mathematical system. Mathematics serves as the syntax, while physical forces act as the logic behind this grand cosmic program. Whether you are calculating the force of a falling object or the spectral redshift of a distant star, you are participating in the oldest human endeavor: decoding the secrets of nature through empirical observation and mathematical rigor.</p>
-
         
-
         <hr style="border: 0.5px solid var(--border);">
-
         <p style="font-size: 12px; color: gray;">Scientific Content Curated by: <strong>Balux</strong> (Sheki, Azerbaijan)</p>
-
     </aside>
 
-
-
     <main class="container">
-
         <div id="maintenanceMode" style="display:none; padding: 20px; border: 2px solid #d93025; border-radius: 8px; background: #fff5f5; margin-bottom: 15px;">
-
             <h1 style="color: #d93025;">System Maintenance</h1>
-
             <p>Access is temporarily restricted for technical updates. Please check back later.</p>
-
         </div>
-
-
 
         <div id="loginSection">
-
             <h1>Physics Quiz Portal</h1>
-
             <p>Test your scientific knowledge with <strong>Balux</strong></p>
-
             <input type="text" id="username" placeholder="Enter Name">
-
             <input type="password" id="password" placeholder="Enter Password">
-
             <button onclick="handleLogin()" class="btn-style btn-primary">Sign In to Start</button>
-
             
-
             <div id="staticContent" style="text-align: left; margin-top: 25px;">
-
                 <h3 style="color: var(--primary);">Public Physics Insights</h3>
-
                 <div class="question" style="border-left: 4px solid gold;">
-
                     <p><strong>Sample Q:</strong> What is the standard unit of Force?</p>
-
                     <p>Answer: Newton (N)</p>
-
                 </div>
-
                 <p><em>Sign in to access over 500+ questions.</em></p>
-
             </div>
-
         </div>
-
-
 
         <div id="adminPanel" style="display:none;">
-
             <h2>Administrator Dashboard</h2>
-
             <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style btn-danger">Loading status...</button>
-
             <div id="resultsTable" style="margin-top: 20px;">
-
                 <table style="width:100%; border-collapse: collapse;">
-
                     <thead><tr style="border-bottom: 2px solid var(--border);"><th>Student</th><th>Score</th><th>Date</th></tr></thead>
-
                     <tbody id="resultsBody"></tbody>
-
                 </table>
-
             </div>
-
             <button onclick="location.reload()" class="btn-style">Log Out</button>
-
         </div>
-
-
 
         <div id="userPanel" style="display:none;">
-
             <h2 id="welcomeUser"></h2>
-
             <select id="classSelect" onchange="loadQuiz(this.value)">
-
                 <option value="sinif7_fizika.json">7th Grade Physics</option>
-
                 <option value="sinif8_fizika.json">8th Grade Physics</option>
-
                 <option value="sinif9_fizika.json">9th Grade Physics</option>
-
                 <option value="sinif10_fizika.json">10th Grade Physics</option>
-
                 <option value="sinif11_fizika.json">11th Grade Physics</option>
-
             </select>
-
             <div id="quizArea"></div>
-
             <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-primary" style="display:none;">Submit Answers</button>
-
             <div id="userResult"></div>
-
             <button onclick="location.reload()" class="btn-style">Log Out</button>
-
         </div>
-
-
 
         <div id="seoText">
-
             <div id="dailyFact" style="margin-top:20px; font-weight:bold; color:var(--primary);">💡 Loading facts...</div>
-
             <div class="policy-section">
-
                 <h3>Privacy Policy & Terms</h3>
-
                 <p>This website uses Google AdSense. User data is strictly used for academic progress tracking. Contact: balux677@gmail.com</p>
-
             </div>
-
         </div>
-
     </main>
-
 </div>
 
-
-
 <footer>
-
     <p>© 2026 Physics Education Portal | Developed by <strong>Balux</strong></p>
-
 </footer>
 
-
-
 <script>
-
     const dbURL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/";
-
     const facts = ["Lightning is 30,000°C.", "Venus is the hottest planet.", "Light speed is 300k km/s."];
-
     let currentQuizData = [];
-
-    let isSiteClosed = false;
-
+    let isSiteClosed = false; // Başlanğıcda sayt mütləq AÇIQDIR
     let currentUser = "";
 
-
-
     async function checkSiteStatus() {
-
         try {
-
             const r = await fetch(dbURL + "status.json");
-
-            isSiteClosed = await r.json();
-
-            const btn = document.getElementById('siteToggleBtn');
-
-            if(btn) {
-
-                btn.innerText = isSiteClosed ? "Open Site" : "Close Site (Maintenance)";
-
-                btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
-
+            const data = await r.json();
+            
+            // Əgər data null deyilsə (yəni bazada nəsə varsa), o zaman bazadakı statusu tətbiq et
+            if (data !== null) {
+                isSiteClosed = data;
+            } else {
+                isSiteClosed = false; // Baza boşdursa açıq qalsın
             }
-
-        } catch (e) {}
-
+            
+            const btn = document.getElementById('siteToggleBtn');
+            if(btn) {
+                btn.innerText = isSiteClosed ? "Open Site" : "Close Site (Maintenance)";
+                btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
+            }
+        } catch (e) {
+            isSiteClosed = false; // Xəta olarsa saytın qapanmaması üçün
+        }
     }
-
     checkSiteStatus();
 
-
-
     async function toggleSiteStatus() {
-
         isSiteClosed = !isSiteClosed;
-
         await fetch(dbURL + "status.json", { method: 'PUT', body: JSON.stringify(isSiteClosed) });
-
         checkSiteStatus();
-
     }
-
-
 
     function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
-
     
-
     document.getElementById('dailyFact').innerText = "💡 Fact: " + facts[Math.floor(Math.random() * facts.length)];
 
-
-
     function handleLogin() {
-
         const u = document.getElementById('username').value.trim();
-
         const p = document.getElementById('password').value;
 
-
-
+        // Admin hər zaman girə bilsin deyə status yoxlamasını admin loginindən sonraya qoydum
         if (u === "ebalux" && p === "12345") {
-
             document.getElementById('loginSection').style.display = 'none';
-
             document.getElementById('adminPanel').style.display = 'block';
-
             showAdmin();
-
-        } else if (u !== "") {
-
-            if (isSiteClosed) {
-
+            return;
+        } 
+        
+        if (u !== "") {
+            // İstifadəçi girişi zamanı saytın bağlı olub-olmadığını dəqiq yoxla
+            if (isSiteClosed === true) {
                 document.getElementById('loginSection').style.display = 'none';
-
                 document.getElementById('maintenanceMode').style.display = 'block';
-
             } else {
-
                 currentUser = u;
-
                 document.getElementById('loginSection').style.display = 'none';
-
                 document.getElementById('userPanel').style.display = 'block';
-
                 document.getElementById('welcomeUser').innerText = "Welcome, " + u;
-
                 loadQuiz("sinif7_fizika.json");
-
             }
-
         }
-
     }
-
-
 
     async function showAdmin() {
-
         const r = await fetch(dbURL + "results.json");
-
         const d = await r.json();
-
         const b = document.getElementById('resultsBody');
-
         b.innerHTML = "";
-
         if(d) {
-
             Object.keys(d).reverse().forEach(k => {
-
                 b.innerHTML += `<tr><td>${d[k].name}</td><td>${d[k].score}</td><td>${d[k].date}</td></tr>`;
-
             });
-
         }
-
     }
-
-
 
     function loadQuiz(file) {
-
         fetch(file).then(r => r.json()).then(data => {
-
             currentQuizData = data;
-
             const area = document.getElementById('quizArea');
-
             area.innerHTML = data.map((q, i) => `
-
                 <div class="question">
-
                     <p><strong>Q${i+1}:</strong> ${q.question}</p>
-
                     <div style="display:flex; flex-direction:column;">
-
                         ${q.options.map((opt, oi) => `
-
                             <label class="option-row" id="l-q${i}-o${oi}">
-
                                 <input type="radio" name="q${i}" value="${opt}"> <span>${opt}</span>
-
                             </label>`).join('')}
-
                     </div>
-
                 </div>`).join('');
-
             document.getElementById('finishBtn').style.display = 'block';
-
         });
-
     }
-
-
 
     async function finishQuiz() {
-
         let correct = 0;
-
         currentQuizData.forEach((q, i) => {
-
             const sel = document.querySelector(`input[name="q${i}"]:checked`);
-
             q.options.forEach((opt, oi) => {
-
                 const lb = document.getElementById(`l-q${i}-o${oi}`);
-
                 if (opt === q.correctAnswer) lb.classList.add('correct');
-
                 if (sel && sel.value === opt && sel.value !== q.correctAnswer) lb.classList.add('wrong');
-
             });
-
             if (sel && sel.value === q.correctAnswer) correct++;
-
         });
-
         const res = `${correct} / ${currentQuizData.length}`;
-
         document.getElementById('userResult').innerHTML = `<h3>Result: ${res}</h3>`;
-
         await fetch(dbURL + "results.json", { method: 'POST', body: JSON.stringify({ name: currentUser, score: res, date: new Date().toLocaleString() }) });
-
         document.getElementById('finishBtn').style.display = 'none';
-
     }
-
 </script>
-
 </body>
-
 </html>
