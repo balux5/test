@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Education Portal | Interactive Learning by Balux 2.0</title>
+    <title>Physics Education Portal | Interactive Learning by Balux</title>
     
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
@@ -44,179 +44,102 @@
             display: flex; 
             flex-direction: row; 
             gap: 25px; 
-            max-width: 1400px; 
+            max-width: 1500px; 
             width: 100%; 
             align-items: flex-start; 
         }
         
-        /* Uzadılmış Sidebar Paneli */
+        /* Uzadılmış Sidebar Paneli (image_76ceb7.png əsasında) */
         .essay-sidebar { 
-            flex: 1.3; 
+            flex: 1.4; 
             background: var(--container-bg); 
-            padding: 35px; 
+            padding: 40px; 
             border-radius: 12px; 
             box-shadow: 0 5px 15px rgba(0,0,0,0.05); 
             border-top: 8px solid var(--primary); 
             font-size: 16px; 
-            line-height: 2.0; 
+            line-height: 2.1; 
             text-align: justify; 
         }
         .essay-sidebar h2 { 
             color: var(--primary); 
-            font-size: 26px; 
+            font-size: 28px; 
             text-align: center; 
             margin-bottom: 25px; 
             text-transform: uppercase; 
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 10px;
+            border-bottom: 3px solid var(--border);
+            padding-bottom: 15px;
         }
 
         .container { 
-            flex: 1.7; 
+            flex: 1.6; 
             background: var(--container-bg); 
-            padding: 35px; 
+            padding: 40px; 
             border-radius: 12px; 
             box-shadow: 0 5px 25px rgba(0,0,0,0.1); 
             text-align: center; 
         }
 
-        @media (max-width: 1100px) { 
+        @media (max-width: 1150px) { 
             .main-wrapper { flex-direction: column; align-items: center; } 
             .essay-sidebar, .container { width: 100%; box-sizing: border-box; } 
         }
 
         input, select { 
-            width: 100%; 
-            padding: 14px; 
-            margin: 12px 0; 
-            border: 2px solid var(--border); 
-            border-radius: 10px; 
-            box-sizing: border-box; 
-            background: var(--container-bg); 
-            color: var(--text); 
-            font-size: 16px;
+            width: 100%; padding: 15px; margin: 12px 0; border: 2px solid var(--border); 
+            border-radius: 10px; box-sizing: border-box; background: var(--container-bg); 
+            color: var(--text); font-size: 16px;
         }
         .btn-style { 
-            width: 100%; 
-            padding: 15px; 
-            border: none; 
-            border-radius: 10px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            margin-top: 15px; 
-            transition: 0.3s; 
-            font-size: 17px; 
+            width: 100%; padding: 16px; border: none; border-radius: 10px; 
+            cursor: pointer; font-weight: bold; margin-top: 15px; transition: 0.3s; font-size: 17px; 
         }
         .btn-primary { background-color: var(--primary); color: white; }
-        .btn-primary:hover { background-color: #1557b0; }
         .btn-danger { background-color: var(--danger) !important; color: white; }
         .btn-success { background-color: var(--success) !important; color: white; }
         
         .btn-dark { 
-            position: fixed; 
-            top: 25px; 
-            right: 25px; 
-            width: 50px; 
-            height: 50px; 
-            border-radius: 50%; 
-            border: none; 
-            cursor: pointer; 
-            background: var(--primary); 
-            color: white; 
-            font-size: 22px; 
-            z-index: 1001; 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            position: fixed; top: 25px; right: 25px; width: 50px; height: 50px; 
+            border-radius: 50%; border: none; cursor: pointer; background: var(--primary); 
+            color: white; font-size: 22px; z-index: 1001; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
-        /* Sualların və Variantların Görünüşü */
         .question { 
-            background: var(--card); 
-            padding: 25px; 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
-            border-left: 6px solid var(--primary); 
-            text-align: left; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background: var(--card); padding: 25px; border-radius: 12px; margin-bottom: 25px; 
+            border-left: 6px solid var(--primary); text-align: left; box-shadow: 0 2px 8px rgba(0,0,0,0.05);
         }
         .option-row { 
-            display: block; 
-            position: relative; 
-            padding: 15px 15px 15px 50px; 
-            margin-bottom: 12px; 
-            cursor: pointer; 
-            border-radius: 10px; 
-            border: 2px solid var(--border); 
-            transition: 0.2s all ease; 
-            background: var(--container-bg); 
-            font-size: 16px;
+            display: block; position: relative; padding: 15px 15px 15px 50px; margin-bottom: 12px; 
+            cursor: pointer; border-radius: 10px; border: 2px solid var(--border); 
+            transition: 0.2s all ease; background: var(--container-bg); 
         }
-        .option-row:hover { 
-            background: rgba(26, 115, 232, 0.08); 
-            border-color: var(--primary); 
-        }
-        .option-row input { 
-            position: absolute; 
-            opacity: 0; 
-            cursor: pointer; 
-        }
+        .option-row:hover { background: rgba(26, 115, 232, 0.08); border-color: var(--primary); }
+        .option-row input { position: absolute; opacity: 0; }
         
         .checkmark { 
-            position: absolute; 
-            top: 15px; 
-            left: 15px; 
-            height: 22px; 
-            width: 22px; 
-            background-color: #eee; 
-            border-radius: 50%; 
-            border: 2px solid #ccc; 
+            position: absolute; top: 15px; left: 15px; height: 22px; width: 22px; 
+            background-color: #eee; border-radius: 50%; border: 2px solid #ccc; 
         }
-        .option-row input:checked ~ .checkmark { 
-            background-color: var(--primary); 
-            border-color: var(--primary); 
-        }
+        .option-row input:checked ~ .checkmark { background-color: var(--primary); border-color: var(--primary); }
         .checkmark:after { 
-            content: ""; 
-            position: absolute; 
-            display: none; 
-            left: 7px; 
-            top: 3px; 
-            width: 5px; 
-            height: 10px; 
-            border: solid white; 
-            border-width: 0 2px 2px 0; 
-            transform: rotate(45deg); 
+            content: ""; position: absolute; display: none; left: 7px; top: 3px; 
+            width: 5px; height: 10px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); 
         }
         .option-row input:checked ~ .checkmark:after { display: block; }
 
-        /* Nəticə rəngləri */
         .correct-opt { background-color: #c8e6c9 !important; border-color: var(--success) !important; color: #1b5e20 !important; font-weight: bold; }
         .wrong-opt { background-color: #ffcdd2 !important; border-color: var(--danger) !important; color: #b71c1c !important; }
 
         .daily-fact-box { 
-            margin-top: 30px; 
-            padding: 20px; 
-            background: #e8f0fe; 
-            border-radius: 10px; 
-            color: #1967d2; 
-            font-style: italic; 
-            border-left: 4px solid var(--primary);
-            font-weight: 500;
+            margin-top: 30px; padding: 25px; background: #e8f0fe; border-radius: 12px; 
+            color: #1967d2; border-left: 5px solid var(--primary); font-weight: 500;
         }
-        .dark-mode .daily-fact-box { background: #174ea6; color: #e8f0fe; }
 
         table { width: 100%; border-collapse: collapse; margin-top: 25px; background: var(--card); border-radius: 10px; overflow: hidden; }
         th, td { padding: 15px; border-bottom: 1px solid var(--border); text-align: left; }
         th { background: var(--primary); color: white; }
 
-        footer { 
-            margin-top: 60px; 
-            text-align: center; 
-            font-size: 15px; 
-            opacity: 0.8; 
-            padding: 30px 0; 
-            border-top: 1px solid var(--border); 
-            width: 100%; 
-        }
+        footer { margin-top: 60px; text-align: center; font-size: 15px; opacity: 0.8; padding: 30px 0; border-top: 1px solid var(--border); width: 100%; }
     </style>
 </head>
 <body>
@@ -225,191 +148,156 @@
 
 <div class="main-wrapper">
     <aside class="essay-sidebar">
-        <h2>Physics: The Core Pillar of Reality</h2>
-        <p><strong>Physics</strong> is more than just formulas on a chalkboard; it is the fundamental study of the universe's mechanics. From the gravitational waves that ripple through spacetime to the quantum entanglement of subatomic particles, physics explains the "how" and "why" behind every phenomenon.</p>
+        <h2>PHYSICS: THE CORE PILLAR OF REALITY</h2>
+        <p><strong>Physics</strong> is more than just formulas on a chalkboard; it is the fundamental study of the universe's mechanics. From the gravitational waves that ripple through spacetime to the quantum entanglement of subatomic particles, physics explains the "how" and "why" behind every phenomenon that defines our existence.</p>
         
-        <p>In this educational space, we focus on empowering students to grasp these concepts through structured testing. Understanding the laws of <strong>Newton</strong>, the principles of <strong>Thermodynamics</strong>, and the behavior of <strong>Electromagnetism</strong> is essential for any future scientist or engineer.</p>
+        <p>In this educational space, we focus on empowering students to grasp these complex concepts through structured testing and interactive evaluation. Modern civilization stands on the shoulders of giants; understanding the laws of <strong>Newton</strong> regarding motion, the intricate principles of <strong>Thermodynamics</strong> that govern energy, and the invisible behavior of <strong>Electromagnetism</strong> is essential for any future scientist, researcher, or engineer.</p>
         
-        <p>As you work through these questions, remember that every error is a step toward mastery. Science is built on trial, observation, and discovery. This portal is designed to give you the environment needed to hone those skills.</p>
+        <p>The universe is governed by immutable laws. Whether we are exploring the vastness of the cosmos or the microscopic world of atoms, the rules of physics remain our most reliable guide. By studying these materials, you are training your mind to perceive the hidden patterns of nature.</p>
         
-        <hr style="border: 0.5px solid var(--border); margin: 25px 0;">
-        <p style="font-weight: bold; color: var(--primary); font-size: 18px;">Chief Science Curator: Balux 2.0</p>
-        <p style="font-size: 13px; color: gray;">Hardware Engineering & Software Specialist</p>
-        <p style="font-size: 12px; color: gray;">Shaki, Azerbaijan | Postal: AZ5527</p>
+        <p>As you work through these questions, remember that every error is a step toward mastery. Science is built on a cycle of trial, observation, and discovery. This portal is designed to give you the environment needed to hone those skills and prepare you for the challenges of tomorrow's technology.</p>
+        
+        <hr style="border: 0.5px solid var(--border); margin: 30px 0;">
+        <h3 style="color: var(--primary); margin: 0;">Chief Science Curator: Balux</h3>
+        <p style="margin: 5px 0; font-weight: bold; color: #555;">Hardware Engineering & Software Specialist</p>
+        <p style="margin: 5px 0; font-size: 13px; color: gray;">Shaki, Azerbaijan | Postal: AZ5527</p>
     </aside>
 
     <main class="container">
-        <!-- Maintenance Mesajı -->
         <div id="maintenanceMode" style="display:none; padding: 30px; border: 3px solid var(--danger); border-radius: 12px; background: #fff5f5; margin-bottom: 25px;">
             <h1 style="color: var(--danger);">System Under Maintenance</h1>
-            <p>Access is temporarily restricted while <strong>Balux 2.0</strong> performs critical updates to the core database. Please try again shortly.</p>
+            <p>Access is restricted while <strong>Balux</strong> updates the quiz database. Please check back later.</p>
         </div>
 
-        <!-- Login Bölməsi -->
         <div id="loginSection">
             <h1>Physics Quiz Portal</h1>
-            <p>Enter your credentials to access the learning module provided by <strong>Balux 2.0</strong></p>
+            <p>Welcome to the official physics evaluation center developed by <strong>Balux</strong>.</p>
             <input type="text" id="username" placeholder="Full Student Name">
             <input type="password" id="password" placeholder="Secure Portal Password">
             <button onclick="handleLogin()" class="btn-style btn-primary">Authorize & Enter</button>
-            <div id="dailyFact" class="daily-fact-box">💡 Analyzing scientific logs...</div>
+            <div id="dailyFact" class="daily-fact-box">💡 System Initializing...</div>
         </div>
 
-        <!-- Admin Paneli -->
         <div id="adminPanel" style="display:none;">
             <h2>Administrator Dashboard</h2>
-            <p>Control site visibility and monitor student results in real-time.</p>
-            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style">Connecting to Database...</button>
+            <p>Global System Control:</p>
+            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style">Syncing Status...</button>
             <div style="overflow-x:auto;">
                 <table>
-                    <thead><tr><th>Student Name</th><th>Final Score</th><th>Completion Date</th></tr></thead>
+                    <thead><tr><th>Student</th><th>Score</th><th>Timestamp</th></tr></thead>
                     <tbody id="resultsBody"></tbody>
                 </table>
             </div>
-            <button onclick="location.reload()" class="btn-style">System Log Out</button>
+            <button onclick="location.reload()" class="btn-style">Sign Out</button>
         </div>
 
-        <!-- User Paneli -->
         <div id="userPanel" style="display:none;">
             <h2 id="welcomeUser"></h2>
-            <p>Select your grade level to begin the physics evaluation:</p>
             <select id="classSelect" onchange="loadQuiz(this.value)">
-                <option value="sinif7_fizika.json">7th Grade Physics - General Mechanics</option>
-                <option value="sinif8_fizika.json">8th Grade Physics - Heat and Energy</option>
-                <option value="sinif9_fizika.json">9th Grade Physics - Waves and Optics</option>
+                <option value="sinif7_fizika.json">7th Grade Physics - Mechanics</option>
+                <option value="sinif8_fizika.json">8th Grade Physics - Heat</option>
+                <option value="sinif9_fizika.json">9th Grade Physics - Optics</option>
             </select>
             <div id="quizArea"></div>
-            <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-primary" style="display:none;">Finalize & Submit Answers</button>
+            <button id="finishBtn" onclick="finishQuiz()" class="btn-style btn-primary" style="display:none;">Submit My Work</button>
             <div id="userResult"></div>
-            <button onclick="location.reload()" class="btn-style">Exit Portal</button>
+            <button onclick="location.reload()" class="btn-style">Exit</button>
         </div>
     </main>
 </div>
 
 <footer>
-    <p>© 2026 Physics Education Portal | Built & Engineered for Shaki Students by <strong>Balux 2.0</strong></p>
-    <p style="font-size: 11px;">Backend: Firebase Realtime DB | Frontend: Vanilla JS & CSS Grid</p>
+    <p>© 2026 Physics Education Portal | Engineered for Excellence by <strong>Balux</strong></p>
 </footer>
 
 <script>
     const dbURL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/";
-    const scienceFacts = [
-        "Light travels at a staggering 299,792,458 meters per second in a vacuum.",
-        "A single bolt of lightning contains enough energy to toast 100,000 slices of bread.",
-        "Absolute zero (-273.15°C) is the point where all molecular motion stops.",
-        "Venus is the hottest planet in our solar system, with a surface temp of 462°C.",
-        "Water can boil and freeze at the same time in a vacuum (Triple Point).",
-        "If you were to fly to the nearest star at light speed, it would take 4.2 years."
+    const facts = [
+        "Light travels at ~300,000 km/s in a vacuum.",
+        "A teaspoon of a neutron star weighs about 6 billion tons.",
+        "Sound travels 4.3 times faster in water than in air.",
+        "Absolute zero is -273.15 degrees Celsius.",
+        "Venus is the hottest planet in our solar system (462°C).",
+        "The Earth acts as a giant bar magnet."
     ];
 
-    let isSiteClosed = false; 
-    let currentUser = "";
-    let currentQuizData = [];
+    let isSiteClosed = false, currentUser = "", currentQuizData = [];
 
-    // Günlük məlumatları təyin et
     function setDailyFact() {
-        const randomFact = scienceFacts[Math.floor(Math.random() * scienceFacts.length)];
-        document.getElementById('dailyFact').innerHTML = "<strong>💡 Science Fact:</strong> " + randomFact;
+        const f = facts[Math.floor(Math.random() * facts.length)];
+        document.getElementById('dailyFact').innerHTML = "<strong>💡 Science Fact:</strong> " + f;
     }
 
-    // "Open Site" / Status Yeniləmə Məntiqi (Düzəldildi)
     async function updateStatusUI() {
         try {
             const r = await fetch(dbURL + "status.json");
             const data = await r.json();
-            
-            // Əgər bazadan gələn məlumat null-dursa, saytı default olaraq AÇIQ saxla
             isSiteClosed = (data === true);
-            
             const btn = document.getElementById('siteToggleBtn');
             if (btn) {
-                btn.innerText = isSiteClosed ? "Unlock Site (Open)" : "Lock Site (Maintenance)";
+                btn.innerText = isSiteClosed ? "Open Site (Current: Locked)" : "Close Site (Current: Open)";
                 btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
             }
-        } catch (e) {
-            console.error("Firebase Sync Error: Defaulting to Open.");
-            isSiteClosed = false;
-        }
+        } catch (e) { isSiteClosed = false; }
     }
 
     async function toggleSiteStatus() {
-        const nextStatus = !isSiteClosed;
-        const btn = document.getElementById('siteToggleBtn');
-        btn.innerText = "Processing Cloud Sync...";
-        
+        const next = !isSiteClosed;
         try {
-            await fetch(dbURL + "status.json", { 
-                method: 'PUT', 
-                body: JSON.stringify(nextStatus) 
-            });
-            isSiteClosed = nextStatus;
+            await fetch(dbURL + "status.json", { method: 'PUT', body: JSON.stringify(next) });
+            isSiteClosed = next;
             updateStatusUI();
-        } catch (e) {
-            alert("Database Error: Failed to update status.");
-            updateStatusUI();
-        }
+        } catch (e) { alert("Database Sync Error"); }
     }
 
     async function handleLogin() {
-        const u = document.getElementById('username').value.trim();
-        const p = document.getElementById('password').value;
+        const u = document.getElementById('username').value.trim(), p = document.getElementById('password').value;
+        const statusRes = await fetch(dbURL + "status.json");
+        isSiteClosed = await statusRes.json();
 
-        // Login anında statusu yoxla
-        try {
-            const r = await fetch(dbURL + "status.json");
-            isSiteClosed = await r.json();
-        } catch(e) {}
-
+        // Admin girişi: Balux'un şəxsi girişi
         if (u === "ebalux" && p === "12345") {
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('adminPanel').style.display = 'block';
             updateStatusUI();
             showAdmin();
         } else if (u !== "") {
-            if (isSiteClosed === true) {
+            if (isSiteClosed) {
                 document.getElementById('loginSection').style.display = 'none';
                 document.getElementById('maintenanceMode').style.display = 'block';
             } else {
                 currentUser = u;
                 document.getElementById('loginSection').style.display = 'none';
                 document.getElementById('userPanel').style.display = 'block';
-                document.getElementById('welcomeUser').innerText = "Authorized: Welcome, " + u;
+                document.getElementById('welcomeUser').innerText = "Welcome, " + u;
                 loadQuiz("sinif7_fizika.json");
             }
-        } else {
-            alert("Please enter your name!");
         }
     }
 
     async function showAdmin() {
-        const r = await fetch(dbURL + "results.json");
-        const d = await r.json();
-        const b = document.getElementById('resultsBody');
+        const r = await fetch(dbURL + "results.json"), d = await r.json(), b = document.getElementById('resultsBody');
         b.innerHTML = "";
-        if(d) {
-            Object.keys(d).reverse().forEach(k => {
-                b.innerHTML += `<tr><td>${d[k].name}</td><td>${d[k].score}</td><td>${d[k].date}</td></tr>`;
-            });
-        }
+        if(d) Object.keys(d).reverse().forEach(k => {
+            b.innerHTML += `<tr><td>${d[k].name}</td><td>${d[k].score}</td><td>${d[k].date}</td></tr>`;
+        });
     }
 
     function loadQuiz(file) {
         fetch(file).then(r => r.json()).then(data => {
             currentQuizData = data;
-            const area = document.getElementById('quizArea');
-            area.innerHTML = data.map((q, i) => `
+            document.getElementById('quizArea').innerHTML = data.map((q, i) => `
                 <div class="question">
-                    <p><strong>Question ${i+1}:</strong> ${q.question}</p>
+                    <p><strong>Q${i+1}:</strong> ${q.question}</p>
                     ${q.options.map((opt, oi) => `
                         <label class="option-row" id="l-q${i}-o${oi}">
                             <input type="radio" name="q${i}" value="${opt}">
-                            <span class="checkmark"></span>
-                            ${opt}
+                            <span class="checkmark"></span> ${opt}
                         </label>`).join('')}
                 </div>`).join('');
             document.getElementById('finishBtn').style.display = 'block';
             document.getElementById('userResult').innerHTML = "";
-        }).catch(err => alert("Quiz data file not found!"));
+        });
     }
 
     async function finishQuiz() {
@@ -423,30 +311,14 @@
             });
             if (sel && sel.value === q.correctAnswer) correct++;
         });
-        
-        const finalScore = correct + " / " + currentQuizData.length;
-        document.getElementById('userResult').innerHTML = `
-            <div style="margin-top:20px; padding:20px; background:var(--card); border-radius:10px;">
-                <h2 style="color:var(--primary);">Evaluation Complete!</h2>
-                <p style="font-size:24px;">Your Final Result: <strong>${finalScore}</strong></p>
-            </div>`;
-        
-        await fetch(dbURL + "results.json", { 
-            method: 'POST', 
-            body: JSON.stringify({ 
-                name: currentUser, 
-                score: finalScore, 
-                date: new Date().toLocaleString() 
-            }) 
-        });
+        const res = correct + " / " + currentQuizData.length;
+        document.getElementById('userResult').innerHTML = `<h3>Final Score: ${res}</h3>`;
+        await fetch(dbURL + "results.json", { method: 'POST', body: JSON.stringify({ name: currentUser, score: res, date: new Date().toLocaleString() }) });
         document.getElementById('finishBtn').style.display = 'none';
     }
 
     function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
-    
-    // Açılış icraları
-    setDailyFact();
-    updateStatusUI();
+    setDailyFact(); updateStatusUI();
 </script>
 </body>
 </html>
