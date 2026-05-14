@@ -3,457 +3,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Physics Master Portal | Engineered by Balux</title>
+    <title>Physics Master Enterprise | Dev by Balux 2.0</title>
     
-    <!-- Google AdSense - Sənin Pub ID-n -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9703596160659929" crossorigin="anonymous"></script>
-
+    <!-- 
+        BALUX ULTIMATE UI FRAMEWORK v6.0 
+        Bu bölmədə dizayn elementləri maksimum dərəcədə genişləndirilib.
+    -->
     <style>
-        /* 
-           BALUX UI SYSTEM v5.0
-           Bu hissədə dizaynı maksimum genişləndirmişəm ki, həm vizual 
-           gözəl olsun, həm də kodun həcmi səni qane etsin.
-        */
-        :root { 
-            --primary: #1a73e8; 
-            --primary-dark: #1557b0;
-            --bg: #f8f9fa; 
-            --container-bg: #ffffff; 
-            --text-main: #202124; 
+        :root {
+            --primary-color: #1a73e8;
+            --primary-hover: #1557b0;
+            --accent-color: #fbbc04;
+            --bg-color: #f1f3f4;
+            --surface-color: #ffffff;
+            --text-primary: #202124;
             --text-secondary: #5f6368;
-            --border: #dadce0; 
-            --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
-            --success: #1e8e3e;
-            --danger: #d93025;
-            --transition: all 0.3s ease;
+            --border-color: #dadce0;
+            --success-color: #1e8e3e;
+            --error-color: #d93025;
+            --shadow-sm: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+            --radius-lg: 16px;
+            --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .dark-mode { 
-            --bg: #202124; 
-            --container-bg: #2d2e31; 
-            --text-main: #e8eaed; 
+        .dark-theme {
+            --bg-color: #202124;
+            --surface-color: #2d2e31;
+            --text-primary: #e8eaed;
             --text-secondary: #9aa0a6;
-            --border: #3c4043;
-            --primary: #8ab4f8;
+            --border-color: #3c4043;
         }
 
-        body { 
-            font-family: 'Google Sans', Roboto, Arial, sans-serif; 
-            margin: 0; 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
             transition: var(--transition);
         }
 
-        /* Navigasiya və Header */
-        header {
+        /* Navigasiya */
+        nav {
             width: 100%;
-            padding: 20px 0;
-            background: var(--container-bg);
-            border-bottom: 1px solid var(--border);
-            text-align: center;
-            box-shadow: var(--card-shadow);
-            margin-bottom: 40px;
-        }
-
-        /* Əsas Layout - Sənin image_76ceb7.png strukturu */
-        .main-wrapper { 
-            display: flex; 
-            flex-direction: row; 
-            gap: 40px; 
-            max-width: 1600px; 
-            width: 95%; 
-            align-items: flex-start;
-            margin-bottom: 50px;
-        }
-
-        /* SOL PANEL: Elmi Giriş (image_76ceb7.png-nin ən geniş versiyası) */
-        .essay-sidebar { 
-            flex: 1.5; 
-            background: var(--container-bg); 
-            padding: 60px; 
-            border-radius: 24px; 
-            box-shadow: var(--card-shadow); 
-            border-top: 12px solid var(--primary); 
-            line-height: 2.2; 
-            text-align: justify; 
+            background: var(--surface-color);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
             position: sticky;
-            top: 20px;
+            top: 0;
+            z-index: 100;
         }
 
-        .essay-sidebar h2 { 
-            color: var(--primary); 
-            font-size: 32px; 
-            text-align: center; 
-            margin-bottom: 30px; 
+        .logo { font-size: 24px; font-weight: bold; color: var(--primary-color); }
+
+        /* Əsas Layout - image_76ceb7.png və image_767065.png strukturu */
+        .app-wrapper {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 30px;
+            max-width: 1600px;
+            width: 95%;
+            margin: 40px auto;
+            align-items: flex-start;
+        }
+
+        /* SOL PANEL: Elmi Mətn və Müəllif */
+        .sidebar-content {
+            background: var(--surface-color);
+            padding: 40px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            border-top: 8px solid var(--primary-color);
+            position: sticky;
+            top: 100px;
+        }
+
+        .sidebar-content h2 { 
+            color: var(--primary-color); 
+            margin-bottom: 25px; 
+            font-size: 28px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
         }
 
-        .scientific-text {
-            font-size: 17px;
-            color: var(--text-secondary);
-            margin-bottom: 25px;
-        }
-
-        .author-card {
-            margin-top: 50px;
-            padding: 25px;
-            background: var(--bg);
-            border-radius: 16px;
-            border-left: 5px solid var(--primary);
-        }
-
-        /* SAĞ PANEL: İnteraktiv Zona */
-        .container { 
-            flex: 2; 
-            background: var(--container-bg); 
-            padding: 50px; 
-            border-radius: 24px; 
-            box-shadow: var(--card-shadow); 
-            text-align: center; 
-        }
-
-        /* Düymələr və Girişlər */
-        .input-group {
+        .sidebar-content p {
+            line-height: 1.8;
             margin-bottom: 20px;
-            text-align: left;
+            text-align: justify;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text-main);
+        .author-info {
+            background: var(--bg-color);
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 30px;
+            border-left: 4px solid var(--accent-color);
         }
 
-        input, select { 
-            width: 100%; 
-            padding: 18px; 
-            border: 2px solid var(--border); 
-            border-radius: 12px; 
-            background: var(--container-bg); 
-            color: var(--text-main); 
+        /* SAĞ PANEL: İnteraktiv Portal */
+        .main-portal {
+            background: var(--surface-color);
+            padding: 50px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            min-height: 600px;
+        }
+
+        /* Formalar və İnputlar */
+        .field-group { margin-bottom: 25px; text-align: left; }
+        label { display: block; margin-bottom: 10px; font-weight: 500; }
+        
+        input, select {
+            width: 100%;
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
             font-size: 16px;
+            background: transparent;
+            color: inherit;
             transition: var(--transition);
         }
 
-        input:focus { border-color: var(--primary); outline: none; }
+        input:focus { border-color: var(--primary-color); outline: none; }
 
-        .btn { 
-            width: 100%; 
-            padding: 18px; 
-            border: none; 
-            border-radius: 12px; 
-            cursor: pointer; 
-            font-weight: 700; 
-            font-size: 18px; 
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 18px;
             transition: var(--transition);
+            margin-top: 15px;
+        }
+
+        .btn-primary { background: var(--primary-color); color: white; }
+        .btn-primary:hover { background: var(--primary-hover); transform: translateY(-2px); }
+        .btn-danger { background: var(--error-color); color: white; }
+
+        /* Admin Paneli - image_767065.png əsasında */
+        .admin-dashboard {
+            background: #f8f9fa;
+            border: 1px solid var(--border-color);
+            border-radius: 15px;
+            padding: 30px;
             margin-top: 20px;
         }
 
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
-        .btn-danger { background: var(--danger); color: white; }
-
-        /* Sual Dizaynı */
-        .quiz-container { margin-top: 30px; text-align: left; }
-        .question-block { 
-            background: var(--bg); 
-            padding: 30px; 
-            border-radius: 18px; 
-            margin-bottom: 30px; 
-            border: 1px solid var(--border);
+        .status-badge {
+            padding: 15px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
-        .option-label { 
-            display: block; 
-            padding: 15px 20px; 
-            margin: 10px 0; 
-            border: 2px solid var(--border); 
-            border-radius: 12px; 
-            cursor: pointer; 
+        /* Quiz Sualları */
+        .question-wrapper {
+            background: var(--bg-color);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--primary-color);
+        }
+
+        .option-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: var(--surface-color);
+            margin-top: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            cursor: pointer;
             transition: var(--transition);
-            background: var(--container-bg);
         }
 
-        .option-label:hover { border-color: var(--primary); background: rgba(26, 115, 232, 0.05); }
-        .option-label input { margin-right: 15px; transform: scale(1.2); }
+        .option-item:hover { border-color: var(--primary-color); background: rgba(26,115,232,0.05); }
+        .option-item input { width: auto; margin-right: 15px; }
 
-        /* Admin Cədvəli */
-        .admin-table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            margin-top: 30px; 
-            border-radius: 12px; 
-            overflow: hidden; 
-        }
-        .admin-table th, .admin-table td { 
-            padding: 18px; 
-            border-bottom: 1px solid var(--border); 
-            text-align: left; 
-        }
-        .admin-table th { background: var(--primary); color: white; }
-
-        @media (max-width: 1200px) {
-            .main-wrapper { flex-direction: column; align-items: center; }
-            .essay-sidebar, .container { width: 100%; position: static; }
+        footer {
+            margin-top: auto;
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border-color);
+            opacity: 0.8;
         }
 
-        .mode-toggle {
-            position: fixed; top: 20px; right: 20px; padding: 15px;
-            border-radius: 50%; border: none; cursor: pointer; background: var(--primary);
-            color: white; font-size: 20px; z-index: 1000;
+        @media (max-width: 1100px) {
+            .app-wrapper { grid-template-columns: 1fr; }
+            .sidebar-content { position: static; }
         }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
-<button class="mode-toggle" onclick="toggleTheme()">🌓</button>
+<nav>
+    <div class="logo">BALUX PHYSICS ENGINE</div>
+    <button onclick="toggleDarkMode()" class="btn" style="width: auto; padding: 10px 20px; margin: 0;">Dark Mode</button>
+</nav>
 
-<header>
-    <h1>PHYSICS MASTER PORTAL</h1>
-    <p>Advanced Educational Interface v5.2</p>
-</header>
-
-<div class="main-wrapper">
-    <!-- SOL PANEL: image_76ceb7.png əsasında genişləndirilmiş mətn -->
-    <aside class="essay-sidebar">
-        <h2>PHYSICS: THE CORE PILLAR OF REALITY</h2>
-        <div class="scientific-text">
-            <p><strong>Physics</strong> is far more than just mathematical formulas on a chalkboard; it is the fundamental study of the universe's most complex mechanics. From the majestic gravitational waves that ripple through the fabric of spacetime to the mysterious quantum entanglement of subatomic particles, physics explains the "how" and the "why" behind every natural phenomenon.</p>
-            
-            <p>In this specialized educational space, we focus on empowering students to transcend basic understanding and grasp these concepts through structured testing. The laws of <strong>Newton</strong>, the intricate principles of <strong>Thermodynamics</strong>, and the invisible behavior of <strong>Electromagnetism</strong> are not just school subjects—they are the essential building blocks for any future scientist or engineer.</p>
-            
-            <p>The universe is governed by immutable laws. Whether exploring the vastness of the cosmos or the microscopic world of atoms, these rules remain our most reliable guide. By engaging with these modules, you are training your mind to perceive the hidden patterns of nature.</p>
-            
-            <p>As you work through these questions, remember that every error is a step toward mastery. Science is built on a cycle of trial, observation, and discovery. This portal is engineered to provide you with the professional environment needed to hone those skills and prepare for future technological challenges.</p>
-        </div>
-
-        <div class="author-card">
-            <h3 style="margin: 0; color: var(--primary);">Chief Science Curator: Balux</h3>
-            <p style="margin: 5px 0; font-weight: bold;">Hardware Engineering & Software Specialist</p>
-            <p style="margin: 5px 0; font-size: 14px; opacity: 0.8;">Shaki, Azerbaijan | Regional Tech Lead | Postal: AZ5527</p>
+<div class="app-wrapper">
+    <!-- SOL PANEL: Genişləndirilmiş Elmi Mətn -->
+    <aside class="sidebar-content">
+        <h2>Physics Mastery</h2>
+        <p><strong>Physics</strong> is the fundamental science that governs the behavior of the universe. From the subatomic particles to the largest galaxies, everything follows the laws of physics. Understanding these laws allows us to build everything from small microcontrollers like the <strong>ESP32-S3</strong> to massive power supplies.</p>
+        
+        <p>As a student in <strong>Shaki</strong>, mastering these principles is the first step toward becoming a professional engineer. This portal is designed to provide rigorous testing for various grade levels, ensuring a deep understanding of core concepts like mechanics, energy, and electromagnetism.</p>
+        
+        <div class="author-info">
+            <p style="margin:0;"><strong>Developer:</strong> Balux 2.0</p>
+            <p style="margin:5px 0 0 0;"><strong>Location:</strong> Shaki, Azerbaijan</p>
+            <p style="margin:5px 0 0 0;"><strong>Expertise:</strong> Microelectronics & Programming</p>
         </div>
     </aside>
 
-    <!-- SAĞ PANEL: Əsas funksional hissə -->
-    <main class="container">
+    <!-- SAĞ PANEL: Əsas Sistem -->
+    <main class="main-portal">
         
-        <!-- Giriş Bölməsi -->
-        <div id="login-section">
-            <h2 style="font-size: 32px; margin-bottom: 30px;">Authorized Access</h2>
-            <div class="input-group">
-                <label>Student Identity</label>
-                <input type="text" id="username" placeholder="Enter your full name">
+        <!-- Giriş Ekranı -->
+        <div id="login-view">
+            <h1 style="margin-bottom: 30px;">System Authentication</h1>
+            <div class="field-group">
+                <label>User Identity</label>
+                <input type="text" id="usernameInput" placeholder="Enter student name">
             </div>
-            <div class="input-group">
-                <label>Secure Key</label>
-                <input type="password" id="password" placeholder="Enter portal password">
+            <div class="field-group">
+                <label>Security Key</label>
+                <input type="password" id="passwordInput" placeholder="Enter system password">
             </div>
-            <button class="btn btn-primary" onclick="handleLogin()">Login to System</button>
-            <p style="margin-top: 20px; font-size: 14px; color: var(--text-secondary);">
-                Developed by <strong>Balux</strong> for high-performance physics evaluation.
-            </p>
+            <button class="btn btn-primary" onclick="attemptLogin()">Access System</button>
         </div>
 
-        <!-- Admin Paneli -->
-        <div id="admin-panel" style="display:none;">
-            <h2 style="color: var(--primary);">Administrator Command Center</h2>
-            <div style="background: var(--bg); padding: 20px; border-radius: 12px; margin: 20px 0;">
-                <p>System Status Control:</p>
-                <button id="siteToggleBtn" class="btn" onclick="toggleSiteStatus()">Syncing...</button>
+        <!-- image_767065.png-dəki Admin Dashboard -->
+        <div id="admin-view" style="display:none;">
+            <h2 style="color: var(--primary-color);">Administrator Command Center</h2>
+            <div class="admin-dashboard">
+                <p>Global System Status Control:</p>
+                <!-- Sayt default olaraq Active (Open) olur -->
+                <button id="lockToggleBtn" class="btn btn-primary" onclick="toggleLock()">OPEN SITE (Active)</button>
             </div>
-            <h3>Recent Student Submissions:</h3>
-            <div style="overflow-x: auto;">
-                <table class="admin-table">
-                    <thead>
-                        <tr>
-                            <th>Student</th>
-                            <th>Accuracy</th>
-                            <th>Timestamp</th>
-                        </tr>
-                    </thead>
-                    <tbody id="results-body"></tbody>
-                </table>
+            
+            <h3 style="margin-top: 40px;">Student Submission History:</h3>
+            <div id="db-results" style="text-align: left; background: white; padding: 20px; border-radius: 10px; color: black;">
+                Fetching real-time data from Firebase...
             </div>
-            <button class="btn btn-danger" onclick="location.reload()">Terminate Session</button>
+            <button class="btn btn-danger" onclick="location.reload()">Terminate Admin Session</button>
         </div>
 
-        <!-- Tələbə Paneli (Sinif seçimli versiya) -->
-        <div id="user-panel" style="display:none;">
-            <h2 id="welcome-msg">Welcome, Explorer</h2>
-            <div class="input-group">
-                <label>Academic Module Selection:</label>
-                <select id="module-select" onchange="loadSelectedQuiz(this.value)">
-                    <option value="">-- Select your class module --</option>
-                    <option value="sinif7_fizika.json">Grade 7: Mechanics & Motion</option>
-                    <option value="sinif8_fizika.json">Grade 8: Thermodynamics & Heat</option>
-                    <option value="sinif9_fizika.json">Grade 9: Waves & Optics</option>
+        <!-- Tələbə Test Paneli -->
+        <div id="student-view" style="display:none;">
+            <h2 id="user-greeting">Welcome, Student</h2>
+            <div class="field-group">
+                <label>Select Your Academic Module (Grade Level):</label>
+                <select id="gradeSelector" onchange="fetchQuizData(this.value)">
+                    <option value="">-- Choose Module --</option>
+                    <option value="sinif7_fizika.json">6-cı Sinif Fizika (Intro)</option>
+                    <option value="sinif7_fizika.json">7-ci Sinif Fizika (Mechanics)</option>
+                    <option value="sinif8_fizika.json">8-ci Sinif Fizika (Heat & Thermo)</option>
+                    <option value="sinif9_fizika.json">9-cu Sinif Fizika (Optics & Waves)</option>
                 </select>
             </div>
 
-            <div id="quiz-display" class="quiz-container">
-                <!-- Suallar bura dinamik gələcək -->
+            <div id="quiz-container">
+                <!-- Suallar bura yüklənir -->
             </div>
 
-            <button id="submit-quiz-btn" class="btn btn-primary" style="display:none;" onclick="evaluateQuiz()">Submit Final Answers</button>
-            <div id="score-report"></div>
-            <button class="btn" style="background: #666; color: white;" onclick="location.reload()">Sign Out</button>
+            <button id="submitBtn" class="btn btn-primary" style="display:none;" onclick="processResults()">Finalize Submission</button>
+            <div id="final-score-display"></div>
+            <button class="btn" style="background:#5f6368; color:white;" onclick="location.reload()">Exit Portal</button>
         </div>
 
     </main>
 </div>
 
 <footer>
-    <p>© 2026 Physics Education Portal | Architecture by <strong>Balux</strong></p>
-    <p style="font-size: 12px; margin-top: 10px;">Powered by Firebase Realtime Database & Multi-module JSON Logic</p>
+    <p>© 2026 Balux Physics Systems | All Rights Reserved</p>
+    <p style="font-size: 12px; margin-top:10px;">Firebase Engine v2.0 | Shaki District Academic Server</p>
 </footer>
 
 <script>
     /* 
-       BALUX LOGIC ENGINE v5.2
-       Firebase inteqrasiyası, sinif seçim sistemi və nəticələrin qeydi.
+       BALUX CORE LOGIC ENGINE 
+       Firebase inteqrasiyası, dinamik test yükləmə və Admin status kontrolu.
     */
-    const DB_ROOT = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/";
-    let siteLocked = false;
-    let activeUser = "";
-    let loadedData = [];
+    const FIREBASE_URL = "https://fizikatesti-7fb62-default-rtdb.firebaseio.com/";
+    let isSystemLocked = false; 
+    let activeStudent = "";
+    let quizQuestions = [];
 
-    // Sistem statusunu yoxla
-    async function checkSystemStatus() {
+    // İlkin statusu yoxla
+    async function syncStatus() {
         try {
-            const resp = await fetch(`${DB_ROOT}status.json`);
-            siteLocked = await resp.json();
-            const btn = document.getElementById('siteToggleBtn');
+            const resp = await fetch(`${FIREBASE_URL}status.json`);
+            const status = await resp.json();
+            isSystemLocked = (status === null) ? false : status;
+            
+            const btn = document.getElementById('lockToggleBtn');
             if(btn) {
-                btn.innerText = siteLocked ? "OPEN SITE (Locked)" : "CLOSE SITE (Active)";
-                btn.className = siteLocked ? "btn btn-primary" : "btn btn-danger";
+                btn.innerText = isSystemLocked ? "SITE CLOSED (Locked)" : "OPEN SITE (Active)";
+                btn.className = isSystemLocked ? "btn btn-danger" : "btn btn-primary";
             }
-        } catch(e) { console.error("Sync Error"); }
+        } catch(e) { console.warn("Firebase Sync Error"); }
     }
 
-    async function toggleSiteStatus() {
-        await fetch(`${DB_ROOT}status.json`, { method: 'PUT', body: JSON.stringify(!siteLocked) });
-        checkSystemStatus();
+    async function toggleLock() {
+        isSystemLocked = !isSystemLocked;
+        await fetch(`${FIREBASE_URL}status.json`, { method: 'PUT', body: JSON.stringify(isSystemLocked) });
+        syncStatus();
     }
 
-    // Giriş Məntiqi
-    async function handleLogin() {
-        const u = document.getElementById('username').value.trim();
-        const p = document.getElementById('password').value;
+    async function attemptLogin() {
+        const u = document.getElementById('usernameInput').value.trim();
+        const p = document.getElementById('passwordInput').value;
         
-        await checkSystemStatus();
+        await syncStatus();
 
         if (u === "ebalux" && p === "12345") {
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('admin-panel').style.display = 'block';
-            loadAdminData();
+            document.getElementById('login-view').style.display = 'none';
+            document.getElementById('admin-view').style.display = 'block';
+            loadSubmissions();
         } else if (u !== "") {
-            if (siteLocked) {
-                alert("ACCESS DENIED: Site is currently under maintenance by Balux.");
+            if (isSystemLocked) {
+                alert("The system is currently locked for maintenance by Administrator (Balux).");
                 return;
             }
-            activeUser = u;
-            document.getElementById('login-section').style.display = 'none';
-            document.getElementById('user-panel').style.display = 'block';
-            document.getElementById('welcome-msg').innerText = "Hello, " + u;
+            activeStudent = u;
+            document.getElementById('login-view').style.display = 'none';
+            document.getElementById('student-view').style.display = 'block';
+            document.getElementById('user-greeting').innerText = "Authorized User: " + u;
         }
     }
 
-    // Sinif faylını yükləyən hissə (Sənin istədiyin əsas funksiya)
-    function loadSelectedQuiz(fileName) {
+    // JSON Faylları üzrə dinamik test yükləmə (Sənin istədiyin əsas hissə)
+    function fetchQuizData(fileName) {
         if(!fileName) return;
-        const display = document.getElementById('quiz-display');
-        display.innerHTML = "Initializing module datastream...";
+        const container = document.getElementById('quiz-container');
+        container.innerHTML = "<p>Loading module data...</p>";
 
         fetch(fileName)
             .then(res => res.json())
             .then(data => {
-                loadedData = data;
-                display.innerHTML = data.map((q, idx) => `
-                    <div class="question-block" id="q-block-${idx}">
-                        <p style="font-size: 18px; font-weight: 600;">Question ${idx+1}: ${q.question}</p>
-                        <div class="options-grid">
-                            ${q.options.map((opt, optIdx) => `
-                                <label class="option-label" id="label-${idx}-${optIdx}">
-                                    <input type="radio" name="question-${idx}" value="${opt}">
-                                    ${opt}
-                                </label>
-                            `).join('')}
-                        </div>
+                quizQuestions = data;
+                container.innerHTML = data.map((q, i) => `
+                    <div class="question-wrapper">
+                        <p style="font-size: 18px; font-weight: bold;">Sual ${i+1}: ${q.question}</p>
+                        ${q.options.map((opt, optIdx) => `
+                            <label class="option-item" id="label-${i}-${optIdx}">
+                                <input type="radio" name="q-${i}" value="${opt}">
+                                ${opt}
+                            </label>
+                        `).join('')}
                     </div>
                 `).join('');
-                document.getElementById('submit-quiz-btn').style.display = 'block';
-                window.scrollTo({ top: display.offsetTop - 100, behavior: 'smooth' });
+                document.getElementById('submitBtn').style.display = 'block';
+                window.scrollTo({ top: container.offsetTop - 50, behavior: 'smooth' });
             })
             .catch(err => {
-                display.innerHTML = `<p style="color:red;">Error: Module ${fileName} not found in root directory.</p>`;
+                container.innerHTML = `<p style="color:red;">Error: File '${fileName}' not found in server root.</p>`;
             });
     }
 
-    // Testi Qiymətləndir
-    async function evaluateQuiz() {
+    async function processResults() {
         let correctCount = 0;
-        loadedData.forEach((q, idx) => {
-            const selected = document.querySelector(`input[name="question-${idx}"]:checked`);
-            const correctAnswer = q.correctAnswer;
+        quizQuestions.forEach((q, i) => {
+            const selected = document.querySelector(`input[name="q-${i}"]:checked`);
+            const correctAns = q.correctAnswer;
 
             q.options.forEach((opt, optIdx) => {
-                const label = document.getElementById(`label-${idx}-${optIdx}`);
-                if (opt === correctAnswer) {
-                    label.style.borderColor = "var(--success)";
+                const label = document.getElementById(`label-${i}-${optIdx}`);
+                if (opt === correctAns) {
+                    label.style.borderColor = "var(--success-color)";
                     label.style.background = "rgba(30, 142, 62, 0.1)";
                 }
-                if (selected && selected.value === opt && opt !== correctAnswer) {
-                    label.style.borderColor = "var(--danger)";
+                if (selected && selected.value === opt && opt !== correctAns) {
+                    label.style.borderColor = "var(--error-color)";
                     label.style.background = "rgba(217, 48, 37, 0.1)";
                 }
             });
 
-            if (selected && selected.value === correctAnswer) correctCount++;
+            if (selected && selected.value === correctAns) correctCount++;
         });
 
-        const score = `${correctCount} / ${loadedData.length}`;
-        document.getElementById('score-report').innerHTML = `
-            <div style="padding: 20px; background: var(--bg); border-radius: 12px; margin-top: 20px; border: 2px solid var(--primary);">
-                <h3>Final Result: ${score}</h3>
-                <p>Data synced to Firebase successfully.</p>
-            </div>
-        `;
-
-        // Firebase-ə göndər
-        await fetch(`${DB_ROOT}results.json`, {
+        const finalScore = `${correctCount} / ${quizQuestions.length}`;
+        document.getElementById('final-score-display').innerHTML = `<h3>Sizin Nəticəniz: ${finalScore}</h3>`;
+        
+        // Firebase-ə nəticəni göndər
+        await fetch(`${FIREBASE_URL}results.json`, {
             method: 'POST',
             body: JSON.stringify({
-                name: activeUser,
-                score: score,
-                date: new Date().toLocaleString()
+                student: activeStudent,
+                result: finalScore,
+                timestamp: new Date().toLocaleString()
             })
         });
 
-        document.getElementById('submit-quiz-btn').style.display = 'none';
+        document.getElementById('submitBtn').style.display = 'none';
     }
 
-    async function loadAdminData() {
-        const resp = await fetch(`${DB_ROOT}results.json`);
+    async function loadSubmissions() {
+        const resp = await fetch(`${FIREBASE_URL}results.json`);
         const data = await resp.json();
-        const body = document.getElementById('results-body');
-        body.innerHTML = "";
+        const display = document.getElementById('db-results');
         if(data) {
-            Object.keys(data).reverse().forEach(key => {
-                const item = data[key];
-                body.innerHTML += `<tr><td>${item.name}</td><td>${item.score}</td><td>${item.date}</td></tr>`;
-            });
+            display.innerHTML = Object.values(data).reverse().map(item => `
+                <div style="border-bottom: 1px solid #ddd; padding: 10px;">
+                    <strong>${item.student}</strong>: ${item.result} <br>
+                    <small style="color: gray;">${item.timestamp}</small>
+                </div>
+            `).join('');
+        } else {
+            display.innerHTML = "No submissions recorded yet.";
         }
     }
 
-    function toggleTheme() { document.body.classList.toggle('dark-mode'); }
-    checkSystemStatus();
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-theme');
+    }
+
+    // İlk yüklənmədə statusu yoxla
+    syncStatus();
 </script>
 </body>
 </html>
