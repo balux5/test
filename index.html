@@ -54,9 +54,6 @@
 
         .policy-section { text-align: left; font-size: 13px; margin-top: 40px; padding: 15px; background: var(--card); border-radius: 8px; border: 1px solid var(--border); }
         footer { margin-top: 40px; text-align: center; font-size: 13px; opacity: 0.8; padding-bottom: 20px; }
-        
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; border-bottom: 1px solid var(--border); text-align: left; }
     </style>
 </head>
 <body>
@@ -84,7 +81,6 @@
         <div id="maintenanceMode" style="display:none; padding: 20px; border: 2px solid #d93025; border-radius: 8px; background: #fff5f5; margin-bottom: 15px;">
             <h1 style="color: #d93025;">System Maintenance</h1>
             <p>Access is temporarily restricted for technical updates. Please check back later.</p>
-            <button onclick="location.reload()" class="btn-style btn-primary">Try Again</button>
         </div>
 
         <div id="loginSection">
@@ -106,12 +102,10 @@
 
         <div id="adminPanel" style="display:none;">
             <h2>Administrator Dashboard</h2>
-            <p>Control site visibility and monitor results.</p>
-            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style">Loading status...</button>
-            
-            <div id="resultsTable">
-                <table>
-                    <thead><tr><th>Student</th><th>Score</th><th>Date</th></tr></thead>
+            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style btn-danger">Loading status...</button>
+            <div id="resultsTable" style="margin-top: 20px;">
+                <table style="width:100%; border-collapse: collapse;">
+                    <thead><tr style="border-bottom: 2px solid var(--border);"><th>Student</th><th>Score</th><th>Date</th></tr></thead>
                     <tbody id="resultsBody"></tbody>
                 </table>
             </div>
@@ -154,32 +148,46 @@
     let isSiteClosed = false;
     let currentUser = "";
 
-    async function checkSiteStatus() {
+    // Sitenin hazırkı statusunu çəkən və düyməni yeniləyən funksiya
+    async function syncSiteStatus() {
         try {
             const r = await fetch(dbURL + "status.json");
-            const data = await r.json();
-            if (data !== null) isSiteClosed = data;
-
-            const btn = document.getElementById('siteToggleBtn');
-            if (btn) {
-                btn.innerText = isSiteClosed ? "Open Site" : "Close Site (Maintenance)";
-                btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
+            const status = await r.json();
+            if (status !== null) {
+                isSiteClosed = status;
+                const btn = document.getElementById('siteToggleBtn');
+                if (btn) {
+                    btn.innerText = isSiteClosed ? "Open Site" : "Close Site (Maintenance)";
+                    btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
+                }
             }
-        } catch (e) { console.error("Status error:", e); }
+        } catch (e) { console.log("Sync error"); }
     }
 
     async function toggleSiteStatus() {
+        const btn = document.getElementById('siteToggleBtn');
+        // Yeni statusu hazırla
         const nextStatus = !isSiteClosed;
+        
+        // Düyməni dərhal vizual olaraq dəyiş ki, donmuş kimi görünməsin
+        btn.innerText = "Updating...";
+        
         try {
-            const res = await fetch(dbURL + "status.json", { 
+            const response = await fetch(dbURL + "status.json", { 
                 method: 'PUT', 
                 body: JSON.stringify(nextStatus) 
             });
-            if(res.ok) {
+            
+            if(response.ok) {
                 isSiteClosed = nextStatus;
-                checkSiteStatus();
+                // UI-nı yenilə
+                btn.innerText = isSiteClosed ? "Open Site" : "Close Site (Maintenance)";
+                btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
             }
-        } catch (e) { alert("Xəta: Status dəyişdirilə bilmədi."); }
+        } catch (e) {
+            alert("Database connection failed!");
+            syncSiteStatus(); // Xəta olarsa geri qaytar
+        }
     }
 
     function toggleDarkMode() { document.body.classList.toggle('dark-mode'); }
@@ -190,11 +198,14 @@
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
 
-        await checkSiteStatus();
+        // Login zamanı ən son statusu yoxla
+        const r = await fetch(dbURL + "status.json");
+        isSiteClosed = await r.json();
 
         if (u === "ebalux" && p === "12345") {
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('adminPanel').style.display = 'block';
+            syncSiteStatus(); // Admin panel açılan kimi düyməni düzəlt
             showAdmin();
         } else if (u !== "") {
             if (isSiteClosed) {
@@ -211,17 +222,15 @@
     }
 
     async function showAdmin() {
-        try {
-            const r = await fetch(dbURL + "results.json");
-            const d = await r.json();
-            const b = document.getElementById('resultsBody');
-            b.innerHTML = "";
-            if(d) {
-                Object.keys(d).reverse().forEach(k => {
-                    b.innerHTML += `<tr><td>${d[k].name}</td><td>${d[k].score}</td><td>${d[k].date}</td></tr>`;
-                });
-            }
-        } catch(e) {}
+        const r = await fetch(dbURL + "results.json");
+        const d = await r.json();
+        const b = document.getElementById('resultsBody');
+        b.innerHTML = "";
+        if(d) {
+            Object.keys(d).reverse().forEach(k => {
+                b.innerHTML += `<tr><td style="padding:10px; border-bottom:1px solid #ddd;">${d[k].name}</td><td style="padding:10px; border-bottom:1px solid #ddd;">${d[k].score}</td><td style="padding:10px; border-bottom:1px solid #ddd;">${d[k].date}</td></tr>`;
+            });
+        }
     }
 
     function loadQuiz(file) {
@@ -239,9 +248,6 @@
                     </div>
                 </div>`).join('');
             document.getElementById('finishBtn').style.display = 'block';
-            document.getElementById('userResult').innerHTML = "";
-        }).catch(err => {
-            document.getElementById('quizArea').innerHTML = "<p style='color:red;'>Quiz file not found or error loading.</p>";
         });
     }
 
@@ -262,7 +268,8 @@
         document.getElementById('finishBtn').style.display = 'none';
     }
 
-    checkSiteStatus();
+    // Səhifə yüklənəndə statusu yoxla
+    syncSiteStatus();
 </script>
 </body>
 </html>
