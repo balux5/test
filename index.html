@@ -38,8 +38,8 @@
         input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid var(--border); border-radius: 8px; box-sizing: border-box; background: var(--container-bg); color: var(--text); }
         .btn-style { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: 0.3s; }
         .btn-primary { background-color: var(--primary); color: white; }
-        .btn-danger { background-color: #d93025; color: white; }
-        .btn-success { background-color: #2e7d32; color: white; }
+        .btn-danger { background-color: #d93025 !important; color: white; }
+        .btn-success { background-color: #2e7d32 !important; color: white; }
         
         .btn-dark { position: fixed; top: 20px; right: 20px; width: 45px; height: 45px; border-radius: 50%; border: none; cursor: pointer; background: var(--primary); color: white; font-size: 20px; z-index: 1001; }
 
@@ -102,7 +102,7 @@
 
         <div id="adminPanel" style="display:none;">
             <h2>Administrator Dashboard</h2>
-            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style btn-danger">Loading status...</button>
+            <button id="siteToggleBtn" onclick="toggleSiteStatus()" class="btn-style">Checking status...</button>
             <div id="resultsTable" style="margin-top: 20px;">
                 <table style="width:100%; border-collapse: collapse;">
                     <thead><tr style="border-bottom: 2px solid var(--border);"><th>Student</th><th>Score</th><th>Date</th></tr></thead>
@@ -148,29 +148,32 @@
     let isSiteClosed = false;
     let currentUser = "";
 
-    // Sitenin hazırkı statusunu çəkən və düyməni yeniləyən funksiya
-    async function syncSiteStatus() {
+    // UI-ni statusa uyğun yeniləyən funksiya
+    function updateBtnUI(status) {
+        const btn = document.getElementById('siteToggleBtn');
+        if (btn) {
+            btn.innerText = status ? "Open Site" : "Close Site (Maintenance)";
+            btn.className = status ? "btn-style btn-success" : "btn-style btn-danger";
+        }
+    }
+
+    async function checkInitialStatus() {
         try {
             const r = await fetch(dbURL + "status.json");
-            const status = await r.json();
-            if (status !== null) {
-                isSiteClosed = status;
-                const btn = document.getElementById('siteToggleBtn');
-                if (btn) {
-                    btn.innerText = isSiteClosed ? "Open Site" : "Close Site (Maintenance)";
-                    btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
-                }
+            const data = await r.json();
+            if (data !== null) {
+                isSiteClosed = data;
+                updateBtnUI(isSiteClosed);
             }
-        } catch (e) { console.log("Sync error"); }
+        } catch (e) { console.log("Init error"); }
     }
 
     async function toggleSiteStatus() {
         const btn = document.getElementById('siteToggleBtn');
-        // Yeni statusu hazırla
-        const nextStatus = !isSiteClosed;
+        const nextStatus = !isSiteClosed; // Yeni status nə olmalıdırsa o
         
-        // Düyməni dərhal vizual olaraq dəyiş ki, donmuş kimi görünməsin
-        btn.innerText = "Updating...";
+        // Gözləmə yazısını göstər
+        btn.innerText = "Processing...";
         
         try {
             const response = await fetch(dbURL + "status.json", { 
@@ -179,14 +182,16 @@
             });
             
             if(response.ok) {
+                // Əgər bazada uğurla dəyişdisə, lokal dəyişəni və UI-nı yenilə
                 isSiteClosed = nextStatus;
-                // UI-nı yenilə
-                btn.innerText = isSiteClosed ? "Open Site" : "Close Site (Maintenance)";
-                btn.className = isSiteClosed ? "btn-style btn-success" : "btn-style btn-danger";
+                updateBtnUI(isSiteClosed);
+            } else {
+                alert("Database update failed!");
+                updateBtnUI(isSiteClosed); // Köhnə vəziyyətə qaytar
             }
         } catch (e) {
-            alert("Database connection failed!");
-            syncSiteStatus(); // Xəta olarsa geri qaytar
+            alert("Network error!");
+            updateBtnUI(isSiteClosed);
         }
     }
 
@@ -198,14 +203,16 @@
         const u = document.getElementById('username').value.trim();
         const p = document.getElementById('password').value;
 
-        // Login zamanı ən son statusu yoxla
-        const r = await fetch(dbURL + "status.json");
-        isSiteClosed = await r.json();
+        // Login zamanı ən son statusu bir daha yoxla
+        try {
+            const r = await fetch(dbURL + "status.json");
+            isSiteClosed = await r.json();
+        } catch(e) {}
 
         if (u === "ebalux" && p === "12345") {
             document.getElementById('loginSection').style.display = 'none';
             document.getElementById('adminPanel').style.display = 'block';
-            syncSiteStatus(); // Admin panel açılan kimi düyməni düzəlt
+            updateBtnUI(isSiteClosed);
             showAdmin();
         } else if (u !== "") {
             if (isSiteClosed) {
@@ -268,8 +275,8 @@
         document.getElementById('finishBtn').style.display = 'none';
     }
 
-    // Səhifə yüklənəndə statusu yoxla
-    syncSiteStatus();
+    // Başlanğıcda yoxla
+    checkInitialStatus();
 </script>
 </body>
 </html>
